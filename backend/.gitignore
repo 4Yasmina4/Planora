@@ -1,0 +1,49 @@
+# OS files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Icon?
+
+# Editor/IDE
+.vscode/
+.idea/
+*.iml
+
+# PHP / Composer
+composer.phar
+/vendor/
+/app/vendor/
+/vendor-bin/**/vendor/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs and caches
+*.log
+logs/
+tmp/
+temp/
+cache/
+storage/
+var/
+app/storage/
+app/cache/
+app/var/
+.phpunit.result.cache
+coverage/
+
+# Node / FRONTEND (if present)
+node_modules/
+dist/
+build/
+
+# Docker overrides 
+mysql_data/
+docker-data/
+*.pid
+
+#(optional local overrides)
+docker-compose.override.yml
+

@@ -1,0 +1,4 @@
+// Editor-instellingen: adviseert de Volar-extensie voor betere Vue 3 ondersteuning
+{
+  "recommendations": ["Vue.volar"]
+}

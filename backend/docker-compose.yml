@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+    nginx:
+        image: nginx:latest
+        ports:
+            - "${NGINX_PORT}:80"
+        volumes:
+            - ./nginx.conf:/etc/nginx/nginx.conf
+            - ./app:/app
+    php:
+        build:
+            context: .
+            dockerfile: PHP.Dockerfile
+        volumes:
+            - ./app:/app
+    mysql:
+        image: mariadb:latest
+        environment:
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_DATABASE: ${DB_NAME}
+        volumes:
+            - mysqldata:/var/lib/mysql
+            - ./sql:/docker-entrypoint-initdb.d
+        ports:
+            - "${MYSQL_PORT}:3306"
+    phpmyadmin:
+        image: phpmyadmin:latest
+        ports:
+            - "${PHP_PORT}:80"
+        environment:
+            - PMA_HOST=mysql
+volumes:
+    mysqldata: {}
