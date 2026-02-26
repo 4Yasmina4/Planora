@@ -1,0 +1,100 @@
+<template>
+    <div class="max-w-5xl mx-auto mt-10 bg-white p-12 rounded-xl shadow-md">
+        <h2 class="text-2xl font-bold mb-6 text-violet-500">
+            Gebruikersbeheer
+        </h2>
+
+        <!-- v-if toon het element alleen als de voorwaarde true is (variabele niet leeg is) -->
+        <!-- Foutmelding tonen als het verzoek mislukt -->
+        <p v-if="errorMessage" class="text-red-500">
+            {{ errorMessage}}
+        </p>
+
+        <!-- Tabel met alle gebruikers -->
+        <table class="w-full text-left border-collapse">
+            <thead>
+                <tr class="border-b border-gray-200">
+                    <th class="py-3 px-4 text-gray-700">Naam</th>
+                    <th class="py-3 px-4 text-gray-700">Email</th>
+                    <th class="py-3 px-4 text-gray-700">Rol</th>
+                    <th class="py-3 px-4 text-gray-700">Acties</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <!-- v-for is een Vue directive die een element herhaalt voor elk item in een lijst -->
+                <!-- v-for maakt een rij aan voor elke gebruiker in de lijst -->
+                <!-- Hierbij is :key="user.user_id" verplicht bij v-for - het geeft elke rij een uniek ID
+                     zodat Vue weet welke rij bijgewerkt moet worden om data te veranderen. -->
+                <tr v-for="user in users" :key="user.user_id" class="border-b border-gray-100 hover:bg-gray-50">
+                    <td class="py-3 px-4">{{ user.first_name }} {{ user.surname_prefix }} {{ user.last_name }}</td>
+                    <td class="py-3 px-4">{{ user.email }}</td>
+                    <td class="py-3 px-4">{{ user.role }}</td>
+                    <td class="py-3 px-4">
+                        <!-- Bewerken knop -->
+                        <button class="px-3 py-1 rounded-lg bg-violet-400 text-white hover:bg-violet-700 transition">
+                            Bewerken
+                        </button>
+
+                        <!-- Verwijder knop -->
+                        <button class="px-3 py-1 rounded-lg bg-red-400 text-white hover:bg-red-700 transition">
+                            Verwijderen
+                        </button>
+                    </td>
+
+                </tr>
+            </tbody>
+
+        </table>
+        
+    </div>
+</template>
+
+<script setup>
+    // Ref en onMounted importeren uit Vue
+    // Ref: om reactieve variabelen te maken
+    // onMounted: om code uit te voeren zodra het component geladen is in de browser
+    // onMounted is nodig, omdat er meteen een actie gebeurt bij het laden van de pagina
+    // Er wordt hierbij niet gewacht op de input van de gebruiker
+    import { ref, onMounted } from "vue";
+
+    // Reactieve variabelen
+    // Lege array aanmaken om de gebruikers in op te slaan
+    const users = ref([])
+
+    // Foutmelding
+    const errorMessage = ref('')
+
+    // Alle gebruikers ophalen van de backend
+    // Async function zorgt ervoor dat de functie kan wachten op iets (zoals data) zonder de rest van de pagina te blokkeren
+    // Pagina blijft hierbij gewoon werken zonder dat het bevriest
+    async function getAllUsers() {
+        try{
+            // GET verzoek sturen naar de backend
+            const response = await fetch('http://localhost/users')
+
+            // De JSON response van de backend omzetten naar een JavaScript object
+            const data = await response.json()
+
+            // Controleren of de HTTP statuscode tussen 200-299 (succes) valt
+            // Als het verzoek niet is gelukt foutmelding tonen
+            if (!response.ok)
+            {
+                // Foutmelding van de backend tonen
+                errorMessage.value = data.error
+                return
+            }
+
+            // Gebruikers opslaan in de reactieve variabele
+            users.value = data
+        }catch (error) {
+            // Foutmelding tonen als er een netwerkfout of een andere fout optreedt
+            errorMessage.value = 'Er is iets misgegaan, probeer het opnieuw'
+        }       
+    }
+
+    // Gebruikers ophalen zodra het component geladen is
+    onMounted(() => {
+        getAllUsers()
+    }) 
+</script>

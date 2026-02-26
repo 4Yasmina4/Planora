@@ -131,7 +131,7 @@
             // De JSON response van de backend omzetten naar een JavaScript object
             const data = await response.json()
 
-            // Controlere of de HTTP statuscode tussen 200-299 (succes) valt
+            // Controleren of de HTTP statuscode tussen 200-299 (succes) valt
             // Als het verzoek niet is gelukt foutmelding tonen
             if (!response.ok)
             {
