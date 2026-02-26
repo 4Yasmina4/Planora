@@ -8,13 +8,23 @@ class UserManagementController extends BaseController
 {
     private UserService $userService;
 
-    //UserService via dependency injection meegeven.
+    // UserService via dependency injection meegeven.
     public function __construct(UserService $userService)
     {
         $this->userService = $userService;
     }
 
-    //Nieuwe gebruiker aanmaken
+    // Alle gebruikers ophalen
+    public function getAllUsers(): void 
+    {
+        // Alle gebruikers ophalen via de UserService
+        $users = $this->userService->getAllUsers();
+
+        // Lijst met gebruikers terugsturen naar de frontend
+        $this->jsonSuccessResponse($users);
+    }
+
+    // Nieuwe gebruiker aanmaken
     public function createUser(): void
     {
         // Userdata ophalen uit de request body via methode getJsonDataFromRequestBody in BaseController

@@ -9,22 +9,46 @@ class UserRepository
 {
     private PDO $pdo;
 
-    //Constructor die $pdo opslaat
+    // Constructor die $pdo opslaat
     public function __construct(PDO $pdo)
     {
         $this->pdo = $pdo;
     }
 
+    // Alle gebruikers ophalen
+    public function getAllUsers(): array
+    {
+        // SQL-query uitvoeren om alle gebruikers op te halen, gesorteerd op voornaam (A-Z).
+        $stmt = $this->pdo->query("SELECT * FROM user ORDER BY first_name ASC");
+        
+        // Alle rijen ophalen als associatieve arrays
+        // Een associatieve array bevat geen nummers maar namen als sleutels
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Array aanmaken om User-objecten in op te slaan
+        $users = [];
+
+        // Elk database-rij wordt omgezet naar User-object en vervolgens toegevoegd aan de lijst
+        foreach ($rows as $row)
+        {
+            $users[] = $this->mapRowToUser($row);
+        }
+
+        // Lijst met User-objecten teruggeven
+        return $users;
+
+    }
+
     //Gebruiker aanmaken
     public function createUser(User $user): User
     {
-        //SQL INSERT-query voorbereiden om een nieuwe gebruiker aan te maken
+        // SQL INSERT-query voorbereiden om een nieuwe gebruiker aan te maken
         $stmt = $this->pdo->prepare("
                 INSERT INTO user (first_name, surname_prefix, last_name, email, password, role)
                 VALUES (:first_name, :surname_prefix, :last_name, :email, :password, :role)
         ");
 
-        //INSERT-query uitvoeren met de waarden uit het User-object
+        // INSERT-query uitvoeren met de waarden uit het User-object
         $stmt->execute([
             'first_name' => $user->getFirstName(),
             'surname_prefix' => $user->getSurnamePrefix(),
@@ -34,10 +58,10 @@ class UserRepository
             'role' => $user->getUserRole()->value
         ]);
 
-        //Database genereert een nieuwe user_id; deze wordt gebruikt om een volledige User-object terug te geven
+        // Database genereert een nieuwe user_id; deze wordt gebruikt om een volledige User-object terug te geven
         $userId = (int)$this->pdo->lastInsertId();
 
-        //User-object aanmaken met nieuwe gegenereerde user_id via helpermethode
+        // User-object aanmaken met nieuwe gegenereerde user_id via helpermethode
         return $this->mapUserWithUserId($user, $userId);
     }
 
@@ -58,7 +82,7 @@ class UserRepository
     }
 
     // public //
-    //Methode dat User-objecten aanmaakt van de opgehaalde database gegevens.
+    // Methode dat User-objecten aanmaakt van de opgehaalde database gegevens.
     public function mapRowToUser(array $row): User
     {
         return new User(
