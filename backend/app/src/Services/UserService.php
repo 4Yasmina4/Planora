@@ -14,7 +14,13 @@ class UserService
         $this->userRepository = $userRepository;
     }
 
-    //Nieuwe gebruiker aanmaken
+    // Alle gebruikers ophalen
+    public function getAllUsers(): array
+    {
+        return $this->userRepository->getAllUsers();
+    }
+
+    // Nieuwe gebruiker aanmaken
     public function createUser(string $firstName, ?string $surnamePrefix, string $lastName, string $email, string $password, string $role): User
     {
         // String $role omzetten naar UserRole enum via de private methode convertStringToUserRoleEnum
@@ -35,7 +41,7 @@ class UserService
 
     private function buildUser(string $firstName, ?string $surnamePrefix, string $lastName, string $email, string $hashedPassword, UserRole $userRole): User
     {
-        //Null teruggeven voor user_id, omdat database deze genereert voor een nieuwe User
+        // Null teruggeven voor user_id, omdat database deze genereert voor een nieuwe User
         return new User(null, $firstName, $surnamePrefix, $lastName, $email, $hashedPassword, $userRole);
     }
 
