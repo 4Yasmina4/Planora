@@ -20,7 +20,7 @@ class UserRepository
     {
         //SQL INSERT-query voorbereiden om een nieuwe gebruiker aan te maken
         $stmt = $this->pdo->prepare("
-                INSERT INTO users (first_name, surname_prefix, last_name, email, password, role)
+                INSERT INTO user (first_name, surname_prefix, last_name, email, password, role)
                 VALUES (:first_name, :surname_prefix, :last_name, :email, :password, :role)
         ");
 
