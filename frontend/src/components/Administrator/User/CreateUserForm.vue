@@ -58,23 +58,15 @@
                 </select>
             </div>
 
-            <!-- v-if toon het element alleen als de voorwaarde true is (variabele niet leeg is) -->
-            <!-- Foutmelding tonen als het verzoek mislukt -->
-            <p v-if="errorMessage" class="text-red-500">
-                {{ errorMessage}}
-            </p>
-
-            <!-- Succesbericht tonen als de gebruiker succesvol is aangemaakt -->
-            <p v-if="successMessage" class="text-green-500">
-                {{ successMessage}}
-            </p>
+            <!-- Errortoastmelding tonen als het verzoek mislukt -->
+            <Toast :toastMessage="errorToastMessage" type="error" />
 
             <!-- Knoppen onderaan (annuleren en opslaan) -->
             <div class="flex justify-between pt-4">
                 <!-- Annuleer knop -->
-                <button type="button" class="px-4 py-2 rounded-lg border bg-slate-300 text-gray-700 hover:bg-slate-400 transition">
-                    Annuleren
-                </button>
+                <router-link to="/users" class="flex items-center gap-2 px-4 py-2 rounded-lg border bg-slate-300 text-gray-700 hover:bg-slate-400 transition">
+                    <ArrowLeftIcon class="w-4 h-4" /> Annuleren
+                </router-link>
 
                 <!-- Opslaan knop -->
                 <button type="submit" class="px-4 py-2 rounded-lg border border-violet-950 bg-violet-400 text-white font-semibold hover:bg-violet-700 transition">Gebruiker aanmaken</button>
@@ -89,6 +81,15 @@
     // Reactieve variabelen zorgen ervoor dat de pagina automatisch bijwerkt als de waarde verandert
     import { ref } from 'vue'
 
+    // ArrowLeftIcon importeren uit Heroicons
+    import { ArrowLeftIcon } from '@heroicons/vue/24/solid'
+
+    // useRouter importeren om vanuit de code te navigeren
+    import { useRouter } from 'vue-router'
+
+    // Router instantie aanmaken om te navigeren
+    const router = useRouter()
+
     // Formulier data om een gebruiker aan te maken
     const firstName = ref('')
     const surnamePrefix = ref('')
@@ -97,17 +98,11 @@
     const password = ref('')
     const role = ref('')
  
-    // Foutmelding en successmelding
-    const errorMessage = ref('')
-    const successMessage = ref('')
+    // Error toastmelding
+    const errorToastMessage = ref('')
 
     // Formulier versturen
     async function createUser() {
-
-        // Fout- en succesberichten leegmaken bij elke nieuwe poging
-        errorMessage.value = ''
-        successMessage.value = ''
-
         try{
             // Een POST verzoek sturen naar de backend met de formlierdata
             const response = await fetch('http://localhost/users', {
@@ -131,20 +126,20 @@
             // De JSON response van de backend omzetten naar een JavaScript object
             const data = await response.json()
 
-            // Controlere of de HTTP statuscode tussen 200-299 (succes) valt
+            // Controleren of de HTTP statuscode tussen 200-299 (succes) valt
             // Als het verzoek niet is gelukt foutmelding tonen
             if (!response.ok)
             {
                 // Foutmelding van de backend tonen
-                errorMessage.value = data.error
+                errorToastMessage.value = data.error
                 return
             }
 
-            // Succesbericht tonen als de gebruiker succesvol is aangemaakt
-            successMessage.value = 'Gebruiker succesvol aangemaakt!'
+            // Redirecten naar de gebruikerslijst en een succesbericht tonen
+            router.push({ path: '/users', state: { successToastMessage: `${firstName.value} ${surnamePrefix.value} ${lastName.value} is succesvol aangemaakt! `} })
         } catch (error) {
             // Foutmelding tonen als er een netwerkfout of een andere fout optreedt
-            errorMessage.value = 'Er is iets misgegaan, probeer het opnieuw'
+            errorToastMessage.value = 'Er is iets misgegaan, probeer het opnieuw'
         }
     }
 </script>

@@ -2,14 +2,10 @@
      het opstarten van deze applicatie in de browser. --> 
 <template>
     <div>
-        <!-- CreateUserForm component renderen op deze plek. Vue zet de code om naar iets wat de browser kan zien -->
-        <CreateUserForm  />
+        <!-- Router-view toont het component dat hoort bij de huidige URL -->
+        <router-view></router-view>
     </div>
 </template>
 
 <script setup>
-    // CreateUserForm component importeren zodat het gebruikt kan worden in de template.
-    // Zonder deze import weet Vue niet wat CreateUserForm is.
-    import CreateUserForm from './components/Administrator/User/CreateUserForm.vue'
-
 </script>
