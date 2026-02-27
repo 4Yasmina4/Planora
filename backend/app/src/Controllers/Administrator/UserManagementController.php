@@ -27,8 +27,11 @@ class UserManagementController extends BaseController
     // Één gebruiker ophalen
     public function getUserByUserId(array $vars): void
     {
-        // user_id ophalen uit de URL (bijv. /users/5) ophalen uit de route-parameters en omzetten naar een integer
-        $userId = (int)$vars['id'];
+        // URL-parameter ophalen uit de route-parameters en omzetten naar een integer
+        // Dit via de helpermethode in de BaseController doen
+        // $vars is een array die door FastRoute wordt aangemaakt op basis van de URL
+        // Bijvoorbeeld: /users/5 → $vars = ['id' => 5] → geeft 5 terug als integer
+        $userId = $this->getIdFromUrlParameters($vars);
 
         // Gebruiker ophalen via de UserService
         $user = $this->userService->getUserByUserId($userId);
@@ -68,5 +71,39 @@ class UserManagementController extends BaseController
         // Succesmelding tonen
         // HTTP statuscode 201 (Created) gebruiken; nieuw object succesvol aangemaakt
         $this->jsonSuccessResponse($newUser, 201);
+    }
+
+    // Gebruiker verwijderen op basis van de user_id
+    public function deleteUser(array $vars): void 
+    {
+        // URL-parameter ophalen uit de route-parameters en omzetten naar een integer
+        // Dit via de helpermethode in de BaseController doen
+        // $vars is een array die door FastRoute wordt aangemaakt op basis van de URL
+        // Bijvoorbeeld: /users/5 → $vars = ['id' => 5] → geeft 5 terug als integer
+        $userId = $this->getIdFromUrlParameters($vars);
+
+        // Controleren of gebruiker bestaat voordat deze wordt verwijderd
+        $user = $this->userService->getUserByUserId($userId);
+        if (!$user)
+        {
+            // HTTP statuscode 404 (Not Found) meegeven
+            $this->jsonErrorResponse('Gebruiker niet gevonden', 404);
+            return;
+        }
+
+        // Gebruiker verwijderen via de UserService
+        $deleteUser = $this->userService->deleteUser($userId);
+
+        // Als het verwijderen van de gebruiker mislukt is, foutmelding tonen
+        if(!$deleteUser)
+        {
+            // HTTP statuscode 500 (Internal Server Error) meegeven
+            $this->jsonErrorResponse('Gebruiker kon niet verwijderd worden', 500);
+            return;
+        }
+
+        // Succesmelding tonen
+        // HTTP statuscode 200 (OK) gebruiken
+        $this->jsonSuccessResponse(['message' => 'Gebruiker succesvol verwijderd!']);
     }
 }

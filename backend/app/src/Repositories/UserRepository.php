@@ -87,6 +87,20 @@ class UserRepository
         return $this->mapUserWithUserId($user, $userId);
     }
 
+    // Gebruiker verwijderen op basis van de user_id
+    // Deze methode geeft een bool terug, omdat na het verwijderen van een gebruiker het handig is om te weten of dit is gelukt
+    // Hierbij is het onnodig om een User-object terug te geven
+    public function deleteUser(int $userId): bool
+    {
+        // SQL DELETE-query voorbereiden om een gebruiker te verwijderen op basis van de user_id
+        // :user_id is een placeholder en voorkomt SQL-injectie
+        $stmt = $this->pdo->prepare("DELETE FROM user WHERE user_id = :user_id");
+
+        // SQL DELETE-query uitvoeren met de waarde van $userId
+        // Execute geeft 'true' terug als een gebruiker succesvol verwijderd is en 'false' als dit niet het geval is
+        return $stmt->execute(['user_id' => $userId]);
+    }
+
 
     // Helpermethodes //
     // private //
