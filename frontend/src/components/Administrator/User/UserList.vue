@@ -1,5 +1,9 @@
 <template>
     <div class="max-w-5xl mx-auto mt-10 bg-white p-12 rounded-xl shadow-md">
+        <!-- SuccessToastMessage tonen als er een succesbericht is -->
+        <div v-if="successToastMessage" class="fixed bottom-5 right-5 bg-green-500 text-white px-6 py-5 rounded-lg shadow-lg">
+            {{ successToastMessage }}
+        </div>
 
         <!-- Titel en gebruiker aanmaken knop naast elkaar plaatsen -->
         <div class="flex justify-between items-center mb-6">
@@ -42,15 +46,17 @@
                     <td class="py-3 px-4">{{ user.email }}</td>
                     <td class="py-3 px-4">{{ user.role }}</td>
                     <td class="py-3 px-4">
-                        <!-- Bewerken knop -->
-                        <button class="px-3 py-1 rounded-lg bg-violet-400 text-white hover:bg-violet-700 transition">
-                            Bewerken
-                        </button>
+                        <div class="flex gap-2">
+                            <!-- Bewerken knop -->
+                            <button class="flex items-center gap-2 px-3 py-1 rounded-lg bg-violet-400 text-white hover:bg-violet-700 transition">
+                                <PencilIcon class="w-4 h-4" /> Bewerken
+                            </button>
 
-                        <!-- Verwijder knop -->
-                        <button class="px-3 py-1 rounded-lg bg-red-400 text-white hover:bg-red-700 transition">
-                            Verwijderen
-                        </button>
+                            <!-- Verwijder knop -->
+                            <button class="flex items-center gap-2 px-3 py-1 rounded-lg bg-red-400 text-white hover:bg-red-700 transition">
+                                <TrashIcon class="w-4 h-4" /> Verwijderen
+                            </button>
+                        </div>
                     </td>
 
                 </tr>
@@ -69,8 +75,8 @@
     // Er wordt hierbij niet gewacht op de input van de gebruiker
     import { ref, onMounted } from "vue";
 
-    // UserPlusIcon importeren uit Heroicons
-    import { UserPlusIcon } from '@heroicons/vue/24/solid'
+    // UserPlusIcon, PencilIcon en TrashIcon importeren uit Heroicons
+    import { UserPlusIcon, PencilIcon, TrashIcon } from '@heroicons/vue/24/solid'
 
     // Reactieve variabelen
     // Lege array aanmaken om de gebruikers in op te slaan
@@ -78,6 +84,20 @@
 
     // Foutmelding
     const errorMessage = ref('')
+
+    // SuccessToastMessage ophalen uit de router state
+    // Router state is een manier om data mee te sturen bij een navigatie naar een andere pagina, zonder het in de URL te zetten
+    // Het werkt via de browser's ingebouwde history API. Als er naar /users wordt genavigeerd wordt er een berichte meegestuurd
+    const successToastMessage = ref(history.state.successToastMessage || '')
+
+    // SuccesToastMessage na 3 seconden laten verdwijnen
+    if (successToastMessage.value)
+    {
+        setTimeout(() => {
+            successToastMessage.value = ''
+        }, 3000)
+    }
+    
 
     // Alle gebruikers ophalen van de backend
     // Async function zorgt ervoor dat de functie kan wachten op iets (zoals data) zonder de rest van de pagina te blokkeren

@@ -64,16 +64,11 @@
                 {{ errorMessage}}
             </p>
 
-            <!-- Succesbericht tonen als de gebruiker succesvol is aangemaakt -->
-            <p v-if="successMessage" class="text-green-500">
-                {{ successMessage}}
-            </p>
-
             <!-- Knoppen onderaan (annuleren en opslaan) -->
             <div class="flex justify-between pt-4">
                 <!-- Annuleer knop -->
-                <router-link to="/users" class="px-4 py-2 rounded-lg border bg-slate-300 text-gray-700 hover:bg-slate-400 transition">
-                    Annuleren
+                <router-link to="/users" class="flex items-center gap-2 px-4 py-2 rounded-lg border bg-slate-300 text-gray-700 hover:bg-slate-400 transition">
+                    <ArrowLeftIcon class="w-4 h-4" /> Annuleren
                 </router-link>
 
                 <!-- Opslaan knop -->
@@ -89,6 +84,15 @@
     // Reactieve variabelen zorgen ervoor dat de pagina automatisch bijwerkt als de waarde verandert
     import { ref } from 'vue'
 
+    // ArrowLeftIcon importeren uit Heroicons
+    import { ArrowLeftIcon } from '@heroicons/vue/24/solid'
+
+    // useRouter importeren om vanuit de code te navigeren
+    import { useRouter } from 'vue-router'
+
+    // Router instantie aanmaken om te navigeren
+    const router = useRouter()
+
     // Formulier data om een gebruiker aan te maken
     const firstName = ref('')
     const surnamePrefix = ref('')
@@ -97,16 +101,14 @@
     const password = ref('')
     const role = ref('')
  
-    // Foutmelding en successmelding
+    // Foutmelding
     const errorMessage = ref('')
-    const successMessage = ref('')
 
     // Formulier versturen
     async function createUser() {
 
-        // Fout- en succesberichten leegmaken bij elke nieuwe poging
+        // Foutmelding leegmaken bij elke nieuwe poging
         errorMessage.value = ''
-        successMessage.value = ''
 
         try{
             // Een POST verzoek sturen naar de backend met de formlierdata
@@ -140,8 +142,8 @@
                 return
             }
 
-            // Succesbericht tonen als de gebruiker succesvol is aangemaakt
-            successMessage.value = 'Gebruiker succesvol aangemaakt!'
+            // Redirecten naar de gebruikerslijst en een succesbericht tonen
+            router.push({ path: '/users', state: { successToastMessage: `${firstName.value} ${surnamePrefix.value} ${lastName.value} is succesvol aangemaakt! `} })
         } catch (error) {
             // Foutmelding tonen als er een netwerkfout of een andere fout optreedt
             errorMessage.value = 'Er is iets misgegaan, probeer het opnieuw'

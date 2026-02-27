@@ -19,6 +19,7 @@ import CreateUserForm from './components/Administrator/User/CreateUserForm.vue'
 
 // Routes defineren
 const routes = [
+    { path: '/', redirect: '/users' },
     { path: '/users', component: UserList },
     { path: '/users/create', component: CreateUserForm },
 ]
