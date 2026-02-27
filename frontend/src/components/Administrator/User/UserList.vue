@@ -1,8 +1,9 @@
 <template>
     <div class="max-w-5xl mx-auto mt-10 bg-white p-12 rounded-xl shadow-md">
-        <!-- SuccessToastMessage component tonen met het succesbericht -->
+        <!-- SuccessToastMessage en erroToastMessage tonen -->
         <!-- met : wordt een reactieve variabele doorgegeven aan de prop -->
-        <SuccessToast :successToastMessage="successToastMessage" />
+        <Toast :toastMessage="successToastMessage" type="success" />
+        <Toast :toastMessage="errorToastMessage" type="error" />
 
         <!-- Titel en gebruiker aanmaken knop naast elkaar plaatsen -->
         <div class="flex justify-between items-center mb-6">
@@ -17,12 +18,6 @@
                 Gebruiker aanmaken
             </router-link>
         </div>
-
-        <!-- v-if toon het element alleen als de voorwaarde true is (variabele niet leeg is) -->
-        <!-- Foutmelding tonen als het verzoek mislukt -->
-        <p v-if="errorMessage" class="text-red-500">
-            {{ errorMessage}}
-        </p> 
 
         <!-- Tabel met alle gebruikers -->
         <table class="w-full text-left border-collapse">
@@ -72,20 +67,17 @@
     // onMounted: om code uit te voeren zodra het component geladen is in de browser
     // onMounted is nodig, omdat er meteen een actie gebeurt bij het laden van de pagina
     // Er wordt hierbij niet gewacht op de input van de gebruiker
-    import { ref, onMounted } from "vue";
+    import { ref, onMounted, watch } from "vue";
 
     // UserPlusIcon, PencilIcon en TrashIcon importeren uit Heroicons
     import { UserPlusIcon, PencilIcon, TrashIcon } from '@heroicons/vue/24/solid'
 
-    // SuccessToast component importern uit de Base map
-    import SuccessToast from '../../Base/ToastNotification/SuccessToast.vue'
+    // Toast component importern uit de Base map
+    import Toast from '../../Base/Toast/Toast.vue'
     
     // Reactieve variabelen
     // Lege array aanmaken om de gebruikers in op te slaan
     const users = ref([])
-
-    // Foutmelding
-    const errorMessage = ref('')
 
     // SuccessToastMessage ophalen uit de router state
     // Router state is een manier om data mee te sturen bij een navigatie naar een andere pagina, zonder het in de URL te zetten
@@ -99,6 +91,19 @@
             successToastMessage.value = ''
         }, 3000)
     }
+
+    // Error toastmelding
+    const errorToastMessage = ref('')
+
+    // ErrorToastMessage na 3 seconden laten verdwijnen
+    // Watch gebruiken omdat de errorToastMessage tijdens het gebruik van de pagina getoond kan worden en niet alleen bij het laden van de pagina
+    watch (errorToastMessage, (value) => {
+        if (value) {
+            setTimeout(() => {
+                errorToastMessage.value = ''
+            }, 3000)
+        }
+    })
     
 
     // Alle gebruikers ophalen van de backend
@@ -117,7 +122,7 @@
             if (!response.ok)
             {
                 // Foutmelding van de backend tonen
-                errorMessage.value = data.error
+                errorToastMessage.value = data.error
                 return
             }
 
@@ -125,7 +130,7 @@
             users.value = data
         }catch (error) {
             // Foutmelding tonen als er een netwerkfout of een andere fout optreedt
-            errorMessage.value = 'Er is iets misgegaan, probeer het opnieuw'
+            errorToastMessage.value = 'Er is iets misgegaan, probeer het opnieuw'
         }       
     }
 
