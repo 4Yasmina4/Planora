@@ -16,12 +16,14 @@ import App from './App.vue'
 // Administrator - User //
 import UserList from './components/Administrator/User/UserList.vue'
 import CreateUserForm from './components/Administrator/User/CreateUserForm.vue'
+import UserDetail from './components/Administrator/User/UserDetail.vue'
 
 // Routes defineren
 const routes = [
     { path: '/', redirect: '/users' },
     { path: '/users', component: UserList },
     { path: '/users/create', component: CreateUserForm },
+    { path: '/users/:id', component: UserDetail },
 ]
 
 // Router aanmaken

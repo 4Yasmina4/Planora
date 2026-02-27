@@ -41,6 +41,11 @@
                     <td class="py-3 px-4">{{ user.role }}</td>
                     <td class="py-3 px-4">
                         <div class="flex gap-2">
+                            <!-- Bekijken knop -->
+                            <router-link :to="`/users/${user.user_id}`" class="flex items-center gap-2 px-4 py-1 rounded-lg border bg-blue-400 text-white hover:bg-blue-700 transition">
+                                <EyeIcon class="w-4 h-4" /> Bekijken
+                            </router-link>
+                            
                             <!-- Bewerken knop -->
                             <button class="flex items-center gap-2 px-3 py-1 rounded-lg bg-violet-400 text-white hover:bg-violet-700 transition">
                                 <PencilIcon class="w-4 h-4" /> Bewerken
@@ -69,8 +74,8 @@
     // Er wordt hierbij niet gewacht op de input van de gebruiker
     import { ref, onMounted, watch } from "vue";
 
-    // UserPlusIcon, PencilIcon en TrashIcon importeren uit Heroicons
-    import { UserPlusIcon, PencilIcon, TrashIcon } from '@heroicons/vue/24/solid'
+    // UserPlusIcon, PencilIcon, EyeIcon en TrashIcon importeren uit Heroicons
+    import { UserPlusIcon, PencilIcon, EyeIcon, TrashIcon } from '@heroicons/vue/24/solid'
 
     // Toast component importern uit de Base map
     import Toast from '../../Base/Toast/Toast.vue'
