@@ -64,4 +64,12 @@ class BaseController
         // True; alle verplichte invoervelden zijn ingevuld
         return true;
     }
+
+    // URL-parameter ophalen uit de route-parameters en omzetten naar een integer
+    // $vars is een array die door FastRoute wordt aangemaakt op basis van de URL
+    // Bijvoorbeeld: /users/5 → $vars = ['id' => 5] → geeft 5 terug als integer 
+    protected function getIdFromUrlParameters(array $vars): int
+    {
+        return (int)$vars['id'];
+    }
 }

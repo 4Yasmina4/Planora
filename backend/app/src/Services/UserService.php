@@ -43,6 +43,15 @@ class UserService
         return $this->userRepository->createUser($user);
     }
 
+    // Gebruiker verwijderen op basis van de user_id
+    // Deze methode geeft een bool terug, omdat na het verwijderen van een gebruiker het handig is om te weten of dit is gelukt
+    // Hierbij is het onnodig om een User-object terug te geven
+    public function deleteUser(int $userId): bool
+    {
+        //UserRepository aanroepen om een gebruiker te verwijderen
+        return $this->userRepository->deleteUser($userId);
+    }
+
     // Helpermethodes //
 
     private function buildUser(string $firstName, ?string $surnamePrefix, string $lastName, string $email, string $hashedPassword, UserRole $userRole): User
