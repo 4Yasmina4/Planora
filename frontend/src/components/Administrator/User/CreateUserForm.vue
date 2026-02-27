@@ -72,9 +72,9 @@
             <!-- Knoppen onderaan (annuleren en opslaan) -->
             <div class="flex justify-between pt-4">
                 <!-- Annuleer knop -->
-                <button type="button" class="px-4 py-2 rounded-lg border bg-slate-300 text-gray-700 hover:bg-slate-400 transition">
+                <router-link to="/users" class="px-4 py-2 rounded-lg border bg-slate-300 text-gray-700 hover:bg-slate-400 transition">
                     Annuleren
-                </button>
+                </router-link>
 
                 <!-- Opslaan knop -->
                 <button type="submit" class="px-4 py-2 rounded-lg border border-violet-950 bg-violet-400 text-white font-semibold hover:bg-violet-700 transition">Gebruiker aanmaken</button>

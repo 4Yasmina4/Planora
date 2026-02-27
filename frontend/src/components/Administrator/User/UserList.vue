@@ -1,14 +1,25 @@
 <template>
     <div class="max-w-5xl mx-auto mt-10 bg-white p-12 rounded-xl shadow-md">
-        <h2 class="text-2xl font-bold mb-6 text-violet-500">
-            Gebruikersbeheer
-        </h2>
+
+        <!-- Titel en gebruiker aanmaken knop naast elkaar plaatsen -->
+        <div class="flex justify-between items-center mb-6">
+            <h2 class="text-2xl font-bold mb-6 text-violet-500">
+                Gebruikersbeheer
+            </h2>
+
+            <!-- Knop om naar de gebruiker aanmaken pagina te navigeren -->
+            <router-link to="/users/create" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-green-500 text-white font-semibold hover:bg-green-700 transition">
+                <!-- Icoon toevoegen van Heroicons-->
+                <UserPlusIcon class="w-5 h-5" />
+                Gebruiker aanmaken
+            </router-link>
+        </div>
 
         <!-- v-if toon het element alleen als de voorwaarde true is (variabele niet leeg is) -->
         <!-- Foutmelding tonen als het verzoek mislukt -->
         <p v-if="errorMessage" class="text-red-500">
             {{ errorMessage}}
-        </p>
+        </p> 
 
         <!-- Tabel met alle gebruikers -->
         <table class="w-full text-left border-collapse">
@@ -57,6 +68,9 @@
     // onMounted is nodig, omdat er meteen een actie gebeurt bij het laden van de pagina
     // Er wordt hierbij niet gewacht op de input van de gebruiker
     import { ref, onMounted } from "vue";
+
+    // UserPlusIcon importeren uit Heroicons
+    import { UserPlusIcon } from '@heroicons/vue/24/solid'
 
     // Reactieve variabelen
     // Lege array aanmaken om de gebruikers in op te slaan
