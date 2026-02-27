@@ -58,11 +58,8 @@
                 </select>
             </div>
 
-            <!-- v-if toon het element alleen als de voorwaarde true is (variabele niet leeg is) -->
-            <!-- Foutmelding tonen als het verzoek mislukt -->
-            <p v-if="errorMessage" class="text-red-500">
-                {{ errorMessage}}
-            </p>
+            <!-- Errortoastmelding tonen als het verzoek mislukt -->
+            <Toast :toastMessage="errorToastMessage" type="error" />
 
             <!-- Knoppen onderaan (annuleren en opslaan) -->
             <div class="flex justify-between pt-4">
@@ -101,15 +98,11 @@
     const password = ref('')
     const role = ref('')
  
-    // Foutmelding
-    const errorMessage = ref('')
+    // Error toastmelding
+    const errorToastMessage = ref('')
 
     // Formulier versturen
     async function createUser() {
-
-        // Foutmelding leegmaken bij elke nieuwe poging
-        errorMessage.value = ''
-
         try{
             // Een POST verzoek sturen naar de backend met de formlierdata
             const response = await fetch('http://localhost/users', {
@@ -138,7 +131,7 @@
             if (!response.ok)
             {
                 // Foutmelding van de backend tonen
-                errorMessage.value = data.error
+                errorToastMessage.value = data.error
                 return
             }
 
@@ -146,7 +139,7 @@
             router.push({ path: '/users', state: { successToastMessage: `${firstName.value} ${surnamePrefix.value} ${lastName.value} is succesvol aangemaakt! `} })
         } catch (error) {
             // Foutmelding tonen als er een netwerkfout of een andere fout optreedt
-            errorMessage.value = 'Er is iets misgegaan, probeer het opnieuw'
+            errorToastMessage.value = 'Er is iets misgegaan, probeer het opnieuw'
         }
     }
 </script>
