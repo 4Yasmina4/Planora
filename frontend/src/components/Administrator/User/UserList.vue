@@ -1,9 +1,8 @@
 <template>
     <div class="max-w-5xl mx-auto mt-10 bg-white p-12 rounded-xl shadow-md">
-        <!-- SuccessToastMessage tonen als er een succesbericht is -->
-        <div v-if="successToastMessage" class="fixed bottom-5 right-5 bg-green-500 text-white px-6 py-5 rounded-lg shadow-lg">
-            {{ successToastMessage }}
-        </div>
+        <!-- SuccessToastMessage component tonen met het succesbericht -->
+        <!-- met : wordt een reactieve variabele doorgegeven aan de prop -->
+        <SuccessToast :successToastMessage="successToastMessage" />
 
         <!-- Titel en gebruiker aanmaken knop naast elkaar plaatsen -->
         <div class="flex justify-between items-center mb-6">
@@ -78,6 +77,9 @@
     // UserPlusIcon, PencilIcon en TrashIcon importeren uit Heroicons
     import { UserPlusIcon, PencilIcon, TrashIcon } from '@heroicons/vue/24/solid'
 
+    // SuccessToast component importern uit de Base map
+    import SuccessToast from '../../Base/ToastNotification/SuccessToast.vue'
+    
     // Reactieve variabelen
     // Lege array aanmaken om de gebruikers in op te slaan
     const users = ref([])
