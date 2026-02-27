@@ -15,7 +15,8 @@ return function (RouteCollector $router) use ($userManagementController)
     // POST /users → roept de createUser methode aan van de UserManagementController
     // Deze wordt aangeroepen wanneer de administrator een nieuwe gebruiker aanmaakt
     $router->addRoute('POST', '/users', [$userManagementController, 'createUser']);
-
+    // GET /users/{id:\d+} → haalt één gebruiker op op basis van user_id
+    $router->addRoute('GET', '/users/{id:\d+}', [$userManagementController, 'getUserByUserId']);
     // GET /users → roept de getAllUsers methode aan van de UserManagementController
     $router->addRoute('GET', '/users', [$userManagementController, 'getAllUsers']);
 };
