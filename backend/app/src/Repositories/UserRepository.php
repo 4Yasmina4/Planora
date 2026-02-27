@@ -39,6 +39,28 @@ class UserRepository
 
     }
 
+    // Één gebruiker ophalen op basis van de userId
+    public function getUserByUserId(int $userId): ?User
+    {
+        //SQL-query die 1 gebruiker ophaalt op basis van user_id
+        $stmt = $this->pdo->prepare("SELECT * FROM user WHERE user_id = :user_id");
+        
+        //Voert bovenstaande SQL-query uit en vult '?' met waarde van $userId
+        $stmt->execute(['user_id' => $userId]);
+
+        //Haalt 1 rij uit database op als een associatieve array
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        //Als er geen gebruiker is gevonden, geeft de functie null terug
+        if (!$row)
+        {
+            return null;
+        }
+
+        //Zet de opgehaalde databse-rij om naar een User-Object, met behulp van mapRowToUser methode uit de UserRepository
+        return $this->mapRowToUser($row);
+    }
+
     //Gebruiker aanmaken
     public function createUser(User $user): User
     {
@@ -64,6 +86,7 @@ class UserRepository
         // User-object aanmaken met nieuwe gegenereerde user_id via helpermethode
         return $this->mapUserWithUserId($user, $userId);
     }
+
 
     // Helpermethodes //
     // private //

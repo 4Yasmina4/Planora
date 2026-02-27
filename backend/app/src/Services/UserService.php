@@ -20,6 +20,12 @@ class UserService
         return $this->userRepository->getAllUsers();
     }
 
+    // Één gebruiker ophalen op basis van userId
+    public function getUserByUserId(int $userId): ?User
+    {
+        return $this->userRepository->getUserByUserId($userId);
+    }
+
     // Nieuwe gebruiker aanmaken
     public function createUser(string $firstName, ?string $surnamePrefix, string $lastName, string $email, string $password, string $role): User
     {

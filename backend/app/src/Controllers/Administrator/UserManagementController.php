@@ -24,6 +24,26 @@ class UserManagementController extends BaseController
         $this->jsonSuccessResponse($users);
     }
 
+    // Één gebruiker ophalen
+    public function getUserByUserId(array $vars): void
+    {
+        // user_id ophalen uit de URL (bijv. /users/5) ophalen uit de route-parameters en omzetten naar een integer
+        $userId = (int)$vars['id'];
+
+        // Gebruiker ophalen via de UserService
+        $user = $this->userService->getUserByUserId($userId);
+
+        // Als de gberuiker niet bestaat → 404 (Not Found) teruggeven
+        if (!$user)
+        {
+            $this->jsonErrorResponse('Gebruiker niet gevonden', 404);
+            return;
+        }
+
+        // Gebruiker bestaat → JSON teruggeven
+        $this->jsonSuccessResponse($user);
+    }
+
     // Nieuwe gebruiker aanmaken
     public function createUser(): void
     {
