@@ -23,6 +23,7 @@
         <table class="w-full text-left border-collapse">
             <thead>
                 <tr class="border-b border-gray-200">
+                    <th class="py-3 px-4 text-gray-700">ID</th>
                     <th class="py-3 px-4 text-gray-700">Naam</th>
                     <th class="py-3 px-4 text-gray-700">Email</th>
                     <th class="py-3 px-4 text-gray-700">Rol</th>
@@ -36,6 +37,7 @@
                 <!-- Hierbij is :key="user.user_id" verplicht bij v-for - het geeft elke rij een uniek ID
                      zodat Vue weet welke rij bijgewerkt moet worden om data te veranderen. -->
                 <tr v-for="user in users" :key="user.user_id" class="border-b border-gray-100 hover:bg-gray-50">
+                    <td class="py-3 px-4">{{ user.user_id }}</td>
                     <td class="py-3 px-4">{{ user.first_name }} {{ user.surname_prefix }} {{ user.last_name }}</td>
                     <td class="py-3 px-4">{{ user.email }}</td>
                     <td class="py-3 px-4">{{ user.role }}</td>
@@ -52,17 +54,14 @@
                             </button>
 
                             <!-- Verwijder knop -->
-                            <button class="flex items-center gap-2 px-3 py-1 rounded-lg bg-red-400 text-white hover:bg-red-700 transition">
+                             <router-link :to="`/users/${user.user_id}/delete`" class="flex items-center gap-2 px-4 py-1 rounded-lg border bg-red-400 text-white hover:bg-red-700 transition">
                                 <TrashIcon class="w-4 h-4" /> Verwijderen
-                            </button>
+                            </router-link>
                         </div>
                     </td>
-
                 </tr>
             </tbody>
-
         </table>
-        
     </div>
 </template>
 
