@@ -14,19 +14,19 @@ class UserService
         $this->userRepository = $userRepository;
     }
 
-    // Alle gebruikers ophalen
+    // Methode om alle gebruikers op te halen
     public function getAllUsers(): array
     {
         return $this->userRepository->getAllUsers();
     }
 
-    // Één gebruiker ophalen op basis van userId
+    // Methode om één gebruiker op te halen op basis van userId
     public function getUserByUserId(int $userId): ?User
     {
         return $this->userRepository->getUserByUserId($userId);
     }
 
-    // Nieuwe gebruiker aanmaken
+    // Methode om een nieuwe gebruiker aan te maken
     public function createUser(string $firstName, ?string $surnamePrefix, string $lastName, string $email, string $password, string $role): User
     {
         // String $role omzetten naar UserRole enum via de private methode convertStringToUserRoleEnum
@@ -43,7 +43,26 @@ class UserService
         return $this->userRepository->createUser($user);
     }
 
-    // Gebruiker verwijderen op basis van de user_id
+    // Methode om gebruikergegevens te wijzigen
+    // Op basis van de userId worden de gegevens van een gebruiker gewijzigd
+    public function updateUser(int $userId, string $firstName, ?string $surnamePrefix, string $lastName, string $email, ?string $password, string $role): User
+    {
+        // String $role omzetten naar UserRole enum via de private methode convertStringToUserRoleEnum
+        $userRole = $this->convertStringToUserRoleEnum($role);
+
+        // Wachtwoord alleen wijzigen en hashen als er een nieuwe wachtwoord in het formulierveld is ingevuld
+        $hashedPassword = null;
+
+        if (!empty($password))
+        {
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+        }
+
+        // UserRepository aanroepen om gegevens van een gebruiker te wijzigen
+        return $this->userRepository->updateUser($userId, $firstName, $surnamePrefix, $lastName, $email, $hashedPassword, $userRole);
+    }
+
+    // Methode om een gebruiker te verwijderen op basis van de user_id
     // Deze methode geeft een bool terug, omdat na het verwijderen van een gebruiker het handig is om te weten of dit is gelukt
     // Hierbij is het onnodig om een User-object terug te geven
     public function deleteUser(int $userId): bool

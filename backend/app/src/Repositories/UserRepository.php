@@ -15,7 +15,7 @@ class UserRepository
         $this->pdo = $pdo;
     }
 
-    // Alle gebruikers ophalen
+    // Methode om alle gebruikers op te halen
     public function getAllUsers(): array
     {
         // SQL-query uitvoeren om alle gebruikers op te halen, gesorteerd op voornaam (A-Z).
@@ -39,7 +39,7 @@ class UserRepository
 
     }
 
-    // Één gebruiker ophalen op basis van de userId
+    // Methode om één gebruiker op te halen op basis van de userId
     public function getUserByUserId(int $userId): ?User
     {
         //SQL-query die 1 gebruiker ophaalt op basis van user_id
@@ -61,7 +61,7 @@ class UserRepository
         return $this->mapRowToUser($row);
     }
 
-    //Gebruiker aanmaken
+    // Methode om gebruiker aan te maken
     public function createUser(User $user): User
     {
         // SQL INSERT-query voorbereiden om een nieuwe gebruiker aan te maken
@@ -86,8 +86,35 @@ class UserRepository
         // User-object aanmaken met nieuwe gegenereerde user_id via helpermethode
         return $this->mapUserWithUserId($user, $userId);
     }
+    
+    // Methode om gebruikergegevens te wijzigen
+    // Op basis van de userId worden de gegevens van een gebruiker gewijzigd
+    public function updateUser(int $userId, string $firstName, ?string $surnamePrefix, string $lastName, string $email, ?string $hashedPassword, UserRole $userRole): User
+    {
+        //Wachtwoord wijzigen is optioneel
+        if (!empty($hashedPassword))
+        {
+            //Wachtwoord wel wijzigen
+            //Ingevoerde gegevevens van fomrulier toevoegen aan de user-tabel in de database
+            $stmt = $this->pdo->prepare("UPDATE user
+                                        SET first_name = :first_name, surname_prefix = :surname_prefix, last_name = :last_name, email = :email, password = :password, role = :role
+                                        WHERE user_id = :user_id");
 
-    // Gebruiker verwijderen op basis van de user_id
+            $stmt->execute(['first_name' => $firstName, 'surname_prefix' => $surnamePrefix, 'last_name' => $lastName, 'email' => $email, 'password' => $hashedPassword, 'role' => $userRole->value, 'user_id' => $userId]);
+        } else {
+            //Wachtwoord wordt niet gewijzigd
+            $stmt = $this->pdo->prepare("UPDATE user
+                                        SET first_name = :first_name, surname_prefix = :surname_prefix, last_name = :last_name, email = :email, role = :role
+                                        WHERE user_id = :user_id");
+
+            $stmt->execute(['first_name' => $firstName, 'surname_prefix' => $surnamePrefix, 'last_name' => $lastName, 'email' => $email, 'role' => $userRole->value, 'user_id' => $userId]);
+        }
+
+        // Gewijzigde gebruiker opnieuw ophalen uit de database en teruggeven
+        return $this->getUserByUserId($userId);
+    }
+
+    // Methode om een gebruiker te verwijderen op basis van de user_id
     // Deze methode geeft een bool terug, omdat na het verwijderen van een gebruiker het handig is om te weten of dit is gelukt
     // Hierbij is het onnodig om een User-object terug te geven
     public function deleteUser(int $userId): bool
