@@ -19,6 +19,8 @@ return function (RouteCollector $router) use ($userManagementController)
     $router->addRoute('GET', '/users/{id:\d+}', [$userManagementController, 'getUserByUserId']);
     // GET /users → roept de getAllUsers methode aan van de UserManagementController
     $router->addRoute('GET', '/users', [$userManagementController, 'getAllUsers']);
+    // PUT /users/{id:\d+} → gebruikersgegevens van een gebruiker wijzigen
+    $router->addRoute('PUT', '/users/{id:\d+}', [$userManagementController, 'updateUser']);
     // DELETE /users/{id:\d+} → roept de deleteUser methode aan van de UserManagementController
     $router->addRoute('DELETE', '/users/{id:\d+}', [$userManagementController, 'deleteUser']);
 };

@@ -14,7 +14,7 @@ class UserManagementController extends BaseController
         $this->userService = $userService;
     }
 
-    // Alle gebruikers ophalen
+    // Methode om alle gebruikers op te halen
     public function getAllUsers(): void 
     {
         // Alle gebruikers ophalen via de UserService
@@ -24,7 +24,7 @@ class UserManagementController extends BaseController
         $this->jsonSuccessResponse($users);
     }
 
-    // Één gebruiker ophalen
+    // Methode om één gebruiker op te halen
     public function getUserByUserId(array $vars): void
     {
         // URL-parameter ophalen uit de route-parameters en omzetten naar een integer
@@ -47,7 +47,7 @@ class UserManagementController extends BaseController
         $this->jsonSuccessResponse($user);
     }
 
-    // Nieuwe gebruiker aanmaken
+    // Methode om een nieuwe gebruiker aan te maken
     public function createUser(): void
     {
         // Userdata ophalen uit de request body via methode getJsonDataFromRequestBody in BaseController
@@ -73,7 +73,45 @@ class UserManagementController extends BaseController
         $this->jsonSuccessResponse($newUser, 201);
     }
 
-    // Gebruiker verwijderen op basis van de user_id
+    // Methode om gebruikergegevens te wijzigen
+    // Op basis van de userId worden de gegevens van een gebruiker gewijzigd
+    public function updateUser(array $vars): void
+    {
+        // URL-parameter ophalen uit de route-parameters en omzetten naar een integer
+        // Dit via de helpermethode in de BaseController doen
+        // $vars is een array die door FastRoute wordt aangemaakt op basis van de URL
+        // Bijvoorbeeld: /users/5 → $vars = ['id' => 5] → geeft 5 terug als integer
+        $userId = $this->getIdFromUrlParameters($vars);
+
+        // Controleren of gebruiker bestaat voordat deze wordt gewijzigd
+        $user = $this->userService->getUserByUserId($userId);
+        if (!$user)
+        {
+            // HTTP statuscode 404 (Not Found) meegeven
+            $this->jsonErrorResponse('Gebruiker niet gevonden', 404);
+            return;
+        }
+
+        // Gebruikersdata ophalen uit de request body
+        $userData = $this->getJsonDataFromRequestBody();
+
+        // Verplichte velden valideren (wachtwoord is hierbij optioneel)
+        $requiredUserData = $this->validateRequiredFormFields($userData, ['first_name', 'last_name', 'email', 'role']);
+        if (!$requiredUserData)
+        {
+            // Als niet alle verplichte velden zijn ingevuld, foutmelding tonen
+            $this->jsonErrorResponse('Voornaam, achternaam, email en gebruikersrol zijn verplicht.');
+            return;
+        }
+
+        // Gebruikersgegevens wijzigen via de UserSerivce
+        $updatedUser = $this->userService->updateUser($userId, $userData['first_name'], $userData['surname_prefix'] ?? null, $userData['last_name'], $userData['email'], $userData['password'] ?? null, $userData['role']);
+
+        // Gewijzigde gebruiker terugsturen naar de frontend
+        $this->jsonSuccessResponse($updatedUser);
+    }
+
+    // Methode om gebruiker te verwijderen op basis van de user_id
     public function deleteUser(array $vars): void 
     {
         // URL-parameter ophalen uit de route-parameters en omzetten naar een integer
