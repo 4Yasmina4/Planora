@@ -17,6 +17,7 @@ import App from './App.vue'
 import UserList from './components/Administrator/User/UserList.vue'
 import CreateUserForm from './components/Administrator/User/CreateUserForm.vue'
 import UserDetail from './components/Administrator/User/UserDetail.vue'
+import DeleteUser from './components/Administrator/User/DeleteUser.vue'
 
 // Routes defineren
 const routes = [
@@ -24,6 +25,7 @@ const routes = [
     { path: '/users', component: UserList },
     { path: '/users/create', component: CreateUserForm },
     { path: '/users/:id', component: UserDetail },
+    { path: '/users/:id/delete', component: DeleteUser },
 ]
 
 // Router aanmaken

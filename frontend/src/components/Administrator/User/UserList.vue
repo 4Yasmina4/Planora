@@ -54,17 +54,14 @@
                             </button>
 
                             <!-- Verwijder knop -->
-                            <button class="flex items-center gap-2 px-3 py-1 rounded-lg bg-red-400 text-white hover:bg-red-700 transition">
+                             <router-link :to="`/users/${user.user_id}/delete`" class="flex items-center gap-2 px-4 py-1 rounded-lg border bg-red-400 text-white hover:bg-red-700 transition">
                                 <TrashIcon class="w-4 h-4" /> Verwijderen
-                            </button>
+                            </router-link>
                         </div>
                     </td>
-
                 </tr>
             </tbody>
-
         </table>
-        
     </div>
 </template>
 
