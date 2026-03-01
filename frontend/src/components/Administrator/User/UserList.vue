@@ -49,12 +49,12 @@
                             </router-link>
                             
                             <!-- Bewerken knop -->
-                            <button class="flex items-center gap-2 px-3 py-1 rounded-lg bg-violet-400 text-white hover:bg-violet-700 transition">
+                            <router-link :to="`/users/${user.user_id}/edit`" class="flex items-center gap-2 px-4 py-1 rounded-lg border bg-violet-400 text-white hover:bg-violet-700 transition">
                                 <PencilIcon class="w-4 h-4" /> Bewerken
-                            </button>
+                            </router-link>
 
                             <!-- Verwijder knop -->
-                             <router-link :to="`/users/${user.user_id}/delete`" class="flex items-center gap-2 px-4 py-1 rounded-lg border bg-red-400 text-white hover:bg-red-700 transition">
+                            <router-link :to="`/users/${user.user_id}/delete`" class="flex items-center gap-2 px-4 py-1 rounded-lg border bg-red-400 text-white hover:bg-red-700 transition">
                                 <TrashIcon class="w-4 h-4" /> Verwijderen
                             </router-link>
                         </div>
