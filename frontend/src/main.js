@@ -13,6 +13,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 import App from './App.vue'
 
 // Componenten importeren
+// Home //
+import Home from './components/Home/Home.vue'
+
 // Administrator - User //
 import UserList from './components/Administrator/User/UserList.vue'
 import CreateUserForm from './components/Administrator/User/CreateUserForm.vue'
@@ -22,7 +25,7 @@ import DeleteUser from './components/Administrator/User/DeleteUser.vue'
 
 // Routes defineren
 const routes = [
-    { path: '/', redirect: '/users' },
+    { path: '/', component: Home },
     { path: '/users', component: UserList },
     { path: '/users/create', component: CreateUserForm },
     { path: '/users/:id', component: UserDetail },
