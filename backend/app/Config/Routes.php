@@ -9,7 +9,7 @@ use FastRoute\RouteCollector;
 // Anonieme functie teruggeven die de routes definieert
 // RouteCollector $router beheert de routes
 // use ($userManagementController) maakt de UserManagementController beschikbaar binnen de functie
-return function (RouteCollector $router) use ($userManagementController)
+return function (RouteCollector $router) use ($userManagementController, $loginController)
 {
     // Administrator - User //
     // POST /users → roept de createUser methode aan van de UserManagementController
@@ -23,4 +23,9 @@ return function (RouteCollector $router) use ($userManagementController)
     $router->addRoute('PUT', '/users/{id:\d+}', [$userManagementController, 'updateUser']);
     // DELETE /users/{id:\d+} → roept de deleteUser methode aan van de UserManagementController
     $router->addRoute('DELETE', '/users/{id:\d+}', [$userManagementController, 'deleteUser']);
+
+
+    // Authentication - User //
+    // POST /login → roept de login methode aan in de LoginController
+    $router->addRoute('POST', '/login', [$loginController, 'login']);
 };

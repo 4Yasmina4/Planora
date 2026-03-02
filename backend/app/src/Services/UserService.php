@@ -71,6 +71,43 @@ class UserService
         return $this->userRepository->deleteUser($userId);
     }
 
+    // Methode dat het ingevoerde email en wachtwoord controleert tijdens het inloggen
+    // Geeft een JWT token terug als het inloggen is gelukt
+    public function login(string $email, string $password): ?string
+    {
+        // Gebruiker ophalen op basis van het ingevoerde e-mailadres via de UserRepository
+        $user = $this->userRepository->getUserByEmail($email);
+
+        // Als gebruiker niet bestaat, null teruggeven
+        if (!$user)
+        {
+            return null;
+        }
+
+        // Ingevoerde wachtwoord controleren met het gehaste wachtwoord in de database
+        // password_verify vergelijkt het ingevoerde wachtwoord met het gehaste wachtwoord
+        if (!password_verify($password, $user->getPassword()))
+        {
+            return null;
+        }
+
+        // Geheime sleutel voor het ondertekenen van de JWT token
+        // Voorkomt dat iemand de token kan namaken of aanpassen.
+        $secretKey = 'dit_is_een_geheime_unieke_sleutel_voor_de_applicatie_planora';
+
+        // JWT token (JSON Web Token) aanmaken met gebruikersgegevens
+        // $payload is de inhoud van de token
+        $payload = [
+            'user_id' => $user->getUserId(),
+            'role' => $user->getUserRole()->value,
+            'iat' => time(), // (iat = Issued At) datum waarop token is aangemaakt
+            'exp' => time() + 3600 // verloopt na 1 uur
+        ];
+
+        // JWT token (JSON Web Token) genereren en teruggeven
+        return \Firebase\JWT\JWT::encode($payload, $secretKey, 'HS256');
+    }
+
     // Helpermethodes //
 
     private function buildUser(string $firstName, ?string $surnamePrefix, string $lastName, string $email, string $hashedPassword, UserRole $userRole): User
