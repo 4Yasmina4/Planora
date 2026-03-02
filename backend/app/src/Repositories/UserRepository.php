@@ -61,6 +61,32 @@ class UserRepository
         return $this->mapRowToUser($row);
     }
 
+    // Methode om gebruiker op te halen op basis van hun email
+    // Nodig voor het inloggen
+    // Terugwaarde van deze methode is ?User. Het geeft een gebruiker terug als deze bestaat en null als dit niet het geval is
+    public function getUserByEmail(string $email): ?User
+    {
+        // SQL-query die 1 gebruiker ophaalt op basis van email
+        // :email is een placeholder en voorkomt SQL-injectie
+        $stmt = $this->pdo->prepare("SELECT * FROM user WHERE email = :email");
+
+        // SQL-query uitvoeren met de waarde van $email
+        $stmt->execute(['email' => $email]);
+
+        // 1 rij ophalen uit de database al een associatieve array
+        // Een associatieve array is een array waarbij elke waarde een naam (key) heeft in plaats van een getal als index
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        //Als er geen gebruiker is gevonden voor dit e-mailadres, geeft de functie null terug
+        if (!$row)
+        {
+            return null;
+        }
+
+        // mapRowToUser methode aanroepen om de opgehaalde database-rij om te zetten naar een User-object
+        return $this->mapRowToUser($row);
+    }
+
     // Methode om gebruiker aan te maken
     public function createUser(User $user): User
     {
