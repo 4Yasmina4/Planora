@@ -16,6 +16,9 @@ import App from './App.vue'
 // Home //
 import Home from './components/Home/Home.vue'
 
+// Authentication //
+import Login from './components/Authentication/Login.vue'
+
 // Administrator - User //
 import UserList from './components/Administrator/User/UserList.vue'
 import CreateUserForm from './components/Administrator/User/CreateUserForm.vue'
@@ -25,7 +28,11 @@ import DeleteUser from './components/Administrator/User/DeleteUser.vue'
 
 // Routes defineren
 const routes = [
+    // Home //
     { path: '/', component: Home },
+    // Authentication //
+    { path: '/login', component: Login },
+    // Users //
     { path: '/users', component: UserList },
     { path: '/users/create', component: CreateUserForm },
     { path: '/users/:id', component: UserDetail },
