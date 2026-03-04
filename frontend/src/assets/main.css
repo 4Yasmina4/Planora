@@ -1,1 +1,10 @@
 @import "tailwindcss";
+
+/* Gepersonaliseerde kleuren */
+@theme {
+    --color-ghost-white: #E3E7F1;
+    --color-lavender-grey: #8A91A0;
+    --color-periwinkle: #C6CBEF;
+    --color-soft-periwinkle: #8186D5;
+    --color-ocean-twilight: #494CA2;
+}
