@@ -3,8 +3,8 @@
         <div class="bg-white rounded-xl shadow-md p-12 w-full max-w-xl">
             <!-- Titel met slot icoon -->
             <div class="flex items-center justify-center gap-3 mb-6">
-                <LockClosedIcon class="w-7 h-7 text-violet-500" />
-                <h2 class="text-2xl font-bold text-violet-500">Inloggen</h2>
+                <LockClosedIcon class="w-7 h-7 text-soft-periwinkle" />
+                <h2 class="text-2xl font-bold text-soft-periwinkle">Inloggen</h2>
             </div>
 
             <!-- Formulier -->
@@ -12,18 +12,18 @@
             <form class="space-y-5" @submit.prevent="login">
                 <!-- E-mailadres -->
                 <div>
-                    <label class="block font-medium text-gray-700 mb-1">E-mailadres</label>
+                    <label class="block font-medium text-soft-periwinkle mb-1">E-mailadres</label>
                     <!-- v-model koppelt het invoerveld aan de reactieve variabele email -->
                     <input v-model="email" type="email" placeholder="Voer uw e-mailadres in" required
-                        class="w-full border border-gray-300 rounded-lg px-3 py-3 focus:ring-2 focus:ring-violet-500 focus:outline-none" />
+                        class="w-full border border-lavender-grey rounded-lg px-3 py-3 focus:ring-2 focus:ring-soft-periwinkle focus:outline-none" />
                 </div>
 
                 <!-- Wachtwoord -->
                 <div>
-                    <label class="block font-medium text-gray-700 mb-1">Wachtwoord</label>
+                    <label class="block font-medium text-soft-periwinkle mb-1">Wachtwoord</label>
                     <!-- v-model koppelt het invoerveld aan de reactieve variabele wachtwoord -->
                     <input v-model="password" type="password" placeholder="Voer uw wachtwoord in" required
-                        class="w-full border border-gray-300 rounded-lg px-3 py-3 focus:ring-2 focus:ring-violet-500 focus:outline-none" />
+                        class="w-full border border-lavender-grey rounded-lg px-3 py-3 focus:ring-2 focus:ring-soft-periwinkle focus:outline-none" />
                 </div>
 
                 <!-- Toastfoutmelding -->
@@ -32,12 +32,12 @@
                 <!-- Knoppen -->
                 <div class="flex gap-3 pt-4">
                     <!-- Terug naar de homepagina -->
-                    <router-link to="/" class="w-full flex items-center gap-2 px-4 py-2 rounded-lg border border-slate-300 bg-slate-400 text-gray-700 hover:bg-slate-400 transition">
+                    <router-link to="/" class="w-full flex items-center gap-2 px-4 py-2 rounded-lg border border-lavender-grey bg-ghost-white text-gray-700 hover:bg-lavender-grey hover:text-white hover:underline transition">
                         <ArrowLeftIcon class="w-5 h-5" /> Terug naar homepagina
                     </router-link>
 
                     <!-- Inloggen knop -->
-                    <button type="submit" class="w-full flex items-center gap-2 px-4 py-3 rounded-lg border border-violet-950 bg-violet-400 text-white font-semibold hover:bg-violet-700 transition">
+                    <button type="submit" class="w-full flex items-center gap-2 px-4 py-3 rounded-lg border border-ocean-twilight bg-soft-periwinkle text-white font-semibold hover:bg-ocean-twilight hover:underline transition">
                         <ArrowRightEndOnRectangleIcon class="w-5 h-5" /> Inloggen
                     </button>
                 </div>
@@ -46,7 +46,7 @@
             <!-- Link naar registratiepagina-->
             <p class="text-center text-gray-500 text-base mt-6">
                 Nog geen account?
-                <router-link to="/register" class="text-violet-500 hover:text-violet-700 font-semibold underline">Account aanmaken</router-link>
+                <router-link to="/register" class="text-soft-periwinkle hover:text-ocean-twilight font-semibold underline">Account aanmaken</router-link>
             </p>
         </div>
     </div>
