@@ -15,5 +15,7 @@ $userManagementController = new UserManagementController($userService);
 
 // Authorization dependencies //
 use App\Controllers\Authentication\LoginController;
+use App\Controllers\Authentication\RegisterController;
 
 $loginController = new LoginController($userService);
+$registerController = new RegisterController($userService);
