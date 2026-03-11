@@ -3,7 +3,7 @@
         <div class="bg-white rounded-xl shadow-md p-12 w-full max-w-xl">
             <!-- Titel met slot icoon -->
             <div class="flex items-center justify-center gap-3 mb-6">
-                <LockClosedIcon class="w-7 h-7 text-soft-periwinkle" />
+                <Lock class="w-7 h-7 text-soft-periwinkle" />
                 <h2 class="text-2xl font-bold text-soft-periwinkle">Inloggen</h2>
             </div>
 
@@ -33,12 +33,12 @@
                 <div class="flex gap-3 pt-4">
                     <!-- Terug naar de homepagina -->
                     <router-link to="/" class="w-full flex items-center gap-2 px-4 py-2 rounded-lg border border-lavender-grey bg-ghost-white text-gray-700 hover:bg-lavender-grey hover:text-white hover:underline transition">
-                        <ArrowLeftIcon class="w-5 h-5" /> Terug naar homepagina
+                        <ArrowLeft class="w-5 h-5" /> Terug naar homepagina
                     </router-link>
 
                     <!-- Inloggen knop -->
                     <button type="submit" class="w-full flex items-center gap-2 px-4 py-3 rounded-lg border border-ocean-twilight bg-soft-periwinkle text-white font-semibold hover:bg-ocean-twilight hover:underline transition">
-                        <ArrowRightEndOnRectangleIcon class="w-5 h-5" /> Inloggen
+                        <LogIn class="w-5 h-5" /> Inloggen
                     </button>
                 </div>
             </form>
@@ -60,8 +60,8 @@
     // useRouter importeren
     import { useRouter } from 'vue-router'
 
-    // ArrowLeftIcon, ArrowRightEndOnRectangleIcon en LockClosedIcon importeren uit Heroicons
-    import { ArrowLeftIcon, ArrowRightEndOnRectangleIcon, LockClosedIcon } from '@heroicons/vue/24/solid'
+    // Lucide icons importeren
+    import { ArrowLeft, LogIn, Lock } from 'lucide-vue-next'
 
     // Toast component importern uit de Base map
     import Toast from '../Base/Toast/Toast.vue'
