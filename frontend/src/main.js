@@ -17,7 +17,8 @@ import App from './App.vue'
 import Home from './components/Home/Home.vue'
 
 // Authentication //
-import Login from './components/Authentication/Login.vue'
+import LoginForm from './components/Authentication/LoginForm.vue'
+import RegisterForm from './components/Authentication/RegisterForm.vue'
 
 // Administrator - User //
 import UserList from './components/Administrator/User/UserList.vue'
@@ -31,7 +32,8 @@ const routes = [
     // Home //
     { path: '/', component: Home },
     // Authentication //
-    { path: '/login', component: Login },
+    { path: '/login', component: LoginForm },
+    { path: '/register', component: RegisterForm },
     // Users //
     { path: '/users', component: UserList },
     { path: '/users/create', component: CreateUserForm },
