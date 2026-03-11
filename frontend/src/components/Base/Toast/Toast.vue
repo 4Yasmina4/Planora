@@ -28,7 +28,7 @@
 
     // Mapping van de toast-types naar Tailwind classes
     const toastColors = {
-        success: 'bg-green-500',
-        error: 'bg-red-500',
+        success: 'bg-mint-leaf',
+        error: 'bg-intense-cherry',
     }
 </script>
