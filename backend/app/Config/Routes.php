@@ -9,7 +9,7 @@ use FastRoute\RouteCollector;
 // Anonieme functie teruggeven die de routes definieert
 // RouteCollector $router beheert de routes
 // use ($userManagementController) maakt de UserManagementController beschikbaar binnen de functie
-return function (RouteCollector $router) use ($userManagementController, $loginController, $registerController)
+return function (RouteCollector $router) use ($userManagementController, $loginController, $registerController, $courseController)
 {
     // Administrator - User //
     // POST /users → roept de createUser methode aan van de UserManagementController
@@ -30,4 +30,15 @@ return function (RouteCollector $router) use ($userManagementController, $loginC
     $router->addRoute('POST', '/login', [$loginController, 'login']);
     // POST /register → roept de register methode aan in de RegisterController
     $router->addRoute('POST', '/register', [$registerController, 'register']);
+
+
+    // Courses - Student //
+    // POST /courses → roept de createCourse methode aan in de CourseController
+    $router->addRoute('POST', '/courses', [$courseController, 'createCourse']);
+    // GET /courses → roept de getAllCoursesByUserId methode aan in de CourseController
+    $router->addRoute('GET', '/courses', [$courseController, 'getAllCoursesByUserId']);
+    // PUT /courses/{id:\d+} → vakgegevens van een vak wijzigen
+    $router->addRoute('PUT', '/courses/{id:\d+}', [$courseController, 'updateCourse']);
+    // DELETE /courses/{id:\d+} → roept de deleteCourse methode aan van de CourseController
+    $router->addRoute('DELETE', '/courses/{id:\d+}', [$courseController, 'deleteCourse']);
 };
