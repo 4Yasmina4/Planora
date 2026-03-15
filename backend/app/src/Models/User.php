@@ -62,7 +62,7 @@ class User implements JsonSerializable {
         return $this->userRole;
     }
 
-    // Bepalen welke data omgezet woord naar JSON formaat en teruggestuurd wordt naar de frontend
+    // Bepalen welke data omgezet wordt naar JSON formaat en teruggestuurd wordt naar de frontend
     // Wachtwoord wordt bewust weggelaten uit veiligheidsredenen
     public function jsonSerialize(): array 
     {

@@ -3,15 +3,18 @@ namespace App\Controllers\Authentication;
 
 use App\Controllers\BaseController;
 use App\Services\UserService;
+use App\Services\IAuthenticationService;
 
 class LoginController extends BaseController
 {
     private UserService $userService;
 
     // UserService via dependency injection meegeven.
-    public function __construct(UserService $userService)
+    public function __construct(UserService $userService, IAuthenticationService $authenticationService)
     {
         $this->userService = $userService;
+        // AuthenticationService doorgeven aan de BaseController via parent constructor
+        parent::__construct($authenticationService);
     }
 
     // Methode om in te loggen

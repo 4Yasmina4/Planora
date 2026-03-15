@@ -1,8 +1,52 @@
 <?php
 namespace App\Controllers;
 
+use App\Services\IAuthenticationService;
+
 class BaseController
 {
+    // Readonly zorgt ervoor dat de property na de constructor niet meer gewijzigd kan worden
+    private readonly IAuthenticationService $authenticationService;
+
+    // IAuthenticationService via dependency injection meegeven
+    public function __construct(IAuthenticationService $authenticationService)
+    {
+        $this->authenticationService = $authenticationService;
+    }
+
+    // Methode om de user_id op te halen uit het JWT token in de Authorization header
+    // Elk HTTP verzoek heeft headers - dit zijn extra stukjes informatie die meegestuurd worden
+    // De Authorization header is speciaal bedoeld om authenticatie informatie mee te sturen
+    // Wordt gebruikt in beveiligde controllers om de te controleren wie de ingelogde gebruiker is
+    protected function getUserIdFromJwtRequest(): ?int 
+    {
+        // JWT token ophalen uit de Authorization header
+        $jwtToken = $this->authenticationService->getJwtTokenFromAuthorizationHeader();
+
+        // user_id ophalen uit het JWT token en teruggeven via de methode in de AuthenticationService
+        return $this->authenticationService->getUserIdFromJwtToken($jwtToken);
+    }
+
+    // Methode om te controleren of de gebruiker ingelogd is op basis van het JWT token
+    // Geeft een HTTP 401 (Unauthorized) foutmelding terug als de gebruiker niet ingelogd is
+    protected function validateUserAuthentication(): ?int 
+    {
+        // user_id ophalen uit het JWT token via helpermehode in BaseController
+        $userId = $this->getUserIdFromJwtRequest();
+
+        // Als er geen geldige user_id is, is de gebruiker niet ingelogd
+        if (!$userId)
+        {
+            // HTTP statuscode 401 (Unauthorized) teruggeven
+            $this->jsonErrorResponse('Niet geautoriseerd', 401);
+            return null;
+        }
+
+        // Bij een geldige user_id, user_id teruggsturen
+        return $userId;
+
+    } 
+
     // Een success JSON response terugsturen naar de frontend
     // Er wordt een HTTP statuscode 200 (OK) gegeven; Verzoek is gelukt, data wordt teruggestuurd naar frontend
     // Er wordt een array of object van data teruggegeven

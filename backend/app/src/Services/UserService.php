@@ -93,7 +93,7 @@ class UserService
 
         // Geheime sleutel voor het ondertekenen van de JWT token
         // Voorkomt dat iemand de token kan namaken of aanpassen.
-        $secretKey = 'dit_is_een_geheime_unieke_sleutel_voor_de_applicatie_planora';
+        $secretKey = getenv('JWT_SECRET_KEY');
 
         // JWT token (JSON Web Token) aanmaken met gebruikersgegevens
         // $payload is de inhoud van de token
