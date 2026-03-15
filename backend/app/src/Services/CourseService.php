@@ -20,6 +20,12 @@ class CourseService implements ICourseService
         return $this->courseRepository->getAllCoursesByUserId($userId);
     }
 
+    // Methode die één specifieke vak ophaald op basis vaan de couse_id
+    public function getCourseByCourseId(int $courseId): ?Course
+    {
+        return $this->courseRepository->getCourseByCourseId($courseId);
+    }
+
     // Methode om een nieuwe vak aan te maken
     public function createCourse(int $userId, string $courseName, string $courseDescription, int $ects, string $examDate, string $studyMaterial): Course
     {
@@ -28,6 +34,15 @@ class CourseService implements ICourseService
         
         // ICourseRepository aanroepen om een nieuwe vak aan te maken
         return $this->courseRepository->createCourse($course);
+    }
+
+    // Methode om een vak te verwijderen op basis van de course_id
+    // Deze methode geeft een bool terug, omdat na het verwijderen van een vak het handig is om te weten of dit is gelukt
+    // Hierbij is het onnodig om een Course-object terug te geven
+    public function deleteCourse(int $courseId): bool
+    {
+        //ICourseRepository aanroepen om een vak te verwijderen
+        return $this->courseRepository->deleteCourse($courseId);
     }
 
     // Helpermethodes //

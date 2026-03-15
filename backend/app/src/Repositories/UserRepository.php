@@ -44,7 +44,7 @@ class UserRepository
         //SQL-query die 1 gebruiker ophaalt op basis van user_id
         $stmt = $this->pdo->prepare("SELECT * FROM user WHERE user_id = :user_id");
         
-        //Voert bovenstaande SQL-query uit en vult '?' met waarde van $userId
+        //Voert bovenstaande SQL-query uit en vult ':user_id' met waarde van $userId
         $stmt->execute(['user_id' => $userId]);
 
         //Haalt 1 rij uit database op als een associatieve array
