@@ -76,6 +76,47 @@ class CourseController extends BaseController
         $this->jsonSuccessResponse($newCourse, 201);
     }
 
+    // Methode om vakgegevens te wijzigen op basis van de course_id
+    public function updateCourse(array $vars): void
+    {
+        // user_id ophalen en controleren of de gebruiker ingelogd is via een helpermethode in de BaseController
+        $userId = $this->validateUserAuthentication();
+
+        // Als er geen geldig user_id is, is de gebruiker niet ingelogd
+        if (!$userId)
+        {
+            // Foutmelding wordt al verstuurd in de methode validateUserAuthentication in de BaseController
+            return;
+        }
+
+        // course_id ophalen uit de URL parameters via een helpermethode in de BaseController
+        $courseId = $this->getIdFromUrlParameters($vars);
+        
+        // Controleren of het vak bestaat en van de ingelogde student is
+        $course = $this->validateCourseOwnership($courseId, $userId);
+        if (!$course)
+        {
+            return;
+        }
+
+        // Coursedata ophalen uit de request body via methode getJsonDataFromRequestBody in de BaseController
+        $courseData = $this->getJsonDataFromRequestBody();
+
+        // Coursedata valideren
+        $requiredCourseData = $this->validateRequiredFormFields($courseData, ['course_name', 'course_description', 'ects', 'exam_date', 'study_material']);
+        if (!$requiredCourseData)
+        {
+            $this->jsonErrorResponse('Vaknaam, beschrijving, ECTS, tentamendatum en studiemateriaal zijn verplicht.');
+            return;
+        }
+
+        // Vakgegevens wijzigen via ICourseService
+        $updatedCourse = $this->courseService->updateCourse($courseId, $courseData['course_name'], $courseData['course_description'], $courseData['ects'], $courseData['exam_date'], $courseData['study_material']);
+
+        // Gewijzigde vak terugsturen naar de frontend
+        $this->jsonSuccessResponse($updatedCourse);
+    }
+
     // Methode om vak te verwijderen op basis van de course_id
     public function deleteCourse(array $vars): void 
     {

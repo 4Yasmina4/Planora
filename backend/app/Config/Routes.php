@@ -37,6 +37,8 @@ return function (RouteCollector $router) use ($userManagementController, $loginC
     $router->addRoute('POST', '/courses', [$courseController, 'createCourse']);
     // GET /courses → roept de getAllCoursesByUserId methode aan in de CourseController
     $router->addRoute('GET', '/courses', [$courseController, 'getAllCoursesByUserId']);
+    // PUT /courses/{id:\d+} → vakgegevens van een vak wijzigen
+    $router->addRoute('PUT', '/courses/{id:\d+}', [$courseController, 'updateCourse']);
     // DELETE /courses/{id:\d+} → roept de deleteCourse methode aan van de CourseController
     $router->addRoute('DELETE', '/courses/{id:\d+}', [$courseController, 'deleteCourse']);
 };

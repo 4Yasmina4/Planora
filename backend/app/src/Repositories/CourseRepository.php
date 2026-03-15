@@ -88,6 +88,21 @@ class CourseRepository implements ICourseRepository
         return $this->mapCourseWithCourseId($course, $courseId);
     }
 
+    // Methode om vakgegevens te wijzigen op basis van de course_id
+    public function updateCourse(int $courseId, string $courseName, string $courseDescription, int $ects, string $examDate, string $studyMaterial): Course
+    {
+        // SQL UPDATE-query voorbereiden om vakgegevens te wijzigen op basis van de course_id
+        $stmt = $this->pdo->prepare("UPDATE course
+                                     SET course_name = :course_name, course_description = :course_description, ects = :ects, exam_date = :exam_date, study_material = :study_material
+                                     WHERE course_id = :course_id");
+            
+        // UPDATE-query uitvoeren met de nieuwe waarden
+        $stmt->execute(['course_name' => $courseName, 'course_description' => $courseDescription, 'ects' => $ects, 'exam_date' => $examDate, 'study_material' => $studyMaterial, 'course_id' => $courseId]);
+
+        // Gewijzigde vak opnieuw ophalen uit de database en teruggeven
+        return $this->getCourseByCourseId($courseId);
+    }
+
     // Methode om een vak te verwijderen op basis van de course_id
     // Deze methode geeft een bool terug, omdat na het verwijderen van een vak het handig is om te weten of dit is gelukt
     // Hierbij is het onnodig om een Course-object terug te geven

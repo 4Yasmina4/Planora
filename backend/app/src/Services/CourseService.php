@@ -36,6 +36,12 @@ class CourseService implements ICourseService
         return $this->courseRepository->createCourse($course);
     }
 
+    // Methode om vakgegevens te wijzigen op basis van de course_id
+    public function updateCourse(int $courseId, string $courseName, string $courseDescription, int $ects, string $examDate, string $studyMaterial): Course
+    {
+        return $this->courseRepository->updateCourse($courseId, $courseName, $courseDescription, $ects, $examDate, $studyMaterial);
+    }
+
     // Methode om een vak te verwijderen op basis van de course_id
     // Deze methode geeft een bool terug, omdat na het verwijderen van een vak het handig is om te weten of dit is gelukt
     // Hierbij is het onnodig om een Course-object terug te geven
