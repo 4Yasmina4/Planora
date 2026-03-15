@@ -14,6 +14,31 @@ class CourseRepository implements ICourseRepository
     {
         $this->pdo = $pdo;
     }
+
+    // Methode die alle vakken ophaald van een specifieke student op basis van de user_id
+    public function getAllCoursesByUserId(int $userId): array
+    {
+        // SQL-query voorbereiden om alle vakken op te halen van een specifieke student, gesorteerd op naam (A-Z).
+        $stmt = $this->pdo->prepare("SELECT * FROM course WHERE user_id = :user_id ORDER BY course_name ASC");
+        // Placeholder :user_id invullen met waarde van $userId. Dit voorkomt SQL-injectie
+        $stmt->execute(['user_id' => $userId]);
+        
+        // Alle rijen ophalen als associatieve arrays
+        // Een associatieve array bevat geen nummers maar namen als sleutels
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Array aanmaken om Course-objecten in op te slaan
+        $courses = [];
+
+        // Elk database-rij wordt omgezet naar Course-object en vervolgens toegevoegd aan de lijst
+        foreach ($rows as $row)
+        {
+            $courses[] = $this->mapRowToCourseObject($row);
+        }
+
+        // Lijst met Course-objecten teruggeven
+        return $courses;
+    }
  
     // Methode om een nieuwe vak aan te maken
     public function createCourse(Course $course): Course

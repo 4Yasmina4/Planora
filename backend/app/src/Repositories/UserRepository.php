@@ -36,7 +36,6 @@ class UserRepository
 
         // Lijst met User-objecten teruggeven
         return $users;
-
     }
 
     // Methode om één gebruiker op te halen op basis van de userId

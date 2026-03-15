@@ -35,4 +35,6 @@ return function (RouteCollector $router) use ($userManagementController, $loginC
     // Courses - Student //
     // POST /courses → roept de createCourse methode aan in de CourseController
     $router->addRoute('POST', '/courses', [$courseController, 'createCourse']);
+    // GET /courses → roept de getAllCoursesByUserId methode aan in de CourseController
+    $router->addRoute('GET', '/courses', [$courseController, 'getAllCoursesByUserId']);
 };

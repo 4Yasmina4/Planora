@@ -7,11 +7,17 @@ use App\Services\ICourseService;
 
 class CourseService implements ICourseService
 {
-    private ICourseRepository $iCourseRepository;
+    private ICourseRepository $courseRepository;
 
-    public function __construct(ICourseRepository $iCourseRepository)
+    public function __construct(ICourseRepository $courseRepository)
     {
-        $this->iCourseRepository = $iCourseRepository;
+        $this->courseRepository = $courseRepository;
+    }
+
+    // Methode die alle vakken ophaald van een specifieke student op basis van de user_id
+    public function getAllCoursesByUserId(int $userId): array
+    {
+        return $this->courseRepository->getAllCoursesByUserId($userId);
     }
 
     // Methode om een nieuwe vak aan te maken
@@ -21,7 +27,7 @@ class CourseService implements ICourseService
         $course = $this->buildCourse($userId, $courseName, $courseDescription, $ects, $examDate, $studyMaterial);
         
         // ICourseRepository aanroepen om een nieuwe vak aan te maken
-        return $this->iCourseRepository->createCourse($course);
+        return $this->courseRepository->createCourse($course);
     }
 
     // Helpermethodes //

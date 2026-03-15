@@ -18,6 +18,27 @@ class CourseController extends BaseController
         parent::__construct($authenticationService);
     }
 
+    // Methode die alle vakken ophaald van een specifieke student op basis van de user_id
+    public function getAllCoursesByUserId(): void
+    {
+        // user_id ophalen en controleren of de gebruiker ingelogd is via een helpermethode in de BaseController
+        $userId = $this->validateUserAuthentication();
+
+        // Als er geen geldig user_id is, is de gebruiker niet ingelogd
+        if (!$userId)
+        {
+            // Foutmelding wordt al verstuurd in de methode validateUserAuthentication in de BaseController
+            // Functie stoppen
+            return;
+        }
+        
+        // Alle vakken ophalen via de ICourseService
+        $courses = $this->courseService->getAllCoursesByUserId($userId);
+
+        // Lijst met vakken terugsturen naar de frontend
+        $this->jsonSuccessResponse($courses);
+    }
+
     // Methode om een nieuwe vak aan te maken
     public function createCourse(): void
     {
