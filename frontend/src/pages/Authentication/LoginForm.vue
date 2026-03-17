@@ -64,11 +64,13 @@
     import { ArrowLeft, LogIn, Lock } from 'lucide-vue-next'
 
     // Toast component importern uit de Base map
-    import Toast from '../Base/Toast/Toast.vue'
+    import Toast from '../../components/Base/Toast/Toast.vue'
 
-    // Axios importeren voor het vesturen van HTTP verzoeken naar de backend
-    // Axios maakt het makkelijker om een token mee te sturen met elk verzoek in tegenstelling tot fetch()
-    import axios from 'axios'
+    // Aangepaste axios instantie importeren met JWT token interceptor
+    // Interceptor zorgt ervoor dat bij elk verzoek de JWT token automatisch wordt toegevoegd
+    // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
+    // Maakt het makkelijker om een token mee te sturen met elk verzoek in tegenstelling tot fetch()
+    import apiClient from '../../utils/axios.js'
 
     // UseRouter geeft toegang tot de router om vanuit de code te navigeren naar een andere pagina
     const router = useRouter()
@@ -78,9 +80,8 @@
     const email = ref('')
     const password = ref('')
 
-    // Error en succes toastmelding
+    // Error toastmelding
     const errorToastMessage = ref('')
-    const successToastMessage = ref('')
 
     // Functie om in te loggen
     // Async function zorgt ervoor dat de functie kan wachten op iets (zoals data) zonder de rest van de pagina te blokkeren
@@ -88,16 +89,29 @@
     async function login() {
         try{
             // POST verzoek sturen naar de backend met email en wachtwoord
-            const response = await axios.post('http://localhost/login', {
+            const response = await apiClient.post('/login', {
                 email: email.value,
                 password: password.value
             })
 
-            // JWT token (JSON Web Token) opslaan
-            const token = response.data.token
+            // JWT token (JSON Web Token) opslaan in localStorage, zodat het beschikbaar blijft na het herladen van de pagina
+            const jwtToken = response.data.token
+            localStorage.setItem('token', jwtToken)
+
+            // Gebruikersrol uitlezen uit het JWT token
+            // Een JWT bestaat uit 3 delen gescheiden door punten: header.payload.signature
+            // payload is het middelste deel met de gebruikersgegevens zoals user_id
+            // atob decodeert base64 naar leesbare tekst (base64 is een manier om data om te zetten naar tekst)
+            // split('.')[1] = pakt het middelste deel (payload) uit het JWT token
+            const payload = JSON.parse(atob(jwtToken.split('.')[1]))
 
             // Navigeren naar de juiste dashboard pagina op basis van de gebruikersrol (administrator of student)
-            router.push('/users')
+            if (payload.role === 'administrator')
+            {
+                router.push('/administrator/dashboard')
+            } else {
+                router.push('/student/dashboard')
+            }
         } catch (error) {
             // Foutmelding tonen als de inloggegevens onjuist zijn
             errorToastMessage.value = 'Ongeldig e-mailadres of wachtwoord.'
