@@ -111,7 +111,7 @@
     import axios from 'axios'
 
     // Toast component importern uit de Base map
-    import Toast from '../Base/Toast/Toast.vue'
+    import Toast from '../../components/Base/Toast/Toast.vue'
 
     // UseRouter geeft toegang tot de router om vanuit de code te navigeren naar een andere pagina
     const router = useRouter()
