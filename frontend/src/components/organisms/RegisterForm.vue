@@ -161,6 +161,9 @@
                 password: password.value,
             })
 
+            // Succesmelding opslaan in localStorage
+            localStorage.setItem('registrationSuccess', 'true')
+
             // Na succesvolle registratie gebruiker doorsturen naar loginpagina
             router.push('/login')
         } catch (error) {

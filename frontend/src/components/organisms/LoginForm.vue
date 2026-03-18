@@ -35,6 +35,9 @@
             <!-- Toastfoutmelding -->
             <Toast :toastMessage="errorToastMessage" type="error" />
 
+            <!-- Toastsuccesmelding -->
+            <Toast :toastMessage="successToastMessage" type="success" />
+
             <!-- Knoppen -->
             <div class="flex gap-3 pt-4">
                 <!-- Terug naar de homepagina -->
@@ -60,7 +63,7 @@
 <script setup>
     // Refimporteren uit Vue
     // Ref: om reactieve variabelen te maken
-    import { ref } from 'vue';
+    import { ref, onMounted } from 'vue';
 
     // useRouter importeren
     import { useRouter } from 'vue-router'
@@ -91,8 +94,26 @@
     const email = ref('')
     const password = ref('')
 
-    // Error toastmelding
+    // Error en succes toastmelding 
     const errorToastMessage = ref('')
+    const successToastMessage = ref('')
+
+    // Controleren of er een succesmelding is na het registreren van een account
+    // onMounted wordt uitgevoerd zodra het component volledig geladen is in de browser
+    onMounted(() => {
+        if (localStorage.getItem('registrationSuccess') === 'true')
+        {
+            successToastMessage.value = 'Account succesvol aangemaakt! U kunt nu inloggen.'
+            localStorage.removeItem('registrationSuccess')
+
+            // Toastmelding na 3 seconden verwijderen
+            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
+            // 3000 milliseconden = 3 seconden
+            setTimeout(() => {
+                successToastMessage.value = ''
+            }, 3000)
+        }
+    })
 
     // Functie om in te loggen
     // Async function zorgt ervoor dat de functie kan wachten op iets (zoals data) zonder de rest van de pagina te blokkeren
