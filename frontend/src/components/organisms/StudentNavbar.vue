@@ -11,7 +11,7 @@
         <NavbarLinks />
 
         <!-- Uitlogknop rechterzijde -->
-        <FormButton type="button" formButton="flex items-center gap-2 px-4 py-2 rounded-lg bg-intense-cherry text-white font-semibold hover:bg-ruby-red hover:underline transition">
+        <FormButton type="button" @click="logout" formButton="flex items-center gap-2 px-4 py-2 rounded-lg bg-intense-cherry text-white font-semibold hover:bg-ruby-red hover:underline transition">
             <LogOut class="w-5 h-5" /> Uitloggen
         </FormButton>   
     </nav> 
@@ -27,6 +27,19 @@
     // Lucide icon importeren
     import { LogOut } from 'lucide-vue-next'
 
-    
+    // useRouter importeren
+    import { useRouter } from 'vue-router'
 
+    // UseRouter geeft toegang tot de router om vanuit de code te navigeren naar een andere pagina
+    const router = useRouter()
+
+    // Functie om uit te loggen
+    function logout(){
+        // JWT token verwijderen uit localStorage
+        // localStorage is een opslagplek in de browser die data bewaart ook na het herladen van de pagina
+        localStorage.removeItem('token')
+
+        // Doorsturen naar login pagina
+        router.push('/login')
+    }
 </script>
