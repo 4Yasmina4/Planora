@@ -27,6 +27,9 @@ import UserDetail from './components/Administrator/User/UserDetail.vue'
 import UpdateUserForm from './components/Administrator/User/UpdateUserForm.vue'
 import DeleteUser from './components/Administrator/User/DeleteUser.vue'
 
+// Student //
+import StudentDashboardPage from './pages/Student/DashboardPage.vue'
+
 // Routes defineren
 const routes = [
     // Home //
@@ -40,6 +43,8 @@ const routes = [
     { path: '/users/:id', component: UserDetail },
     { path: '/users/:id/edit', component: UpdateUserForm },
     { path: '/users/:id/delete', component: DeleteUser },
+    // Student //
+    { path: '/student/dashboard', component: StudentDashboardPage}
 ]
 
 // Router aanmaken
