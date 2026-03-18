@@ -7,11 +7,13 @@
     <!-- Studentnavbar -->
     <StudentNavbar />
 
-    <div class="min-h-screen bg-ghost-white flex items-center justify-center flex-col px-4">
-        <!-- Welkomstbericht -->
-        <h1 class="text-3xl font-semibold text-ocean-twilight mb-8"> Welkom terug!</h1>
-        <!-- DashboardCards organism -->
-        <DashboardCards />
+    <div class="min-h-screen bg-ghost-white flex flex-col px-4 pt-16">
+        <div class="max-w-4xl w-full mx-auto">
+            <!-- Welkomstbericht -->
+            <h1 class="text-3xl font-semibold text-ocean-twilight mb-12"> Welkom terug!</h1>
+            <!-- DashboardCards organism -->
+            <DashboardCards />
+        </div>
     </div>
 </template>
 
