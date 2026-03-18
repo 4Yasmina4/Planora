@@ -6,7 +6,10 @@
 <template>
     <div>
         <!-- Label en invoerveld samen -->
-        <label class="block font-medium text-soft-periwinkle mb-1"> {{ label }}</label>
+        <!-- Asterisk wordt getoond als het invoerveld verplicht is -->
+        <label class="flex items-center gap-1 font-medium text-soft-periwinkle mb-1"> 
+            {{ label }}<Asterisk v-if="required" class="w-4 h-4 text-red-500" />
+        </label>
 
         <!-- FormInputField atom -->
         <FormInputField 
@@ -22,6 +25,9 @@
 <script setup>
     // FormInputField atom importeren
     import FormInputField from '../atoms/FormInputField.vue'
+
+    // Asterisk icoon importeren voor verplichte velden van Lucide Icons
+    import { Asterisk } from 'lucide-vue-next'
 
     // Props zijn waardes die van buitenaf aan het component meegegeven worden
     defineProps({
