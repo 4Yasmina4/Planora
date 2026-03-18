@@ -6,7 +6,7 @@
 <template>
     <!-- Kaart met link -->
     <RouterLink :to="to"
-                class="bg-white rounded-xl shadow-sm p-6 flex flex-col items-center text-center gap-3 hover:shadow-md hover:bg-periwinkle transition cursor-pointer no-underline">
+                class="bg-white rounded-xl shadow-sm p-6 flex flex-col items-center text-center gap-3 hover:shadow-xl hover:scale-105 transition-transform duration-200 cursor-pointer no-underline">
         <!-- Lucide icoon -->
         <BaseIcon :icon="icon" :size="40" color="#494CA2" />
 
