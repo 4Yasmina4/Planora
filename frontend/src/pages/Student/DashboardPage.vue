@@ -4,6 +4,9 @@
 -->
 
 <template>
+    <!-- Studentnavbar -->
+    <StudentNavbar />
+
     <div class="min-h-screen bg-ghost-white flex items-center justify-center flex-col px-4">
         <!-- Welkomstbericht -->
         <h1 class="text-3xl font-semibold text-ocean-twilight mb-8"> Welkom terug!</h1>
@@ -13,6 +16,8 @@
 </template>
 
 <script setup>
+    // StudentNavbar organism importeren
+    import StudentNavbar from '../../components/organisms/StudentNavbar.vue'
     // DashboardCards organism importeren
     import DashboardCards from '../../components/organisms/DashboardCards.vue'
 </script>
