@@ -1,5 +1,5 @@
 <!-- Dit bestand bevat het volledige loginformulier 
-     Het combineert de FormField molecules en FormButton atoms tot één geheel
+     Het combineert de FormField molecules en BaseButton atoms tot één geheel
      Wordt gebruikt in de login pagina
 -->
 
@@ -46,9 +46,9 @@
                 </router-link>
 
                 <!-- Inloggen knop -->
-                <FormButton type="submit" formButton="w-full flex items-center gap-2 px-4 py-3 rounded-lg border border-ocean-twilight bg-soft-periwinkle text-white font-semibold hover:bg-ocean-twilight hover:underline transition">
+                <BaseButton type="submit" buttonClass="w-full flex items-center gap-2 px-4 py-3 rounded-lg border border-ocean-twilight bg-soft-periwinkle text-white font-semibold hover:bg-ocean-twilight hover:underline transition">
                     <LogIn class="w-5 h-5" /> Inloggen
-                </FormButton>
+                </BaseButton>
             </div>
         </form>
 
@@ -72,7 +72,7 @@
     import { ArrowLeft, LogIn, Lock } from 'lucide-vue-next'
 
     // Atoms importeren
-    import FormButton from '../atoms/FormButton.vue'
+    import BaseButton from '../atoms/BaseButton.vue'
 
     // Molecules importeren
     import FormField from '../molecules/FormField.vue'
