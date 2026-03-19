@@ -98,13 +98,27 @@
     const errorToastMessage = ref('')
     const successToastMessage = ref('')
 
-    // Controleren of er een succesmelding is na het registreren van een account
     // onMounted wordt uitgevoerd zodra het component volledig geladen is in de browser
     onMounted(() => {
+        // Controleren of er een succesmelding is na het registreren van een account
         if (localStorage.getItem('registrationSuccess') === 'true')
         {
             successToastMessage.value = 'Account succesvol aangemaakt! U kunt nu inloggen.'
             localStorage.removeItem('registrationSuccess')
+
+            // Toastmelding na 3 seconden verwijderen
+            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
+            // 3000 milliseconden = 3 seconden
+            setTimeout(() => {
+                successToastMessage.value = ''
+            }, 3000)
+        }
+
+        // Controleren of er een succesmelding is na het uitloggen
+        if (localStorage.getItem('logoutSuccess') === 'true')
+        {
+            successToastMessage.value = 'U bent succesvol uitgelogd!'
+            localStorage.removeItem('logoutSuccess')
 
             // Toastmelding na 3 seconden verwijderen
             // setTimeout voert de functie uit na een opgegeven tijd in milliseconden

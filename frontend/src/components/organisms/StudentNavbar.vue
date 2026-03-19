@@ -35,6 +35,9 @@
 
     // Functie om uit te loggen
     function logout(){
+        // Uitlogmelding instellen voor de loginpagina
+        localStorage.setItem('logoutSuccess', true)
+
         // JWT token verwijderen uit localStorage
         // localStorage is een opslagplek in de browser die data bewaart ook na het herladen van de pagina
         localStorage.removeItem('token')
