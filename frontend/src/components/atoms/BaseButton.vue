@@ -1,11 +1,11 @@
-<!-- Atom: dit bestand bevat een herbruikbare knop voor formulieren
-     Het kan gebruikt worden in alle formulieren binnen de applicatie
+<!-- Atom: dit bestand bevat een herbruikbare knop
+     Het kan gebruikt worden in de gehele applicatie
 -->
 
 <template>
     <!-- :type="type" → type van de knop (submit, button) instellen via een prop -->
     <!-- <slot /> → de inhoud van de knop wordt van buitenaf meegegeven (tekst of icoon) -->
-    <button :type="type" :class="formButton">
+    <button :type="type" :class="buttonClass">
         <slot />
     </button>
 </template>
@@ -20,7 +20,7 @@
         },
 
         // CSS klassen voor de knop stijl
-        formButton: {
+        buttonClass: {
             type: String,
             default: ''
         }

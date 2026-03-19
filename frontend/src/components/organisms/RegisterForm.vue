@@ -1,5 +1,5 @@
 <!-- Dit bestand bevat het volledige registratieformulier 
-     Het combineert de FormField molecules en FormButton atoms tot één geheel
+     Het combineert de FormField molecules en BaseButton atoms tot één geheel
      Wordt gebruikt in de register pagina
 -->
 
@@ -85,9 +85,9 @@
             <Toast :toastMessage="errorToastMessage" type="error" />
 
             <!-- Registratie knop -->
-            <FormButton type="submit" formButton="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-soft-periwinkle text-white font-semibold hover:bg-ocean-twilight hover:underline transition">
+            <BaseButton type="submit" buttonClass="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-soft-periwinkle text-white font-semibold hover:bg-ocean-twilight hover:underline transition">
                 <CircleCheck class="w-5 h-5" /> Registreren
-            </FormButton>
+            </BaseButton>
         </form>
 
         <!-- Link naar loginpagina-->
@@ -110,7 +110,7 @@
     import { Asterisk, CircleCheck, UserRoundPlus } from 'lucide-vue-next'
 
     // Atoms importeren
-    import FormButton from '../atoms/FormButton.vue'
+    import BaseButton from '../atoms/BaseButton.vue'
 
     // Molecules importeren
     import FormField from '../molecules/FormField.vue'
