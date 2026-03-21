@@ -99,6 +99,10 @@
 </template>
 
 <script setup>
+    // Beveiliging:
+    // - Vue beveiligt automatisch tegen XSS aanvallen door speciale tekens (zoals < en >) om te zetten
+    // - JWT tokens worden via de Authorization header verstuurd, waardoor CSRF aanvallen niet mogelijk zijn
+
     // Ref importeren uit Vue
     // Ref: om reactieve variabelen te maken
     import { ref } from 'vue';
@@ -167,8 +171,15 @@
             // Na succesvolle registratie gebruiker doorsturen naar loginpagina
             router.push('/login')
         } catch (error) {
-            // Foutmelding tonen als het registreren mislukt (bijvoorbeeld door een netwerkfout of een fout vanuit de backend)
-            errorToastMessage.value = 'Er is iets misgegaan bij het registreren. Controleer uw gegevens en probeer het opnieuw.'
+            // Controleren of het e-mailadres al in gebruik is (HTTP statscode 409)
+            if (error.response?.status === 409)
+            {
+                // Foutmelding tonen dat e-mailadres al in gebruik is
+                errorToastMessage.value = 'Dit e-mailadres is al in gebruik'
+            } else {
+                // Generieke foutmelding tonen als het registreren mislukt (bijvoorbeeld door een netwerkfout of een fout vanuit de backend)
+                errorToastMessage.value = 'Er is iets misgegaan bij het registreren. Controleer uw gegevens en probeer het opnieuw.'
+            }
         }
     }
 </script>
