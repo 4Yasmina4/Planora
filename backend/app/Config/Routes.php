@@ -9,7 +9,7 @@ use FastRoute\RouteCollector;
 // Anonieme functie teruggeven die de routes definieert
 // RouteCollector $router beheert de routes
 // use ($userManagementController) maakt de UserManagementController beschikbaar binnen de functie
-return function (RouteCollector $router) use ($userManagementController, $loginController, $registerController, $courseController)
+return function (RouteCollector $router) use ($userManagementController, $authenticationController, $courseController)
 {
     // Administrator - User //
     // POST /users → roept de createUser methode aan van de UserManagementController
@@ -26,10 +26,10 @@ return function (RouteCollector $router) use ($userManagementController, $loginC
 
 
     // Authentication - User //
-    // POST /login → roept de login methode aan in de LoginController
-    $router->addRoute('POST', '/login', [$loginController, 'login']);
-    // POST /register → roept de register methode aan in de RegisterController
-    $router->addRoute('POST', '/register', [$registerController, 'register']);
+    // POST /login → roept de login methode aan in de AuthenticationController
+    $router->addRoute('POST', '/login', [$authenticationController, 'login']);
+    // POST /register → roept de register methode aan in de AuthenticationController
+    $router->addRoute('POST', '/register', [$authenticationController, 'register']);
 
 
     // Courses - Student //
