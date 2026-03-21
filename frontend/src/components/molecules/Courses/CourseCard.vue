@@ -5,50 +5,51 @@
 
 <template>
     <!-- Vakkaart -->
-    <div>
+    <div class="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-3">
         <!-- Naam van het vak -->
-        <h2 class="text-xl font-semibold text-ocean-twilight"><span class="font-medium">Naam van het vak:</span>
+        <h1 class="text-xl font-semibold text-ocean-twilight">
             {{ courseName }}
-        </h2>
+        </h1>
 
         <!-- Beschrijving -->
-        <p class="text-lg text-lavender-grey"><span class="font-medium">Beschrijving van het vak:</span>
+        <p class="text-lg"><span class="font-medium text-ocean-twilight">Beschrijving van het vak:</span>
             {{ courseDescription }}
         </p>
 
-        <!-- Aantal ECT -->
-        <p class="text-lg text-lavender-grey"><span class="font-medium">Aantal ECTS:</span>
+        <!-- Aantal EC's -->
+        <p class="text-lg"><span class="font-medium text-ocean-twilight">Aantal EC's:</span>
             {{ ects }}
         </p>
 
         <!-- Examendatum -->
-        <p class="text-lg text-lavender-grey"><span class="font-medium">Examendatum:</span>
+        <p class="text-lg"><span class="font-medium text-ocean-twilight">Examendatum:</span>
             {{ examDate }}
         </p>
 
         <!-- Studiemateriaal -->
-        <p class="text-lg text-lavender-grey"><span class="font-medium">Studiemateriaal:</span>
+        <p class="text-lg"><span class="font-medium text-ocean-twilight">Studiemateriaal:</span>
             {{ studyMaterial }}
         </p>
 
         <!-- Knoppen -->
         <div class="flex gap-3 mt-4">
             <!-- Bewerk knop -->
-            <BaseButton buttonClass="flex items-center gap-2 px-4 py-2 rounded-lg bg-soft-periwinkle text-white hover:bg-ocean-twilight transition">
-                Bewerken
+            <BaseButton buttonClass="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold bg-soft-periwinkle text-white hover:bg-ocean-twilight hover:underline transition">
+                <Pencil class="w-4 h-4" /> Bewerken
             </BaseButton>
 
             <!-- Verwijder knop -->
-            <BaseButton buttonClass="flex items-center gap-2 px-4 py-2 rounded-lg bg-intense-cherry text-white hover:bg-burgundy transition">
-                Verwijderen
+            <BaseButton buttonClass="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold bg-intense-cherry text-white hover:bg-ruby-red hover:underline transition">
+                <Trash2 class="w-4 h-4" /> Verwijderen
             </BaseButton>
-
-
         </div>
     </div>
 </template>
 
 <script setup>
+    // Lucide iconen importeren
+    import { Pencil, Trash2 } from 'lucide-vue-next'
+
     // Atoms (BaseButton) importeren voor verwijder en bewerkknop
     import BaseButton from '../../atoms/BaseButton.vue'
 

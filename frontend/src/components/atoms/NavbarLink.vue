@@ -3,7 +3,7 @@
 -->
 
 <template>
-    <RouterLink :to="to" class="flex items-center gap-2 text-lg text-white font-semibold hover:underline transistion"> 
+    <RouterLink :to="to" class="flex items-center gap-2 text-lg text-white font-semibold hover:underline transition"> 
         <BaseIcon :icon="icon" />
         {{ label }}
     </RouterLink>

@@ -41,7 +41,7 @@
         try{
             // POST verzoek sturen naar de backend
             const response = await apiClient.get('/courses')
-            courses.value = response.data.data
+            courses.value = response.data
         } catch (error) {
             // Foutmelding tonen als er iets mis gaat
             console.error('Fout bij het ophalen van de vakken')
