@@ -30,6 +30,7 @@ import DeleteUser from './components/Administrator/User/DeleteUser.vue'
 // Student //
 import StudentDashboardPage from './pages/Student/DashboardPage.vue'
 import CoursesPage from './pages/Student/CoursesPage.vue'
+import CreateCoursePage from './pages/Student/CreateCoursePage.vue'
 
 // Routes defineren
 const routes = [
@@ -46,7 +47,8 @@ const routes = [
     { path: '/users/:id/delete', component: DeleteUser },
     // Student //
     { path: '/student/dashboard', component: StudentDashboardPage},
-    { path: '/student/dashboard/mijn-vakken', component: CoursesPage}
+    { path: '/student/dashboard/mijn-vakken', component: CoursesPage},
+    { path: '/student/dashboard/mijn-vakken/vak-toevoegen', component: CreateCoursePage}
 ]
 
 // Router aanmaken

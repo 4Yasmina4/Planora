@@ -5,7 +5,7 @@
 
 <template>
     <!-- Vakkaart -->
-    <div class="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-3">
+    <div class="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-3 hover:shadow-xl hover:scale-105 transition-transform duration-200">
         <!-- Naam van het vak -->
         <h1 class="text-xl font-semibold text-ocean-twilight">
             {{ courseName }}

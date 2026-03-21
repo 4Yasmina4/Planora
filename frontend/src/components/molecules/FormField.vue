@@ -8,7 +8,7 @@
         <!-- Label en invoerveld samen -->
         <!-- Asterisk wordt getoond als het invoerveld verplicht is -->
         <label class="flex items-center gap-1 font-medium text-soft-periwinkle mb-1"> 
-            {{ label }}<Asterisk v-if="required" class="w-4 h-4 text-red-500" />
+            {{ label }}<Asterisk v-if="required" class="w-4 h-4 text-intense-cherry" />
         </label>
 
         <!-- FormInputField atom -->

@@ -4,7 +4,7 @@
 -->
 
 <template>
-    <div>
+    <div class="space-y-6">
         <CourseCard 
             v-for="course in courses"
             :key="course.course_id"
