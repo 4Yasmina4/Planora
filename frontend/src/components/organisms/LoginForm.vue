@@ -61,6 +61,10 @@
 </template>
 
 <script setup>
+    // Beveiliging:
+    // - Vue beveiligt automatisch tegen XSS aanvallen door speciale tekens (zoals < en >) om te zetten
+    // - JWT tokens worden via de Authorization header verstuurd, waardoor CSRF aanvallen niet mogelijk zijn
+    
     // Refimporteren uit Vue
     // Ref: om reactieve variabelen te maken
     import { ref, onMounted } from 'vue';
