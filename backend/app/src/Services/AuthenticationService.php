@@ -44,13 +44,11 @@ class AuthenticationService implements IAuthenticationService
     // De Authorization header is speciaal bedoeld om authenticatie informatie mee te sturen
     public function getJwtTokenFromAuthorizationHeader(): ?string 
     {
-        // Alle headers ophalen uit het HTTP verzoek
-        $headers = getallheaders();
-
-        // Authorization header ophalen, null teruggeven als deze niet aanwezig is
-        if (isset($headers['Authorization']))
+        // Authorization header ophalen via $_SERVER
+        // $_SERVER is betrouwbaarder dan getallheaders()
+        if (isset($_SERVER['HTTP_AUTHORIZATION']))
         {
-            $authorizationHeader = $headers['Authorization'];
+            $authorizationHeader = $_SERVER['HTTP_AUTHORIZATION'];
         } else {
             return null;
         }
