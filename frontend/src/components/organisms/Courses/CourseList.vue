@@ -4,7 +4,14 @@
 -->
 
 <template>
-    <div class="space-y-6">
+    <!-- Loading spinner -->
+    <div v-if="isLoading" class="flex flex-col items-center justify-center py-12 gap-4">
+        <div class="w-12 h-12 border-4 border-soft-periwinkle border-t-transparent rounded-full animate-spin"></div>
+        <p class="text-lavender-grey font-semibold text-lg">Mijn vakken worden geladen... een ogenblik geduld.</p>
+    </div>
+
+    <!-- Vakkenlijst -->
+    <div v-else class="space-y-6">
         <CourseCard 
             v-for="course in courses"
             :key="course.course_id"
@@ -35,16 +42,24 @@
     // Reactieve variabele voor de array met vakken
     const courses = ref([])
 
+    // Reactieve variabele om bij te houden of de vakken nog geladen worden
+    const isLoading = ref(true)
+
     // Functie om alle vakken op te halen
     // Async function zorgt ervoor dat de functie kan wachten op iets (zoals data) zonder de rest van de pagina te blokkeren
     async function fetchCourses() {
         try{
+            // Laadstatus op true zetten, voordat de vakken worden opgehaald
+            isLoading.value = true;
             // POST verzoek sturen naar de backend
             const response = await apiClient.get('/courses')
             courses.value = response.data
         } catch (error) {
             // Foutmelding tonen als er iets mis gaat
             console.error('Fout bij het ophalen van de vakken')
+        } finally {
+            // Finally wordt altijd uitgevoerd, ook al er een fout optreedt
+            isLoading.value = false
         }
     }
 
@@ -53,7 +68,4 @@
         // Vakken ophalen zodra de pagina geladen is
         fetchCourses()
     })
-
-    
-
 </script>
