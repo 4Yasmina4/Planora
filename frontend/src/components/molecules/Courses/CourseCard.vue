@@ -39,7 +39,7 @@
             </BaseButton>
 
             <!-- Verwijder knop -->
-            <BaseButton buttonClass="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold bg-intense-cherry text-white hover:bg-ruby-red hover:underline transition">
+            <BaseButton @click="router.push(`/student/dashboard/mijn-vakken/${courseId}/vak-verwijderen`)" buttonClass="flex items-center gap-2 px-4 py-2 rounded-lg font-semibold bg-intense-cherry text-white hover:bg-ruby-red hover:underline transition">
                 <Trash2 class="w-4 h-4" /> Verwijderen
             </BaseButton>
         </div>
@@ -52,6 +52,12 @@
 
     // Atoms (BaseButton) importeren voor verwijder en bewerkknop
     import BaseButton from '../../atoms/BaseButton.vue'
+
+    // useRouter importeren
+    import { useRouter } from 'vue-router'
+
+    // UseRouter geeft toegang tot de router om vanuit de code te navigeren naar een andere pagina
+    const router = useRouter()
 
     // Props zijn waardes die van buitenaf aan het component meegegeven worden
     defineProps({
