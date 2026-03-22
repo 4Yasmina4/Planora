@@ -40,6 +40,34 @@ class CourseController extends BaseController
         $this->jsonSuccessResponse($courses);
     }
 
+    // Methode die één specifieke vak ophaald op basis vaan de course_id
+    public function getCourseByCourseId(array $vars): void
+    {
+        // user_id ophalen en controleren of de gebruiker ingelogd is via een helpermethode in de BaseController
+        $userId = $this->validateUserAuthentication();
+
+        // Als er geen geldig user_id is, is de gebruiker niet ingelogd
+        if (!$userId)
+        {
+            // Foutmelding wordt al verstuurd in de methode validateUserAuthentication in de BaseController
+            // Functie stoppen
+            return;
+        }
+
+        // course_id ophalen uit de URL parameters
+        $courseId = $this->getIdFromUrlParameters($vars);
+
+        // Controleren of het vak bestaat en van de ingelogde student is
+        $course = $this->validateCourseOwnership($courseId, $userId);
+        if (!$course)
+        {
+            return;
+        }
+
+        // Vak van ingelogde student terugsturen naar de frontend
+        $this->jsonSuccessResponse($course);
+    }
+
     // Methode om een nieuwe vak aan te maken
     public function createCourse(): void
     {
