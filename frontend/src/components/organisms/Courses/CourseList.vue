@@ -5,10 +5,7 @@
 
 <template>
     <!-- Loading spinner -->
-    <div v-if="isLoading" class="flex flex-col items-center justify-center py-12 gap-4">
-        <div class="w-12 h-12 border-4 border-soft-periwinkle border-t-transparent rounded-full animate-spin"></div>
-        <p class="text-lavender-grey font-semibold text-lg">Mijn vakken worden geladen... een ogenblik geduld.</p>
-    </div>
+    <LoadingSpinner v-if="isLoading" message="Mijn vakken worden geladen... een ogenblik geduld." />
 
     <!-- Vakkenlijst -->
     <div v-else class="space-y-6">
@@ -29,6 +26,9 @@
     // Refimporteren uit Vue
     // Ref: om reactieve variabelen te maken
     import { ref, onMounted } from 'vue';
+
+    // Atoms importeren
+    import LoadingSpinner from '../../atoms/LoadingSpinner.vue'
 
     // Molecules importeren
     import CourseCard from '../../molecules/Courses/CourseCard.vue'
