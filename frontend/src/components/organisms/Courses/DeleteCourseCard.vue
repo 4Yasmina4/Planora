@@ -11,66 +11,56 @@
           </div>
 
           <!-- Waarshuwing -->
-          <p class="flex items-center gap-1">
+          <p class="flex items-center gap-1 mb-6 text-lg font-semibold">
                Weet je zeker dat je dit vak wilt verwijderen? Deze actie kan niet ongedaan worden gemaakt.
           </p>
 
           <form class="space-y-5" @submit.prevent="deleteCourse">
                <!-- Naam van het vak -->
-               <FormField 
-                    label="Naam van het vak"
-                    type="text"
-                    :value="course?.course_name"
-                    :disabled="true"
-               />
+               <div> 
+                    <label class="font-medium text-intense-cherry text-lg">Naam van het vak</label>
+                    <p class="text-lg text-dim-grey bg-white mt-3 px-4 py-2 rounded-lg border border-lavender-grey">
+                         {{ course?.course_name }}
+                    </p>
+               </div>
 
                <!-- Beschrijving van het vak  -->
-               <div>
-                    <label class="flex items-center gap-1 font-medium text-intense-cherry mb-1">
-                         Beschrijving van het vak
-                    </label>
-                    <textarea
-                         :value="course?.course_description"
-                         :disabled="true"
-                         class="w-full px-4 py-2 rounded-lg border border-lavender-grey focus:outline-none focus:border-soft-periwinkle resize-none h-32">
-                    </textarea>
+               <div> 
+                    <label class="font-medium text-intense-cherry text-lg">Beschrijving van het vak</label>
+                    <p class="text-lg text-dim-grey bg-white mt-3 px-4 py-2 rounded-lg border border-lavender-grey">
+                         {{ course?.course_description }}
+                    </p>
                </div>
 
                <!-- EC's  -->
-               <FormField 
-                    label="EC's"
-                    type="Number"
-                    :value="course?.ects"
-                    :disabled="true"
-               />
+               <div> 
+                    <label class="font-medium text-intense-cherry text-lg">Aantal EC's</label>
+                    <p class="text-lg text-dim-grey bg-white mt-3 px-4 py-2 rounded-lg border border-lavender-grey">
+                         {{ course?.ects }}
+                    </p>
+               </div>
 
                <!-- Examendatum  -->
-               <div>
-                    <FormField 
-                         label="Examendatum"
-                         type="date"
-                         :value="course?.exam_date"
-                         :disabled="true"
-                    />
+               <div> 
+                    <label class="font-medium text-intense-cherry text-lg">Examendatum</label>
+                    <p class="text-lg text-dim-grey bg-white mt-3 px-4 py-2 rounded-lg border border-lavender-grey">
+                         {{ course?.exam_date }}
+                    </p>
                </div>
 
                <!-- Studiemateriaal  -->
-               <div>
-                    <label class="flex items-center gap-1 font-medium text-intense-cherry mb-1">
-                         Studiemateriaal
-                    </label>
-                    <textarea
-                         :value="course?.study_material"
-                         :required="true"
-                         class="w-full px-4 py-2 rounded-lg border border-lavender-grey focus:outline-none focus:border-soft-periwinkle resize-none h-32">
-                    </textarea>
+               <div> 
+                    <label class="font-medium text-intense-cherry text-lg">Studiemateriaal</label>
+                    <p class="text-lg text-dim-grey bg-white mt-3 px-4 py-2 rounded-lg border border-lavender-grey">
+                         {{ course?.study_material }}
+                    </p>
                </div>
 
                <!-- Toastfoutmelding -->
                <Toast :toastMessage="errorToastMessage" type="error" />
 
                <!-- Link terug naar mijn vakken-->
-               <BaseButton @click="router.push('/student/dashboard/mijn-vakken')" buttonClass="w-full mt-6 flex items-center justify-center gap-2 px-4 py-2 rounded-lg border border-lavender-grey bg-ghost-white text-ocean-twilight hover:bg-lavender-grey hover:text-white hover:underline transition">
+               <BaseButton @click="router.push('/student/dashboard/mijn-vakken')" buttonClass="w-full mt-6 flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-semibold border border-lavender-grey bg-ghost-white text-ocean-twilight hover:bg-lavender-grey hover:text-white hover:underline transition">
                     <ArrowLeft class="w-5 h-5" /> Terug naar mijn vakken
                </BaseButton>
 
@@ -95,9 +85,6 @@
 
     // Atoms importeren
     import BaseButton from '../../atoms/BaseButton.vue'
-
-    // Molecules importeren
-    import FormField from '../../molecules/FormField.vue'
 
     // Toast component importern uit de Base map
     import Toast from '../../../components/Base/Toast/Toast.vue'
@@ -150,6 +137,10 @@
           try{
                // DELETE verzoek sturen naar de backend om het vak te verwijderen
                await apiClient.delete(`/courses/${props.courseId}`)
+
+               // Succesmelding opslaan in localStorage
+               localStorage.setItem('courseDeleteSuccess', course.value.course_name)
+
                // Na het succesvol verwijdere terug naar naar mijn vakken navigeren
                router.push('/student/dashboard/mijn-vakken')
           } catch (error) {

@@ -38,13 +38,13 @@
     import { Plus } from 'lucide-vue-next'
 
     // StudentNavbar organism importeren
-    import StudentNavbar from '../../components/organisms/StudentNavbar.vue'
+    import StudentNavbar from '../../../components/organisms/StudentNavbar.vue'
 
     // CourseList organism importeren
-    import CourseList from '../../components/organisms/Courses/CourseList.vue'
+    import CourseList from '../../../components/organisms/Courses/CourseList.vue'
 
     // Toast component importern uit de Base map
-    import Toast from '../../components/Base/Toast/Toast.vue'
+    import Toast from '../../../components/Base/Toast/Toast.vue'
 
     // Succes toastmelding 
     const successToastMessage = ref('')
@@ -57,6 +57,20 @@
         {
             successToastMessage.value = `${localStorage.getItem('courseSuccess')} is succesvol aangemaakt!`
             localStorage.removeItem('courseSuccess')
+
+            // Toastmelding na 3 seconden verwijderen
+            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
+            // 3000 milliseconden = 3 seconden
+            setTimeout(() => {
+                successToastMessage.value = ''
+            }, 3000)
+        }
+
+        // Controleren of er een succesmelding is na het verwijderen van een vak
+        if (localStorage.getItem('courseDeleteSuccess'))
+        {
+            successToastMessage.value = `${localStorage.getItem('courseDeleteSuccess')} is succesvol verwijderd!`
+            localStorage.removeItem('courseDeleteSuccess')
 
             // Toastmelding na 3 seconden verwijderen
             // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
