@@ -12,8 +12,7 @@ use App\Controllers\Administrator\UserManagementController;
 // Authentication imports //
 use App\Services\IAuthenticationService;
 use App\Services\AuthenticationService;
-use App\Controllers\Authentication\LoginController;
-use App\Controllers\Authentication\RegisterController;
+use App\Controllers\Authentication\AuthenticationController;
 
 // Course imports // 
 use App\Repositories\CourseRepository;
@@ -27,8 +26,7 @@ $userService = new UserService($userRepository);
 
 // Authentication dependencies //
 $authenticationService = new AuthenticationService($userRepository);
-$loginController = new LoginController($userService, $authenticationService);
-$registerController = new RegisterController($userService, $authenticationService);
+$authenticationController = new AuthenticationController($userService, $authenticationService);
 
 // User management dependencies //
 $userManagementController = new UserManagementController($userService, $authenticationService);
