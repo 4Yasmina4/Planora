@@ -4,9 +4,12 @@
 -->
 
 <template>
-     <div class="bg-white rounded-xl shadow-md p-12 w-full max-w-4xl">
+     <!-- Laadspinner tonen tijdens het ophalen van de vakgegevens -->
+     <LoadingSpinner v-if="isLoading" message="Vak wordt geladen... een ogenblik geduld." />
+     <div v-else class="bg-white rounded-xl shadow-md p-12 w-full max-w-4xl">
           <!-- Titel met icoon -->
           <div class="flex items-center justify-center gap-3 mb-6">
+               <TriangleAlert class="w-7 h-7 text-intense-cherry" />
                <h2 class="text-2xl font-bold text-intense-cherry">Vak verwijderen</h2>
           </div>
 
@@ -86,6 +89,8 @@
     // Atoms importeren
     import BaseButton from '../../atoms/BaseButton.vue'
 
+    import LoadingSpinner from '../../atoms/LoadingSpinner.vue'
+
     // Toast component importern uit de Base map
     import Toast from '../../../components/Base/Toast/Toast.vue'
 
@@ -94,6 +99,9 @@
     // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
     // Maakt het makkelijker om een token mee te sturen met elk verzoek in tegenstelling tot fetch()
     import apiClient from '../../../utils/axios.js'
+
+    // Reactieve variabele om bij te houden of de vakken nog geladen worden
+    const isLoading = ref(true)
 
     // UseRouter geeft toegang tot de router om vanuit de code te navigeren naar een andere pagina
     const router = useRouter()
@@ -117,13 +125,18 @@
      // Async function zorgt ervoor dat de functie kan wachten op iets (zoals data) zonder de rest van de pagina te blokkeren
      async function fetchCourse() {
           try{
+                // Laadstatus op true zetten, voordat het vak worden opgehaald
+               isLoading.value = true;
                // POST verzoek sturen naar de backend
                const response = await apiClient.get(`/courses/${props.courseId}`)
                course.value = response.data
           } catch (error) {
                // Foutmelding tonen als er iets mis gaat
                console.error('Fout bij het ophalen van de vakken')
-          }
+          } finally {
+            // Finally wordt altijd uitgevoerd, ook al er een fout optreedt
+            isLoading.value = false
+        }
     }
 
     // onMounted wordt uitgevoerd zodra het component volledig geladen is in de browser
