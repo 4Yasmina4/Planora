@@ -12,7 +12,7 @@
         </div>
 
         <!-- Formulier -->
-        <!-- @submit.prevent="login": verstuurd het formulier en voorkomt dat de standaar herlaadactie in de browser wordt uitgevoerd -->
+        <!-- @submit.prevent="login": verstuurd het formulier en voorkomt dat de standaard herlaadactie in de browser wordt uitgevoerd -->
         <form class="space-y-5" @submit.prevent="login">
             <!-- E-mailadres -->
             <FormField 
@@ -65,7 +65,7 @@
     // - Vue beveiligt automatisch tegen XSS aanvallen door speciale tekens (zoals < en >) om te zetten
     // - JWT tokens worden via de Authorization header verstuurd, waardoor CSRF aanvallen niet mogelijk zijn
     
-    // Refimporteren uit Vue
+    // Ref importeren uit Vue
     // Ref: om reactieve variabelen te maken
     import { ref, onMounted } from 'vue';
 
