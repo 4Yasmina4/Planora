@@ -3,7 +3,7 @@
 -->
 
 <template>
-    <nav class="flex items-center justify-start gap-20 px-28 py-6 bg-soft-periwinkle shadow-sm">
+    <nav class="flex items-center justify-between gap-4 px-16 py-6 bg-soft-periwinkle shadow-sm">
         <!-- Logo linkerzijde -->
         <RouterLink to="/student/dashboard" class="font-bold text-white text-2xl">Planora</RouterLink>
 
