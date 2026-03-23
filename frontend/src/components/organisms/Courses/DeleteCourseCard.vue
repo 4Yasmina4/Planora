@@ -125,7 +125,7 @@
      // Async function zorgt ervoor dat de functie kan wachten op iets (zoals data) zonder de rest van de pagina te blokkeren
      async function fetchCourse() {
           try{
-                // Laadstatus op true zetten, voordat het vak worden opgehaald
+               // Laadstatus op true zetten, voordat het vak worden opgehaald
                isLoading.value = true;
                // POST verzoek sturen naar de backend
                const response = await apiClient.get(`/courses/${props.courseId}`)
@@ -136,7 +136,7 @@
           } finally {
             // Finally wordt altijd uitgevoerd, ook al er een fout optreedt
             isLoading.value = false
-        }
+          }
     }
 
     // onMounted wordt uitgevoerd zodra het component volledig geladen is in de browser

@@ -1,13 +1,18 @@
-<!-- Organism: dit bestand bevat het formulier om een vak toe te voegen
+<!-- Organism: dit bestand bevat het formulier om een vak toe te voegen of te bewerken
      Het combineert de FormField molecules en BaseButton atom tot één geheel
-     Wordt gebruikt op de vak toevoegen pagina van de student
+     Wordt gebruikt op de vak toevoegen en bewerken pagina van de student
+
+     Let op: Het verwijderen van een vak gebeurt via DeleteCourseCard.vue, omdat het verwijderen
+     van een vak een destructieve actie is die een aparte bevestiging vereist
 -->
 
 <template>
-    <div class="bg-white rounded-xl shadow-md p-12 w-full max-w-4xl">
+    <!-- Laadspinner tonen tijdens het ophalen van de vakgegevens -->
+    <LoadingSpinner v-if="isLoading" message="Vak wordt geladen... een ogenblik geduld." />
+    <div v-else class="bg-white rounded-xl shadow-md p-12 w-full max-w-4xl">
         <!-- Titel met icoon -->
         <div class="flex items-center justify-center gap-3 mb-6">
-            <h2 class="text-2xl font-bold text-soft-periwinkle">Vak toevoegen</h2>
+            <h2 class="text-2xl font-bold text-soft-periwinkle">{{ formTitle }}</h2>
         </div>
 
         <!-- Mededeling verplichte velden -->
@@ -15,7 +20,7 @@
             Velden met <Asterisk class="w-5 h-5 text-intense-cherry" /> zijn verplicht.
         </p>
 
-        <form class="space-y-5" @submit.prevent="createCourse">
+        <form class="space-y-5" @submit.prevent="submitCourse">
             <!-- Naam van het vak -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele courseName -->
             <FormField 
@@ -84,9 +89,13 @@
                 <ArrowLeft class="w-5 h-5" /> Terug naar mijn vakken
             </BaseButton>
 
-            <!-- Registratie knop -->
+            <!-- Submit knop -->
             <BaseButton type="submit" buttonClass="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-soft-periwinkle text-white font-semibold hover:bg-ocean-twilight hover:underline transition">
-                <BookPlus class="w-5 h-5" /> Vak toevoegen
+                <!-- Bij het bewerken van een van pencil icoon gerbuiken -->
+                <Pencil v-if="props.courseId" class="w-5 h-5" />
+                <!-- Bij het aanmaken ban een vak bookplus icoon gebruiken-->
+                <BookPlus v-else class="w-5 h-5" /> 
+                {{ formTitle }}
             </BaseButton>
         </form>
     </div>
@@ -99,16 +108,18 @@
 
     // Ref importeren uit Vue
     // Ref: om reactieve variabelen te maken
-    import { ref } from 'vue';
+    import { ref, onMounted, computed } from 'vue';
 
     // useRouter importeren
     import { useRouter } from 'vue-router'
 
     // Lucide icons importeren
-    import { Asterisk, ArrowLeft, BookPlus  } from 'lucide-vue-next'
+    import { Asterisk, ArrowLeft, BookPlus, Pencil  } from 'lucide-vue-next'
 
     // Atoms importeren
     import BaseButton from '../../atoms/BaseButton.vue'
+
+    import LoadingSpinner from '../../atoms/LoadingSpinner.vue'
 
     // Molecules importeren
     import FormField from '../../molecules/FormField.vue'
@@ -121,6 +132,9 @@
     // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
     // Maakt het makkelijker om een token mee te sturen met elk verzoek in tegenstelling tot fetch()
     import apiClient from '../../../utils/axios.js'
+
+    // Reactieve variabele om bij te houden of de vakken nog geladen worden
+    const isLoading = ref(false)
 
     // UseRouter geeft toegang tot de router om vanuit de code te navigeren naar een andere pagina
     const router = useRouter()
@@ -136,28 +150,96 @@
     // Error toastmelding
     const errorToastMessage = ref('')
 
-    // Functie om een een nieuw vak aan te maken
+    // Props zijn waardes die van buitenaf aan het component meegegeven worden
+    const props = defineProps({
+          // Optionele courseId = als het aanwezig is, wordt het formulier gebruikt voor het bewerken van een vak
+          courseId: {
+               type: Number, 
+               default: null
+          }
+     })
+
+    // Computed property die de titel bepaalt op basis van of er een courseId aanwezig is
+    // Als courseId aanwezig is = bewerken, anders vak toevoegen
+    const formTitle = computed(() => {
+        if (!props.courseId)
+        {
+            return 'Vak toevoegen'
+        }
+
+        return 'Vak bewerken'
+    })
+
+    // Functie om een vak op te slaan (aanmaken of bewerken)
     // Async function zorgt ervoor dat de functie kan wachten op iets (zoals data) zonder de rest van de pagina te blokkeren
     // Pagina blijft hierbij gewoon werken zonder dat het bevriest
-    async function createCourse() {
-        try{    
-            // POST verzoek sturen naar de backend met de invoervelden 
-            const response = await apiClient.post('/courses', {
-                course_name: courseName.value,
-                course_description: courseDescription.value,
-                ects: ects.value,
-                exam_date: examDate.value,
-                study_material: studyMaterial.value,
-            })
+    async function submitCourse() {
+        try{   
+            // Controleren of het formulier gebruikt wordt voor het aanmaken of bewerken van een vak
+            if (props.courseId)
+            {
+                // PUT verzoek versturen naar de backend voor het bewerken van een vak
+                await apiClient.put(`/courses/${props.courseId}`, {
+                    course_name: courseName.value,
+                    course_description: courseDescription.value,
+                    ects: ects.value,
+                    exam_date: examDate.value,
+                    study_material: studyMaterial.value,
+                })
 
-            // Succesmelding opslaan in localStorage
-            localStorage.setItem('courseSuccess', courseName.value)
+                // Succesmelding opslaan in localStorage
+                localStorage.setItem('courseEditSuccess', courseName.value)  
+            } else {
+                // POST verzoek sturen naar de backend voor het aanmaken van een vak 
+                await apiClient.post('/courses', {
+                    course_name: courseName.value,
+                    course_description: courseDescription.value,
+                    ects: ects.value,
+                    exam_date: examDate.value,
+                    study_material: studyMaterial.value,
+                })
 
-            // Nadat een vak succesvol is toegevoegd student doorsturen naar mijn vakken pagina
+                // Succesmelding opslaan in localStorage
+                localStorage.setItem('courseSuccess', courseName.value)
+            }
+
+            // Na het succesvol opslaan van een vak student doorsturen naar mijn vakken pagina
             router.push('/student/dashboard/mijn-vakken')
         } catch (error) {
-            // Foutmelding tonen als er iets is fout gegaan bij het opslaan van het vak
-            errorToastMessage.value = 'Er is iets misgegaan bij het toevoegen van het vak.'
-        }
+            // Foutmelding tonen als er iets fout is gegaan
+            errorToastMessage.value = 'Er is iets misgegaan bij het opslaan van het vak.'
+        } 
     }
+
+    // onMounted wordt uitgevoerd zodra het component volledig geladen is in de browser
+    // Async gebruiken, zodat awai gebruikt kan worden voor het ophalen van de vakgegevens
+    onMounted(async () => {
+        try{
+            // Vak ophalen zodra de pagina geladen is
+            if (props.courseId)
+            {
+                // Laadstatus op true zetten, voordat het vak worden opgehaald
+                isLoading.value = true;
+
+                // Vakgegevens ophalen via de backend
+                const response = await apiClient.get(`/courses/${props.courseId}`)
+                // Invoervelden van het formulier vullen met de opgehaalde vakgegevens
+                const course = response.data
+                courseName.value = course.course_name
+                courseDescription.value = course.course_description
+                ects.value = course.ects
+                examDate.value = course.exam_date
+                studyMaterial.value = course.study_material
+
+                // Laadstatus van het vak op false zetten
+                isLoading.value = false
+            } 
+        } catch (error) {
+            // Foutmelding tonen als er iets fout is gegaan
+            errorToastMessage.value = 'Er is iets misgegaan bij het opslaan van het vak.'
+        } finally {
+            // Finally wordt altijd uitgevoerd, ook al er een fout optreedt
+            isLoading.value = false
+        }
+    })
 </script>

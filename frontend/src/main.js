@@ -32,6 +32,7 @@ import StudentDashboardPage from './pages/Student/DashboardPage.vue'
 import CoursesPage from './pages/Student/Courses/CoursesPage.vue'
 import CreateCoursePage from './pages/Student/Courses/CreateCoursePage.vue'
 import DeleteCoursePage from './pages/Student/Courses/DeleteCoursePage.vue'
+import EditCoursePage from './pages/Student/Courses/EditCoursePage.vue'
 
 // Routes defineren
 const routes = [
@@ -50,7 +51,8 @@ const routes = [
     { path: '/student/dashboard', component: StudentDashboardPage},
     { path: '/student/dashboard/mijn-vakken', component: CoursesPage},
     { path: '/student/dashboard/mijn-vakken/vak-toevoegen', component: CreateCoursePage},
-    { path: '/student/dashboard/mijn-vakken/:id/vak-verwijderen', component: DeleteCoursePage}
+    { path: '/student/dashboard/mijn-vakken/:id/vak-verwijderen', component: DeleteCoursePage},
+    { path: '/student/dashboard/mijn-vakken/:id/vak-bewerken', component: EditCoursePage}
 ]
 
 // Router aanmaken

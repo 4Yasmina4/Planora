@@ -79,5 +79,19 @@
                 successToastMessage.value = ''
             }, 3000)
         }
+
+        // Controleren of er een succesmelding is na het bewerken van een vak
+        if (localStorage.getItem('courseEditSuccess'))
+        {
+            successToastMessage.value = `${localStorage.getItem('courseEditSuccess')} is succesvol bewerkt!`
+            localStorage.removeItem('courseEditSuccess')
+
+            // Toastmelding na 3 seconden verwijderen
+            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
+            // 3000 milliseconden = 3 seconden
+            setTimeout(() => {
+                successToastMessage.value = ''
+            }, 3000)
+        }
     })
 </script>
