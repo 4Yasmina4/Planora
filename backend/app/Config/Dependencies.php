@@ -19,6 +19,11 @@ use App\Repositories\CourseRepository;
 use App\Services\CourseService;
 use App\Controllers\Student\CourseController;
 
+// Task imports //
+use App\Repositories\TaskRepository;
+use App\Services\TaskService;
+use App\Controllers\Student\TaskController;
+
 
 // User dependencies //
 $userRepository = new UserRepository($pdo);
@@ -35,3 +40,8 @@ $userManagementController = new UserManagementController($userService, $authenti
 $courseRepository = new CourseRepository($pdo);
 $courseService = new CourseService($courseRepository);
 $courseController = new CourseController($courseService, $authenticationService);
+
+// Task dependencies //
+$taskRepository = new TaskRepository($pdo);
+$taskService = new TaskService($taskRepository);
+$taskController = new TaskController($taskService, $authenticationService);

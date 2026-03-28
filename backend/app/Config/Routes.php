@@ -9,7 +9,7 @@ use FastRoute\RouteCollector;
 // Anonieme functie teruggeven die de routes definieert
 // RouteCollector $router beheert de routes
 // use ($userManagementController) maakt de UserManagementController beschikbaar binnen de functie
-return function (RouteCollector $router) use ($userManagementController, $authenticationController, $courseController)
+return function (RouteCollector $router) use ($userManagementController, $authenticationController, $courseController, $taskController)
 {
     // Administrator - User //
     // POST /users → roept de createUser methode aan van de UserManagementController
@@ -43,4 +43,16 @@ return function (RouteCollector $router) use ($userManagementController, $authen
     $router->addRoute('PUT', '/courses/{id:\d+}', [$courseController, 'updateCourse']);
     // DELETE /courses/{id:\d+} → roept de deleteCourse methode aan van de CourseController
     $router->addRoute('DELETE', '/courses/{id:\d+}', [$courseController, 'deleteCourse']);
+
+    // Tasks - Student //
+    // POST /tasks → roept de createTask methode aan in de TaskController
+    $router->addRoute('POST', '/tasks', [$taskController, 'createTask']);
+    // GET /tasks → roept de getAllTasksByUserId methode aan in de TaskController
+    $router->addRoute('GET', '/tasks', [$taskController, 'getAllTasksByUserId']);
+    // GET /tasks/{id:\d+} → roept de getTaskByTaskId methode aan in de TaskController
+    $router->addRoute('GET', '/tasks/{id:\d+}', [$taskController, 'getTaskByTaskId']);
+    // PUT /tasks/{id:\d+} → taakgegevens wijzigen
+    $router->addRoute('PUT', '/tasks/{id:\d+}', [$taskController, 'updateTask']);
+    // DELETE /tasks/{id:\d+} → roept de deleteTask methode aan van de TaskController
+    $router->addRoute('DELETE', '/tasks/{id:\d+}', [$taskController, 'deleteTask']);
 };
