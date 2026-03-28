@@ -4,7 +4,7 @@
 
 <template>
     <!-- Navbar met linkjes -->
-    <div class="flex items-center gap-10">
+    <div class="flex items-center gap-14">
         <NavbarLink
             v-for="link in navbarLinks"
             :key="link.label"
@@ -20,10 +20,17 @@
     import NavbarLink from '../atoms/NavbarLink.vue'
 
     // Lucide icons importeren
-    import { BookOpen, CalendarPlus, CalendarDays, ChartBar, UserRound } from 'lucide-vue-next'
+    import { LayoutDashboard, BookOpen, CalendarPlus, CalendarDays, ChartBar, UserRound } from 'lucide-vue-next'
 
     // Array met navbarlinkjes
     const navbarLinks = [
+        {
+            // Dashboard - Student
+            label: 'Dashboard',
+            icon: LayoutDashboard,
+            to: '/student/dashboard/'
+        },
+        
         {
             // Mijn vakken - Student
             label: 'Mijn vakken',
