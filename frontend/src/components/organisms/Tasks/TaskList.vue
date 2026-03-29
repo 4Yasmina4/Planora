@@ -10,24 +10,47 @@
     <p v-else-if="tasks.length === 0" class="text-lavender-grey text-lg text-center py-12">
         Er zijn nog geen taken aangemaakt. Klik op "Planning maken" om een taak toe te voegen!
     </p>
-    <!-- Takenlijst -->
-    <div v-else class="space-y-6">
-        <TaskCard 
-            v-for="task in tasks"
-            :key="task.task_id"
-            :taskId="task.task_id"
-            :taskName="task.task_name"
-            :courseName="getCourseName(task.course_id)"
-            :taskDescription="task.task_description"
-            :date="task.date"
-            :taskDuration="task.task_duration"
-        />
+
+    <div v-else>
+        <!-- Takenlijst: nog te doen -->
+        <h2 class="text-3xl font-semibold text-ocean-twilight mb-8">Nog te doen</h2>
+        <div class="space-y-6">
+            <TaskCard 
+                @task-updated="fetchTasks"
+                v-for="task in pendingTasks"
+                :key="task.task_id"
+                :taskId="task.task_id"
+                :taskName="task.task_name"
+                :courseName="getCourseName(task.course_id)"
+                :taskDescription="task.task_description"
+                :date="task.date"
+                :taskDuration="task.task_duration"
+                :isCompleted="task.is_completed"
+            />
+        </div>
+
+        <!-- Takenlijst: voltooid -->
+        <h2 class="text-3xl font-semibold text-ocean-twilight mt-8 mb-8">Voltooid</h2>
+        <div class="space-y-6">
+            <TaskCard 
+                @task-updated="fetchTasks"
+                v-for="task in completedTasks" 
+                :key="task.task_id"
+                :taskId="task.task_id"
+                :taskName="task.task_name"
+                :courseName="getCourseName(task.course_id)"
+                :taskDescription="task.task_description"
+                :date="task.date"
+                :taskDuration="task.task_duration"
+                :isCompleted="task.is_completed"
+            />
+        </div>
     </div>
 </template>
 
 <script setup>
     // Ref importeren uit Vue
-    import { ref, onMounted } from 'vue';
+    import { ref, onMounted, computed } from 'vue';
 
     // Atoms importeren
     import LoadingSpinner from '../../atoms/LoadingSpinner.vue'
@@ -45,6 +68,20 @@
 
     // Reactieve variabele om bij te houden of de taken nog geladen worden
     const isLoading = ref(true)
+
+    // Taken filteren op niet voltooid
+    const pendingTasks = computed(() => {
+        return tasks.value.filter(function(task) {
+            return task.is_completed === false
+        })
+    })
+
+    // Taken filteren op voltooid
+    const completedTasks = computed(() => {
+        return tasks.value.filter(function(task) {
+            return task.is_completed === true
+        })
+    })
 
     // Vakken ophalen
     async function fetchCourses() {

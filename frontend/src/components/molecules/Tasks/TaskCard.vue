@@ -7,7 +7,7 @@
     <div class="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-3 hover:shadow-xl hover:scale-105 transition-transform duration-200">
         <!-- Naam van de taak met checkbox -->
         <div class="flex items-center gap-3">
-            <input type="checkbox" class="w-5 h-5 accent-soft-periwinkle cursor-pointer" />
+            <input type="checkbox" :checked="isCompleted" @change="toggleCompleted" class="w-5 h-5 accent-soft-periwinkle cursor-pointer" />
             <h1 class="text-xl font-semibold text-ocean-twilight">
                 {{ taskName }}
             </h1>
@@ -58,45 +58,69 @@
     // useRouter importeren
     import { useRouter } from 'vue-router'
 
+    import apiClient from '../../../utils/axios.js'
+
     // UseRouter geeft toegang tot de router om vanuit de code te navigeren naar een andere pagina
     const router = useRouter()
 
+    // Emit definiërem
+    const emit = defineEmits(['task-updated'])
+
+    // Functie om een taak af te vinken
+    async function toggleCompleted() {
+        await apiClient.put(`/tasks/${props.taskId}`, {
+            task_name : props.taskName,
+            task_description : props.taskDescription,
+            date: props.date,
+            task_duration: props.taskDuration,
+            is_completed: !props.isCompleted
+        })
+
+        emit('task-updated')
+    }
+
     // Props zijn waardes die van buitenaf aan het component meegegeven worden
-    defineProps({
-        // Id van de taak om het te kunnen bewerken en verwijderen
-        taskId: {
-            type: Number,
-            required: true
-        },
+    const props = defineProps({
+                // Id van de taak om het te kunnen bewerken en verwijderen
+                taskId: {
+                    type: Number,
+                    required: true
+                },
 
-        // Naam van de taak
-        taskName: {
-            type: String, 
-            default: ''
-        },
+                // Naam van de taak
+                taskName: {
+                    type: String, 
+                    default: ''
+                },
 
-        // Naam van het vak
-        courseName: {
-            type: String, 
-            default: ''
-        },
+                // Naam van het vak
+                courseName: {
+                    type: String, 
+                    default: ''
+                },
 
-        // Beschrijving van de taak
-        taskDescription: {
-            type: String,
-            default: ''
-        },
+                // Beschrijving van de taak
+                taskDescription: {
+                    type: String,
+                    default: ''
+                },
 
-        // Studiedatum
-        date: {
-            type: String,
-            default: ''
-        },
+                // Studiedatum
+                date: {
+                    type: String,
+                    default: ''
+                },
 
-        // Tijdsduur van taak
-        taskDuration: {
-            type: Number,
-            default: ''
-        },
+                // Tijdsduur van taak
+                taskDuration: {
+                    type: Number,
+                    default: ''
+                },
+
+                // Status taak
+                isCompleted: {
+                    type: Boolean,
+                    default: false    
+                }
     })
 </script>
