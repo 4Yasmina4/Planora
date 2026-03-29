@@ -1,5 +1,5 @@
-<!-- Page: dit bestand bevat de vak toevoegen pagina
-     Het combineert de StudentNavbar en CourseForm organisms
+<!-- Page: dit bestand bevat de taak toevoegen pagina
+     Het combineert de StudentNavbar en TaskForm organisms
 -->
 
 <template>
@@ -8,16 +8,14 @@
 
     <div class="min-h-screen bg-ghost-white flex flex-col items-center px-4 pt-16">
         <div class="max-w-4xl w-full mx-auto">            
-            <!-- CourseForm organism -->
-            <CourseForm />
+            <!-- TaskForm organism -->
+            <TaskForm />
         </div>
     </div>
 </template>
 
 <script setup>
-    // StudentNavbar organism importeren
+    // Organisms importeren
     import StudentNavbar from '../../../components/organisms/StudentNavbar.vue'
-
-    // CourseForm organism importeren
-    import CourseForm from '../../../components/organisms/Courses/CourseForm.vue'
+    import TaskForm from '../../../components/organisms/Tasks/TaskForm.vue'
 </script>

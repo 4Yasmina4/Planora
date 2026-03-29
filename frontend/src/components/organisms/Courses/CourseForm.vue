@@ -61,7 +61,7 @@
                 <FormField 
                     label="Examendatum"
                     type="date"
-                    placeholder="Voer uw e-mailadres in"
+                    placeholder="Selecteer het examendatum"
                     :required="true"
                     v-model="examDate"
                 />
@@ -130,7 +130,6 @@
     // Aangepaste axios instantie importeren met JWT token interceptor
     // Interceptor zorgt ervoor dat bij elk verzoek de JWT token automatisch wordt toegevoegd
     // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
-    // Maakt het makkelijker om een token mee te sturen met elk verzoek in tegenstelling tot fetch()
     import apiClient from '../../../utils/axios.js'
 
     // Reactieve variabele om bij te houden of de vakken nog geladen worden
@@ -212,7 +211,7 @@
     }
 
     // onMounted wordt uitgevoerd zodra het component volledig geladen is in de browser
-    // Async gebruiken, zodat awai gebruikt kan worden voor het ophalen van de vakgegevens
+    // Async gebruiken, zodat await gebruikt kan worden voor het ophalen van de vakgegevens
     onMounted(async () => {
         try{
             // Vak ophalen zodra de pagina geladen is
