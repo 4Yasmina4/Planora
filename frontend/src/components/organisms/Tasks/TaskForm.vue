@@ -31,7 +31,6 @@
                         {{ course.course_name }}
                     </option>
                 </select>
-
             </div>
 
             <!-- Naam van taak -->
@@ -58,7 +57,7 @@
                 </textarea>
             </div>
 
-            <!-- Datum  -->
+            <!-- Studiedatum  -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele date -->
             <FormField 
                 label="Studiedatum"
@@ -196,8 +195,8 @@
                 localStorage.setItem('taskSuccess', taskName.value)
             }
 
-            // Na het succesvol opslaan van een taak student doorsturen naar planning maken pagina
-            router.push('/student/dashboard/planning-maken')
+            // Na het succesvol opslaan van een taak student doorsturen naar mijn planning pagina
+            router.push('/student/dashboard/mijn-planning')
         } catch (error) {
             // Foutmelding tonen als er iets fout is gegaan
             errorToastMessage.value = 'Er is iets misgegaan bij het opslaan van de taak.'
