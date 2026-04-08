@@ -113,15 +113,9 @@
             // GET verzoek sturen naar de backend
             const response = await apiClient.get('/tasks')
 
-            // Controleren of de response data een data property heeft
-            if (response.data.data)
-            {
-                // data property gebruiken
-                tasks.value = response.data.data
-            } else {
-                // response data direct gebruiken
-                tasks.value = response.data
-            }
+            // Backend stuurty een array met taken terug
+            tasks.value = response.data
+            
         } catch (error) {
             // Foutmelding tonen als er iets mis gaat
             console.error('Fout bij het ophalen van de taken')
