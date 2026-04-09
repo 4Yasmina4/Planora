@@ -38,6 +38,7 @@ import EditCoursePage from './pages/Student/Courses/EditCoursePage.vue'
 // Tasks
 import MyPlanningPage from './pages/Student/Tasks/MyPlanningPage.vue'
 import CreateTaskPage from './pages/Student/Tasks/CreateTaskPage.vue'
+import DeleteTaskPage from './pages/Student/Tasks/DeleteTaskPage.vue'
 
 // Routes defineren
 const routes = [
@@ -62,7 +63,8 @@ const routes = [
     { path: '/student/dashboard/mijn-vakken/:id/vak-bewerken', component: EditCoursePage },
     // Tasks
     { path: '/student/dashboard/mijn-planning', component: MyPlanningPage},
-    { path: '/student/dashboard/planning-maken', component: CreateTaskPage}
+    { path: '/student/dashboard/planning-maken', component: CreateTaskPage},
+    { path: '/student/dashboard/mijn-planning/:id/taak-verwijderen', component: DeleteTaskPage}
 ]
 
 // Router aanmaken

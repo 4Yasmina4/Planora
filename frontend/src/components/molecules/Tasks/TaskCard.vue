@@ -30,7 +30,7 @@
 
         <!-- Tijdsduur van taak -->
         <p class="text-lg"><span class="font-medium text-ocean-twilight">Tijdsduur van taak:</span>
-            {{ taskDuration }}
+            {{ taskDuration }} minuten
         </p>
 
         <!-- Knoppen -->
