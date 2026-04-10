@@ -3,25 +3,30 @@
 -->
 
 <template>
-    <!-- Vakkaart -->
+    <!-- Voortgangskaart -->
     <div class="bg-white rounded-xl shadow-sm p-6 flex flex-col gap-3 hover:shadow-xl hover:scale-105 transition-transform duration-200">
         <!-- Naam van het vak -->
-        <h1 class="text-xl font-semibold text-ocean-twilight">
+        <h1 class="text-2xl font-semibold text-ocean-twilight">
             {{ courseName }}
         </h1>
 
         <!-- Totaal aantal taken -->
-        <p class="text-lg"><span class="font-medium text-ocean-twilight">Totaal aantal taken:</span>
+        <p class="text-xl"><span class="font-medium text-ocean-twilight">Totaal aantal taken:</span>
             {{ totalTasks }}
         </p>
 
         <!-- Aantal voltooide taken -->
-        <p class="text-lg"><span class="font-medium text-ocean-twilight">Aantal voltooide taken:</span>
+        <p class="text-xl"><span class="font-medium text-ocean-twilight">Aantal voltooide taken:</span>
             {{ completedTasks }}
         </p>
 
-        <!-- Percentage voor de voortgangsbalk -->
-        <ProgressBar :percentage="taskCompletionPercentage" />
+        <!-- Percentage achter de voortgangsbalk -->
+        <div class="flex items-center gap-4">
+            <ProgressBar :percentage="taskCompletionPercentage" />
+            <span class="text-xl font-semibold text-shadow-ocean-twilight">
+                {{ taskCompletionPercentage }}%
+            </span>
+        </div>
     </div>
 </template>
 
