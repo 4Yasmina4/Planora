@@ -7,5 +7,5 @@
 
 <script setup>
     // RegisterForm organism importeren
-    import RegisterForm from '../../components/organisms/RegisterForm.vue'
+    import RegisterForm from '../../components/organisms/Authentication/RegisterForm.vue'
 </script>

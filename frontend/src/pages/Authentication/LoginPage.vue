@@ -7,5 +7,5 @@
 
 <script setup>
     // LoginForm organism importeren
-    import LoginForm from '../../components/organisms/LoginForm.vue'
+    import LoginForm from '../../components/organisms/Authentication/LoginForm.vue'
 </script>
