@@ -76,19 +76,19 @@
     import { ArrowLeft, LogIn, Lock } from 'lucide-vue-next'
 
     // Atoms importeren
-    import BaseButton from '../atoms/BaseButton.vue'
+    import BaseButton from '../../atoms/BaseButton.vue'
 
     // Molecules importeren
-    import FormField from '../molecules/FormField.vue'
+    import FormField from '../../molecules/FormField.vue'
 
     // Toast component importern uit de Base map
-    import Toast from '../../components/Base/Toast/Toast.vue'
+    import Toast from '../../../components/Base/Toast/Toast.vue'
 
     // Aangepaste axios instantie importeren met JWT token interceptor
     // Interceptor zorgt ervoor dat bij elk verzoek de JWT token automatisch wordt toegevoegd
     // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
     // Maakt het makkelijker om een token mee te sturen met elk verzoek in tegenstelling tot fetch()
-    import apiClient from '../../utils/axios.js'
+    import apiClient from '../../../utils/axios.js'
 
     // UseRouter geeft toegang tot de router om vanuit de code te navigeren naar een andere pagina
     const router = useRouter()
