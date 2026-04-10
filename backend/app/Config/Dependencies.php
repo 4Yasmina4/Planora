@@ -4,13 +4,11 @@
 // 1. Repository (database), 2. Service (logica), 3. Controller (HTTP verzoeken) 
 
 // User imports //
-use App\Repositories\IUserRepository;
 use App\Repositories\UserRepository;
 use App\Services\UserService;
 use App\Controllers\Administrator\UserManagementController;
 
 // Authentication imports //
-use App\Services\IAuthenticationService;
 use App\Services\AuthenticationService;
 use App\Controllers\Authentication\AuthenticationController;
 
@@ -23,6 +21,11 @@ use App\Controllers\Student\CourseController;
 use App\Repositories\TaskRepository;
 use App\Services\TaskService;
 use App\Controllers\Student\TaskController;
+
+// Progress imports //
+use App\Repositories\ProgressRepository;
+use App\Services\ProgressService;
+use App\Controllers\Student\ProgressController;
 
 
 // User dependencies //
@@ -45,3 +48,8 @@ $courseController = new CourseController($courseService, $authenticationService)
 $taskRepository = new TaskRepository($pdo);
 $taskService = new TaskService($taskRepository);
 $taskController = new TaskController($taskService, $authenticationService);
+
+// Progress dependencies //
+$progressRepository = new ProgressRepository($pdo);
+$progressService = new ProgressService($progressRepository);
+$progressController = new ProgressController($progressService, $authenticationService);
