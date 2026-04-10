@@ -53,7 +53,7 @@
         // Controleren of er een succesmelding is na het aanmaken van een taak
         if (localStorage.getItem('taskSuccess'))
         {
-            successToastMessage.value = `${localStorage.getItem('taskSuccess')} is succesvol aangemaakt!`
+            successToastMessage.value = `${localStorage.getItem('taskSuccess')} taak is succesvol aangemaakt!`
             localStorage.removeItem('taskSuccess')
 
             // Toastmelding na 3 seconden verwijderen
@@ -67,7 +67,7 @@
         // Controleren of er een succesmelding is na het verwijderen van een taak
         if (localStorage.getItem('taskDeleteSuccess'))
         {
-            successToastMessage.value = `${localStorage.getItem('taskDeleteSuccess')} is succesvol verwijderd!`
+            successToastMessage.value = `${localStorage.getItem('taskDeleteSuccess')} taak is succesvol verwijderd!`
             localStorage.removeItem('taskDeleteSuccess')
 
             setTimeout(() => {
@@ -78,7 +78,7 @@
         // Controleren of er een succesmelding is na het bewerken van een taak
         if (localStorage.getItem('taskEditSuccess'))
         {
-            successToastMessage.value = `${localStorage.getItem('taskEditSuccess')} is succesvol bewerkt!`
+            successToastMessage.value = `${localStorage.getItem('taskEditSuccess')} taak is succesvol bewerkt!`
             localStorage.removeItem('taskEditSuccess')
 
             setTimeout(() => {

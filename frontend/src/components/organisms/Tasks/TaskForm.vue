@@ -174,6 +174,7 @@
                 // PUT verzoek versturen naar de backend voor het bewerken van een taak
                 await apiClient.put(`/tasks/${props.taskId}`, {
                     task_name: taskName.value,
+                    course_id: courseId.value,
                     task_description: taskDescription.value,
                     date: date.value,
                     task_duration: taskDuration.value,

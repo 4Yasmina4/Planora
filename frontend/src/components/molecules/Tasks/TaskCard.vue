@@ -81,46 +81,46 @@
 
     // Props zijn waardes die van buitenaf aan het component meegegeven worden
     const props = defineProps({
-                // Id van de taak om het te kunnen bewerken en verwijderen
-                taskId: {
-                    type: Number,
-                    required: true
-                },
+        // Id van de taak om het te kunnen bewerken en verwijderen
+        taskId: {
+            type: Number,
+            required: true
+        },
 
-                // Naam van de taak
-                taskName: {
-                    type: String, 
-                    default: ''
-                },
+        // Naam van de taak
+        taskName: {
+            type: String, 
+            default: ''
+        },
 
-                // Naam van het vak
-                courseName: {
-                    type: String, 
-                    default: ''
-                },
+        // Naam van het vak
+        courseName: {
+            type: String, 
+            default: ''
+        },
 
-                // Beschrijving van de taak
-                taskDescription: {
-                    type: String,
-                    default: ''
-                },
+        // Beschrijving van de taak
+        taskDescription: {
+            type: String,
+            default: ''
+        },
 
-                // Studiedatum
-                date: {
-                    type: String,
-                    default: ''
-                },
+        // Studiedatum
+        date: {
+            type: String,
+            default: ''
+        },
 
-                // Tijdsduur van taak
-                taskDuration: {
-                    type: Number,
-                    default: ''
-                },
+        // Tijdsduur van taak
+        taskDuration: {
+            type: Number,
+            default: ''
+        },
 
-                // Status taak
-                isCompleted: {
-                    type: Boolean,
-                    default: false    
-                }
+        // Status taak
+        isCompleted: {
+            type: Boolean,
+            default: false    
+        }
     })
 </script>
