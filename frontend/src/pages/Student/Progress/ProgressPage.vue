@@ -10,7 +10,7 @@
         <div class="max-w-4xl w-full mx-auto">
             <!-- Titel + -->
             <div class="max-w-4xl w-full mx-auto">
-                <h1 class="text-3xl font-semibold text-ocean-twilight mb-12">Mijn voortgang</h1>
+                <h1 class="text-3xl font-semibold text-ocean-twilight mb-12">Voortgang</h1>
             </div>
 
             <!-- ProgressList organism -->
