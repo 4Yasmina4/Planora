@@ -28,11 +28,18 @@ import UpdateUserForm from './components/Administrator/User/UpdateUserForm.vue'
 import DeleteUser from './components/Administrator/User/DeleteUser.vue'
 
 // Student //
+// Dashboard
 import StudentDashboardPage from './pages/Student/DashboardPage.vue'
+// Courses
 import CoursesPage from './pages/Student/Courses/CoursesPage.vue'
 import CreateCoursePage from './pages/Student/Courses/CreateCoursePage.vue'
 import DeleteCoursePage from './pages/Student/Courses/DeleteCoursePage.vue'
 import EditCoursePage from './pages/Student/Courses/EditCoursePage.vue'
+// Tasks
+import MyPlanningPage from './pages/Student/Tasks/MyPlanningPage.vue'
+import CreateTaskPage from './pages/Student/Tasks/CreateTaskPage.vue'
+import DeleteTaskPage from './pages/Student/Tasks/DeleteTaskPage.vue'
+import EditTaskPage from './pages/Student/Tasks/EditTaskPage.vue'
 
 // Routes defineren
 const routes = [
@@ -48,11 +55,18 @@ const routes = [
     { path: '/users/:id/edit', component: UpdateUserForm },
     { path: '/users/:id/delete', component: DeleteUser },
     // Student //
-    { path: '/student/dashboard', component: StudentDashboardPage},
+    // Dashboard
+    { path: '/student/dashboard', component: StudentDashboardPage },
+    // Courses
     { path: '/student/dashboard/mijn-vakken', component: CoursesPage},
     { path: '/student/dashboard/mijn-vakken/vak-toevoegen', component: CreateCoursePage},
     { path: '/student/dashboard/mijn-vakken/:id/vak-verwijderen', component: DeleteCoursePage},
-    { path: '/student/dashboard/mijn-vakken/:id/vak-bewerken', component: EditCoursePage}
+    { path: '/student/dashboard/mijn-vakken/:id/vak-bewerken', component: EditCoursePage },
+    // Tasks
+    { path: '/student/dashboard/mijn-planning', component: MyPlanningPage},
+    { path: '/student/dashboard/planning-maken', component: CreateTaskPage},
+    { path: '/student/dashboard/mijn-planning/:id/taak-verwijderen', component: DeleteTaskPage },
+    { path: '/student/dashboard/mijn-planning/:id/taak-bewerken', component: EditTaskPage },
 ]
 
 // Router aanmaken

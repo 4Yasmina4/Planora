@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-    // Refimporteren uit Vue
+    // Ref importeren uit Vue
     // Ref: om reactieve variabelen te maken
     import { ref, onMounted } from 'vue';
 

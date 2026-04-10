@@ -154,7 +154,7 @@
                // Succesmelding opslaan in localStorage
                localStorage.setItem('courseDeleteSuccess', course.value.course_name)
 
-               // Na het succesvol verwijdere terug naar naar mijn vakken navigeren
+               // Na het succesvol verwijderen terug naar naar mijn vakken navigeren
                router.push('/student/dashboard/mijn-vakken')
           } catch (error) {
                // Foutmelding tonen als het verwijderen van het vak is mislukt
