@@ -20,16 +20,19 @@ import Home from './components/Home/Home.vue'
 import LoginPage from './pages/Authentication/LoginPage.vue'
 import RegisterPage from './pages/Authentication/RegisterPage.vue'
 
-// Administrator - User //
+// Administrator //
+// User
 import UserList from './components/Administrator/User/UserList.vue'
 import CreateUserForm from './components/Administrator/User/CreateUserForm.vue'
 import UserDetail from './components/Administrator/User/UserDetail.vue'
 import UpdateUserForm from './components/Administrator/User/UpdateUserForm.vue'
 import DeleteUser from './components/Administrator/User/DeleteUser.vue'
+// Dashboard
+import AdministratorDashboardPage from './pages/Administrator/Dashboard/AdministratorDashboardPage.vue'
 
 // Student //
 // Dashboard
-import StudentDashboardPage from './pages/Student/DashboardPage.vue'
+import StudentDashboardPage from './pages/Student/Dashboard/StudentDashboardPage.vue'
 // Vakken
 import CoursesPage from './pages/Student/Courses/CoursesPage.vue'
 import CreateCoursePage from './pages/Student/Courses/CreateCoursePage.vue'
@@ -56,6 +59,9 @@ const routes = [
     { path: '/users/:id', component: UserDetail },
     { path: '/users/:id/edit', component: UpdateUserForm },
     { path: '/users/:id/delete', component: DeleteUser },
+    // Administrator //
+    // Dashboard
+    { path: '/administrator/dashboard', component: AdministratorDashboardPage },
     // Student //
     // Dashboard
     { path: '/student/dashboard', component: StudentDashboardPage },
