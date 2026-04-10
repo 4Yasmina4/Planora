@@ -159,8 +159,11 @@
             if (payload.role === 'administrator')
             {
                 router.push('/administrator/dashboard')
-            } else {
+            } else if (payload.role === 'student'){
                 router.push('/student/dashboard')
+            } else {
+                errorToastMessage.value = 'Er ging iets mis. Log opnieuw in.'
+                router.push('/login')
             }
         } catch (error) {
             // Foutmelding tonen als de inloggegevens onjuist zijn

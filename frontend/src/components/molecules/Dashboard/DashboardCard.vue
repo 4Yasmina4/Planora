@@ -24,7 +24,7 @@
 
 <script setup>
     // BaseIcon atom importeren
-    import BaseIcon from '../atoms/BaseIcon.vue'
+    import BaseIcon from '../../atoms/BaseIcon.vue'
 
     // Props zijn waardes die van buitenaf aan het component meegegeven worden
     defineProps({

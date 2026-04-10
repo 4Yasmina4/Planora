@@ -35,7 +35,7 @@
 
 <script setup>
     // Molecules importeren
-    import DashboardCard from '../molecules/DashboardCard.vue'
+    import DashboardCard from '../../molecules/Dashboard/DashboardCard.vue'
 
     // Lucide icons importeren
     import { BookOpen, CalendarPlus, CalendarDays, ChartBar, UserRound } from 'lucide-vue-next'
