@@ -19,4 +19,10 @@ class ProgressService implements IProgressService
     {
         return $this->progressRepository->getProgressByUserId($userId);
     }
+
+    // Methode die voortgang van alle studenten ophaalt
+    public function getAllStudentsProgress(): array
+    {
+        return $this->progressRepository->getAllStudentsProgress();
+    }
 }
