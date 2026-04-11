@@ -9,7 +9,7 @@ use FastRoute\RouteCollector;
 // Anonieme functie teruggeven die de routes definieert
 // RouteCollector $router beheert de routes
 // use ($userManagementController) maakt de UserManagementController beschikbaar binnen de functie
-return function (RouteCollector $router) use ($userManagementController, $authenticationController, $courseController, $taskController, $progressController)
+return function (RouteCollector $router) use ($userManagementController, $authenticationController, $courseController, $taskController, $progressController, $administratorProgressController)
 {
     // Administrator - User //
     // POST /users → roept de createUser methode aan van de UserManagementController
@@ -59,4 +59,8 @@ return function (RouteCollector $router) use ($userManagementController, $authen
     // Progress - Student //
     // GET /progress → roept de getProgressByUserId methode aan in de ProgressController
     $router->addRoute('GET', '/progress', [$progressController, 'getProgressByUserId']);
+
+    // Progress - Administrator //
+    // GET /administrator/students/{id:\d+}/progress → roept de getProgressByUserId methode aan in de AdministratorProgressController
+    $router->addRoute('GET', '/administrator/students/{id:\d+}/progress', [$administratorProgressController, 'getProgressByUserId']);
 };
