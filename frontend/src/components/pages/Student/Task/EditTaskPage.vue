@@ -1,5 +1,5 @@
-<!-- Page: dit bestand bevat de taak verwijderen pagina
-     Het combineert de StudentNavbar en DeleteTaskCard organisms
+<!-- Page: dit bestand bevat de taak bewerken pagina
+     Het combineert de StudentNavbar en TaskForm organisms
 -->
 
 <template>
@@ -8,18 +8,18 @@
 
     <div class="min-h-screen bg-ghost-white flex flex-col items-center px-4 pt-12">
         <div class="max-w-4xl w-full mx-auto">            
-            <!-- DeleteTaskCard organism -->
-            <DeleteTaskCard :taskId="taskId" class="mb-12" />
+            <!-- TaskForm organism -->
+            <TaskForm :taskId="taskId" class="mb-12" />
         </div>
     </div>
 </template>
 
 <script setup>
     // StudentNavbar organism importeren
-    import StudentNavbar from '../../../components/organisms/Navbar/StudentNavbar.vue'
+    import StudentNavbar from '../../../../components/organisms/Navbar/StudentNavbar.vue'
 
-    // DeleteTaskCard organism importeren
-    import DeleteTaskCard from '../../../components/organisms/Tasks/DeleteTaskCard.vue'
+    // TaskForm organism importeren
+    import TaskForm from '../../../../components/organisms/Task/TaskForm.vue'
 
     // useRoute importeren
     import { useRoute } from 'vue-router'
@@ -29,5 +29,5 @@
     const route = useRoute()
 
     // taskId ophalen uit de URL parameter
-    const taskId = route.params.id
+    const taskId = Number(route.params.id)
 </script>

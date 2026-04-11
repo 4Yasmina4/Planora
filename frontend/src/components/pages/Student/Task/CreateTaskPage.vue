@@ -16,6 +16,6 @@
 
 <script setup>
     // Organisms importeren
-    import StudentNavbar from '../../../components/organisms/Navbar/StudentNavbar.vue'
-    import TaskForm from '../../../components/organisms/Tasks/TaskForm.vue'
+    import StudentNavbar from '../../../../components/organisms/Navbar/StudentNavbar.vue'
+    import TaskForm from '../../../../components/organisms/Task/TaskForm.vue'
 </script>

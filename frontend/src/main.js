@@ -39,10 +39,10 @@ import CreateCoursePage from './components/pages/Student/Course/CreateCoursePage
 import DeleteCoursePage from './components/pages/Student/Course/DeleteCoursePage.vue'
 import EditCoursePage from './components/pages/Student/Course/EditCoursePage.vue'
 // Taken
-import MyPlanningPage from './pages/Student/Tasks/MyPlanningPage.vue'
-import CreateTaskPage from './pages/Student/Tasks/CreateTaskPage.vue'
-import DeleteTaskPage from './pages/Student/Tasks/DeleteTaskPage.vue'
-import EditTaskPage from './pages/Student/Tasks/EditTaskPage.vue'
+import MyPlanningPage from './components/pages/Student/Task/MyPlanningPage.vue'
+import CreateTaskPage from './components/pages/Student/Task/CreateTaskPage.vue'
+import DeleteTaskPage from './components/pages/Student/Task/DeleteTaskPage.vue'
+import EditTaskPage from './components/pages/Student/Task/EditTaskPage.vue'
 // Planning
 import ProgressPage from './pages/Student/Progress/ProgressPage.vue'
 
