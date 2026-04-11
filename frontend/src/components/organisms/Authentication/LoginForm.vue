@@ -15,22 +15,22 @@
         <!-- @submit.prevent="login": verstuurd het formulier en voorkomt dat de standaard herlaadactie in de browser wordt uitgevoerd -->
         <form class="space-y-5" @submit.prevent="login">
             <!-- E-mailadres -->
-            <FormField 
-                label="E-mailadres"
-                type="email"
-                placeholder="Voer uw e-mailadres in"
-                :required="true"
-                v-model="email"
-            />    
+            <FormField label="E-mailadres" :required="true">
+                <FormInputField
+                    type="email"
+                    placeholder="Voer uw e-mailadres in"
+                    v-model="email"
+                />
+            </FormField>    
 
             <!-- Wachtwoord -->
-            <FormField 
-                label="Wachtwoord"
-                type="password"
-                placeholder="Voer uw wachtwoord in"
-                :required="true"
-                v-model="password"
-            /> 
+            <FormField label="Wachtwoord" :required="true">
+                <FormInputField
+                    type="password"
+                    placeholder="Voer uw wachtwoord in"
+                    v-model="password"
+                /> 
+            </FormField>
 
             <!-- Toastfoutmelding -->
             <Toast :toastMessage="errorToastMessage" type="error" />
@@ -77,6 +77,7 @@
 
     // Atoms importeren
     import BaseButton from '../../atoms/BaseButton.vue'
+    import FormInputField from '../../atoms/FormInputField.vue'
 
     // Molecules importeren
     import FormField from '../../molecules/Form/FormField.vue'
