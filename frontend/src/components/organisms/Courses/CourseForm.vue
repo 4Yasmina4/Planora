@@ -23,13 +23,13 @@
         <form class="space-y-5" @submit.prevent="submitCourse">
             <!-- Naam van het vak -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele courseName -->
-            <FormField 
-                label="Naam van het vak"
-                type="text"
-                placeholder="Voer het vaknaam in"
-                :required="true"
-                v-model="courseName"
-            />
+            <FormField label="Naam van het vak" :required="true">
+                <FormInputField
+                    type="text"
+                    placeholder="Voer de naam van het vak in"
+                    v-model="courseName"
+                />
+            </FormField>
 
             <!-- Beschrijving van het vak  -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele courseDescription -->
@@ -47,24 +47,24 @@
 
             <!-- EC's  -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele ects -->
-            <FormField 
-                label="EC's"
-                type="Number"
-                placeholder="Voer het aantal EC's in"
-                :required="true"
-                v-model="ects"
-            />
+            <FormField label="EC's" :required="true">
+                <FormInputField
+                    type="Number"
+                    placeholder="Voer het aantal EC's in"
+                    v-model="ects"
+                />
+            </FormField>
 
             <!-- Examendatum  -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele examDate -->
             <div>
-                <FormField 
-                    label="Examendatum"
-                    type="date"
-                    placeholder="Selecteer het examendatum"
-                    :required="true"
-                    v-model="examDate"
-                />
+                <FormField label="Examendatum" :required="true">
+                    <FormInputField
+                        type="date"
+                        placeholder="Selecteer de examendatum"
+                        v-model="examDate"
+                    />
+                </FormField>
             </div>
 
             <!-- Studiemateriaal  -->
@@ -75,7 +75,7 @@
                 </label>
                 <textarea
                     v-model="studyMaterial"
-                    placeholder="Voer hier de studiemateriaal in van het vak"
+                    placeholder="Voer hier het studiemateriaal van het vak in"
                     :required="true"
                     class="w-full px-4 py-2 rounded-lg border border-lavender-grey focus:outline-none focus:border-soft-periwinkle resize-none h-32">
                 </textarea>
@@ -118,6 +118,7 @@
 
     // Atoms importeren
     import BaseButton from '../../atoms/BaseButton.vue'
+    import FormInputField from '../../atoms/FormInputField.vue'
 
     import LoadingSpinner from '../../atoms/LoadingSpinner.vue'
 
@@ -142,7 +143,7 @@
     // Beginnen als lege string, omdat de velden leeg zijn bij het laden van de pagina
     const courseName = ref('')
     const courseDescription = ref('')
-    const ects = ref('')
+    const ects = ref(null)
     const examDate = ref('')
     const studyMaterial = ref('')
 
@@ -181,9 +182,9 @@
                 await apiClient.put(`/courses/${props.courseId}`, {
                     course_name: courseName.value,
                     course_description: courseDescription.value,
-                    ects: ects.value,
+                    ects: Number(ects.value),
                     exam_date: examDate.value,
-                    study_material: studyMaterial.value,
+                    study_material: studyMaterial.value
                 })
 
                 // Succesmelding opslaan in localStorage
@@ -193,9 +194,9 @@
                 await apiClient.post('/courses', {
                     course_name: courseName.value,
                     course_description: courseDescription.value,
-                    ects: ects.value,
+                    ects: Number(ects.value),
                     exam_date: examDate.value,
-                    study_material: studyMaterial.value,
+                    study_material: studyMaterial.value
                 })
 
                 // Succesmelding opslaan in localStorage
@@ -229,13 +230,10 @@
                 ects.value = course.ects
                 examDate.value = course.exam_date
                 studyMaterial.value = course.study_material
-
-                // Laadstatus van het vak op false zetten
-                isLoading.value = false
             } 
         } catch (error) {
             // Foutmelding tonen als er iets fout is gegaan
-            errorToastMessage.value = 'Er is iets misgegaan bij het opslaan van het vak.'
+            errorToastMessage.value = 'Er is iets misgegaan bij het laden van het vak.'
         } finally {
             // Finally wordt altijd uitgevoerd, ook al er een fout optreedt
             isLoading.value = false
