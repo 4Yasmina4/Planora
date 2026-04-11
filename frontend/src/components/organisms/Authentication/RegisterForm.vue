@@ -117,7 +117,7 @@
     import BaseButton from '../../atoms/BaseButton.vue'
 
     // Molecules importeren
-    import FormField from '../../molecules/FormField.vue'
+    import FormField from '../../molecules/Form/FormField.vue'
 
     // Toast component importern uit de Base map
     import Toast from '../../../components/Base/Toast/Toast.vue'
