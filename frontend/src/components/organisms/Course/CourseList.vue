@@ -36,7 +36,7 @@
     import LoadingSpinner from '../../atoms/LoadingSpinner.vue'
 
     // Molecules importeren
-    import CourseCard from '../../molecules/Courses/CourseCard.vue'
+    import CourseCard from '../../molecules/Course/CourseCard.vue'
 
     // Aangepaste axios instantie importeren met JWT token interceptor
     // Interceptor zorgt ervoor dat bij elk verzoek de JWT token automatisch wordt toegevoegd

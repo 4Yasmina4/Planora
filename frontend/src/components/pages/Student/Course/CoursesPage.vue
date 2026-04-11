@@ -41,7 +41,7 @@
     import StudentNavbar from '../../../../components/organisms/Navbar/StudentNavbar.vue'
 
     // CourseList organism importeren
-    import CourseList from '../../../../components/organisms/Courses/CourseList.vue'
+    import CourseList from '../../../../components/organisms/Course/CourseList.vue'
 
     // Toast component importern uit de Base map
     import Toast from '../../../../components/Base/Toast/Toast.vue'
