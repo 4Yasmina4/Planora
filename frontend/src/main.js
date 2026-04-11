@@ -30,7 +30,7 @@ import DeleteUserPage from './components/pages/User/DeleteUserPage.vue'
 // Dashboard
 import AdministratorDashboardPage from './components/pages/Administrator/Dashboard/AdministratorDashboardPage.vue'
 // Voortgang
-import StudentProgressPage from './components/pages/Administrator/Progress/StudentProgressPage.vue'
+import StudentProgressOverviewPage from './components/pages/Administrator/Progress/StudentProgressOverviewPage.vue'
 
 // Student //
 // Dashboard
@@ -65,7 +65,7 @@ const routes = [
     // Dashboard
     { path: '/administrator/dashboard', component: AdministratorDashboardPage },
     // Voortgang
-    { path: '/administrator/dashboard/studenten-voortgang', component: StudentProgressPage },
+    { path: '/administrator/dashboard/studenten-voortgang', component: StudentProgressOverviewPage },
     // Student //
     // Dashboard
     { path: '/student/dashboard', component: StudentDashboardPage },
