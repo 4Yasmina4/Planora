@@ -3,13 +3,14 @@ namespace App\Services;
 
 use App\Enums\UserRole;
 use App\Models\User;
-use App\Repositories\UserRepository;
+use App\Repositories\IUserRepository;
+use App\Services\IUserService;
 
-class UserService
+class UserService implements IUserService
 {
-    private UserRepository $userRepository;
+    private IUserRepository $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(IUserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
