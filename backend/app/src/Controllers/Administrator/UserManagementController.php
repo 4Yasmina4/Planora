@@ -146,8 +146,16 @@ class UserManagementController extends BaseController
         }
 
         // URL-parameter ophalen uit de route-parameters en omzetten naar een integer
-        // $vars is een array die door FastRoute wordt aangemaakt op basis van de URL
         $userId = $this->getIdFromUrlParameters($vars);
+
+        // Controleren of administrator zijn eigen account probeert te verwijderen
+        $loggedInUserId = $this->getUserIdFromJwtRequest();
+        if ($userId === $loggedInUserId)
+        {
+            // HTTP statuscode 403 (Forbidden) meegeven
+            $this->jsonErrorResponse('Je kunt je eigen account niet verwijderen', 403);
+            return;
+        }
 
         // Controleren of gebruiker bestaat voordat deze wordt verwijderd
         $user = $this->userService->getUserByUserId($userId);
