@@ -5,7 +5,7 @@
 <template>
     <!-- :type="type" → type van de knop (submit, button) instellen via een prop -->
     <!-- <slot /> → de inhoud van de knop wordt van buitenaf meegegeven (tekst of icoon) -->
-    <button :type="type" :class="buttonClass">
+    <button :type="type" :class="buttonClass" :disabled="disabled">
         <slot />
     </button>
 </template>
@@ -23,6 +23,12 @@
         buttonClass: {
             type: String,
             default: ''
+        },
+
+        // Disabled prop toevoegen
+        disabled: {
+            type: Boolean,
+            default: false
         }
     })
 </script>

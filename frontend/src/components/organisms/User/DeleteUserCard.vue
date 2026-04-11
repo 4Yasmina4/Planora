@@ -67,7 +67,7 @@
                </BaseButton>
 
                <!-- Verwijder knop -->
-               <BaseButton type="submit" buttonClass="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-intense-cherry text-white font-semibold hover:bg-ruby-red hover:underline transition">
+               <BaseButton type="submit" :disabled="isOwnAccount" buttonClass="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-intense-cherry text-white font-semibold hover:bg-ruby-red hover:underline transition disabled:opacity-50 disabled:cursor-not-allowed">
                     <Trash2 class="w-5 h-5" /> Ja, verwijderen
                </BaseButton>
           </form>
@@ -77,7 +77,7 @@
 <script setup>
      // Ref importeren uit Vue
      // Ref: om reactieve variabelen te maken
-     import { ref, onMounted } from 'vue';
+     import { ref, onMounted, computed } from 'vue';
 
      // useRouter importeren
     import { useRouter } from 'vue-router'
@@ -99,6 +99,9 @@
     // Maakt het makkelijker om een token mee te sturen met elk verzoek in tegenstelling tot fetch()
     import apiClient from '../../../utils/axios.js'
 
+    // Hulpfunctie gebruiken om de ingelogde gebruiker's ID op te halen uit de JWT token
+    import { getLoggedInUserId } from '../../../utils/authentication.js'
+
     // Reactieve variabele om bij te houden of de vakken nog geladen worden
     const isLoading = ref(true)
 
@@ -118,6 +121,17 @@
                type: Number, 
                required: true
           }
+     })
+
+     // Controleren of de administrator zijn eigen account probeert te verwijderen
+     // Als dit het geval is verwijderknop uitschakelen
+     const isOwnAccount = computed(() => {
+          if (Number(props.userId) === getLoggedInUserId())
+          {
+               return true;
+          }
+
+          return false;
      })
 
      // Functie om één speciefieke gebruiker op te halen
@@ -146,6 +160,21 @@
 
     // Functie om één speciefieke gebruiker te verwijderen
     async function deleteUser() {
+          // Controleren of de administrator zijn eigen account probeert te verwijderen
+          if (Number(props.userId) === getLoggedInUserId())
+          {
+               errorToastMessage.value = 'Je kunt je eigen account niet verwijderen.'
+
+               // Toastmelding na 3 seconden verwijderen
+               // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
+               // 3000 milliseconden = 3 seconden
+               setTimeout(() => {
+                    errorToastMessage.value = ''
+               }, 3000)
+                    
+               return;
+          }
+
           try{
                // DELETE verzoek sturen naar de backend om de gebruiker te verwijderen
                await apiClient.delete(`/users/${props.userId}`)
@@ -159,6 +188,10 @@
           } catch (error) {
                // Foutmelding tonen als het verwijderen van de gebruiker is mislukt
                errorToastMessage.value = 'Er is iets misgegaan bij het verwijderen van de gebruiker.'
+
+               setTimeout(() => {
+                    errorToastMessage.value = ''
+               }, 3000)
           }
     }
 </script>
