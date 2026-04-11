@@ -222,11 +222,12 @@
                     surname_prefix: surnamePrefix.value || null,
                     last_name: lastName.value,
                     email: email.value,
-                    role: role.value
+                    role: role.value,
+                    password: password.value
                 })
 
                 // Succesmelding opslaan in localStorage
-                localStorage.setItem('UserEditSuccess', fullName)
+                localStorage.setItem('UserCreateSuccess', fullName)
             }
 
             // Na het succesvol opslaan van een gebruiker, administrator doorsturen naar gebruikersbeheer pagina
@@ -263,7 +264,7 @@
             }
         } catch (error) {
             // Foutmelding tonen als er iets fout is gegaan
-            errorToastMessage.value = 'Er is iets misgegaan bij het opslaan van de gebruiker.'
+            errorToastMessage.value = 'Er is iets misgegaan bij het ophalen van de gebruiker.'
         } finally {
             // Finally wordt altijd uitgevoerd, ook al er een fout optreedt
             isLoading.value = false

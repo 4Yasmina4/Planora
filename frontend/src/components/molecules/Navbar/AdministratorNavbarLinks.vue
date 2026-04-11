@@ -35,7 +35,7 @@
             // Gebruikersbeheer
             label: 'Gebruikersbeheer',
             icon: Users,
-            to: '/administrator/dashboard/gebruikersbeheer'
+            to: '/administrator/dashboard/gebruikersbeheer/gebruiker/aanmaken'
         },
         
         {

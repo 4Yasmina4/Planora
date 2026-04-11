@@ -4,7 +4,7 @@
 
 <template>
     <!-- Administratornavbar -->
-    <!-- <AdministratorNavbar /> -->
+    <AdministratorNavbar />
 
     <div class="min-h-screen bg-ghost-white flex flex-col items-center px-4 pt-16">
         <div class="max-w-4xl w-full mx-auto">            
@@ -16,8 +16,8 @@
 
 <script setup>
     // AdministratorNavbar organism importeren
-    // import AdministratorNavbar from '../../../components/organisms/Navbar/AdministratorNavbar.vue'
+    import AdministratorNavbar from '../../../components/organisms/Navbar/AdministratorNavbar.vue'
 
     // UserForm organism importeren
-    import UserForm from '../../components/organisms/User/UserForm.vue'
+    import UserForm from '../../../components/organisms/User/UserForm.vue'
 </script>

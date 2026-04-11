@@ -18,7 +18,7 @@
 
                 <BaseActionButton 
                     to="/administrator/dashboard/gebruikersbeheer/gebruiker/aanmaken"
-                    label="Gebruiker toevoegen"
+                    label="Gebruiker aanmaken"
                     icon="plus"
                     class="bg-mint-leaf text-white hover:bg-hunter-green transition"
                 />
@@ -40,6 +40,10 @@
             </div>
         </div>
     </section>
+
+    <!-- Toastsuccesmelding -->
+    <Toast :toastMessage="successToastMessage" type="success" />
+
 </template>
 
 <script setup>
@@ -48,20 +52,20 @@
     import { ref, onMounted } from 'vue';
 
     // AdministratorNavbar organism importeren
-    import AdministratorNavbar from '../../components/organisms/Navbar/AdministratorNavbar.vue'
+    import AdministratorNavbar from '../../../components/organisms/Navbar/AdministratorNavbar.vue'
 
     // Base importeren 
-    import LoadingSpinner from '../../components/atoms/LoadingSpinner.vue'
+    import LoadingSpinner from '../../../components/atoms/LoadingSpinner.vue'
 
     // Atom importeren
-    import BaseActionButton from '../../components/atoms/BaseActionButton.vue'
+    import BaseActionButton from '../../../components/atoms/BaseActionButton.vue'
 
     // Molecules importeren
-    import UserTableHeader from '../../components/molecules/User/UserTableHeader.vue'
-    import UserRow from '../../components/molecules/User/UserRow.vue'
+    import UserTableHeader from '../../../components/molecules/User/UserTableHeader.vue'
+    import UserRow from '../../../components/molecules/User/UserRow.vue'
 
     // Toast component importern uit de Base map
-    import Toast from '../../components/Base/Toast/Toast.vue'
+    import Toast from '../../../components/Base/Toast/Toast.vue'
 
     // Succes- en errortoastmelding 
     const successToastMessage = ref('')
@@ -76,10 +80,54 @@
     // Aangepaste axios instantie importeren met JWT token interceptor
     // Interceptor zorgt ervoor dat bij elk verzoek de JWT token automatisch wordt toegevoegd
     // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
-    import apiClient from '../../utils/axios.js'
+    import apiClient from '../../../utils/axios.js'
 
 
     // onMounted wordt uitgevoerd zodra het component volledig geladen is in de browser
+    onMounted(() => {
+        // Controleren of er een succesmelding is na het aanmaken van een gebruiker
+        if (localStorage.getItem('UserCreateSuccess'))
+        {
+            successToastMessage.value = `${localStorage.getItem('UserCreateSuccess')} is succesvol aangemaakt!`
+            localStorage.removeItem('UserCreateSuccess')
+
+            // Toastmelding na 3 seconden verwijderen
+            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
+            // 3000 milliseconden = 3 seconden
+            setTimeout(() => {
+                successToastMessage.value = ''
+            }, 3000)
+        }
+
+        // Controleren of er een succesmelding is na het verwijderen van een gebruiker
+        if (localStorage.getItem('UserDeleteSuccess'))
+        {
+            successToastMessage.value = `${localStorage.getItem('UserDeleteSuccess')} is succesvol verwijderd!`
+            localStorage.removeItem('UserDeleteSuccess')
+
+            // Toastmelding na 3 seconden verwijderen
+            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
+            // 3000 milliseconden = 3 seconden
+            setTimeout(() => {
+                successToastMessage.value = ''
+            }, 3000)
+        }
+
+        // Controleren of er een succesmelding is na het bewerken van een gebruiker
+        if (localStorage.getItem('UserEditSuccess'))
+        {
+            successToastMessage.value = `${localStorage.getItem('UserEditSuccess')} is succesvol bewerkt!`
+            localStorage.removeItem('UserEditSuccess')
+
+            // Toastmelding na 3 seconden verwijderen
+            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
+            // 3000 milliseconden = 3 seconden
+            setTimeout(() => {
+                successToastMessage.value = ''
+            }, 3000)
+        }
+    })
+
     // Gebruikers ophalen bij het laden van de pagina
     onMounted(async() => {
         try{

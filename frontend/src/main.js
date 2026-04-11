@@ -22,11 +22,11 @@ import RegisterPage from './pages/Authentication/RegisterPage.vue'
 
 // Administrator //
 // User
-import UserListPage from './pages/User/UserListPage.vue'
-import CreateUserPage from './pages/User/CreateUserPage.vue'
-import UserDetail from './components/Administrator/User/UserDetail.vue'
-import UpdateUserForm from './components/Administrator/User/UpdateUserForm.vue'
-import DeleteUser from './components/Administrator/User/DeleteUser.vue'
+import UserListPage from './components/pages/User/UserListPage.vue'
+import CreateUserPage from './components/pages/User/CreateUserPage.vue'
+import UserDetailsPage from './components/pages/User/UserDetailsPage.vue'
+import EditUserPage from './components/pages/User/EditUserPage.vue'
+import DeleteUserPage from './components/pages/User/DeleteUserPage.vue'
 // Dashboard
 import AdministratorDashboardPage from './pages/Administrator/Dashboard/AdministratorDashboardPage.vue'
 
@@ -55,10 +55,10 @@ const routes = [
     { path: '/register', component: RegisterPage },
     // Users //
     { path: '/administrator/dashboard/gebruikersbeheer', component: UserListPage },
-    { path: '/administrator/dashboard/gebruikersbeheer/aanmaken', component: CreateUserPage },
-    { path: '/users/:id', component: UserDetail },
-    { path: '/users/:id/edit', component: UpdateUserForm },
-    { path: '/users/:id/delete', component: DeleteUser },
+    { path: '/administrator/dashboard/gebruikersbeheer/gebruiker/aanmaken', component: CreateUserPage },
+    { path: '/administrator/dashboard/gebruikersbeheer/gebruiker/:id', component: UserDetailsPage },
+    { path: '/administrator/dashboard/gebruikersbeheer/gebruiker/:id/bewerken', component: EditUserPage },
+    { path: '/administrator/dashboard/gebruikersbeheer/gebruiker/:id/verwijderen', component: DeleteUserPage },
     // Administrator //
     // Dashboard
     { path: '/administrator/dashboard', component: AdministratorDashboardPage },
