@@ -17,8 +17,8 @@ import App from './App.vue'
 import Home from './components/Home/Home.vue'
 
 // Authentication //
-import LoginPage from './pages/Authentication/LoginPage.vue'
-import RegisterPage from './pages/Authentication/RegisterPage.vue'
+import LoginPage from './components/pages/Authentication/LoginPage.vue'
+import RegisterPage from './components/pages/Authentication/RegisterPage.vue'
 
 // Administrator //
 // User
