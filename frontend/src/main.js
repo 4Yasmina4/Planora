@@ -29,6 +29,8 @@ import EditUserPage from './components/pages/User/EditUserPage.vue'
 import DeleteUserPage from './components/pages/User/DeleteUserPage.vue'
 // Dashboard
 import AdministratorDashboardPage from './components/pages/Administrator/Dashboard/AdministratorDashboardPage.vue'
+// Voortgang
+import StudentProgressPage from './components/pages/Administrator/Progress/StudentProgressPage.vue'
 
 // Student //
 // Dashboard
@@ -43,7 +45,7 @@ import MyPlanningPage from './components/pages/Student/Task/MyPlanningPage.vue'
 import CreateTaskPage from './components/pages/Student/Task/CreateTaskPage.vue'
 import DeleteTaskPage from './components/pages/Student/Task/DeleteTaskPage.vue'
 import EditTaskPage from './components/pages/Student/Task/EditTaskPage.vue'
-// Planning
+// Voortgang
 import ProgressPage from './components/pages/Student/Progress/ProgressPage.vue'
 
 // Routes defineren
@@ -62,6 +64,8 @@ const routes = [
     // Administrator //
     // Dashboard
     { path: '/administrator/dashboard', component: AdministratorDashboardPage },
+    // Voortgang
+    { path: '/administrator/dashboard/studenten-voortgang', component: StudentProgressPage },
     // Student //
     // Dashboard
     { path: '/student/dashboard', component: StudentDashboardPage },

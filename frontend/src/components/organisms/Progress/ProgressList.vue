@@ -6,6 +6,13 @@
     <!-- Loading spinner -->
     <LoadingSpinner v-if="isLoading" message="Voortgang worden geladen... een ogenblik geduld." />
 
+    <!-- Lege staat -->
+    <div v-else-if="progresses.length === 0" class="text-center py-16 bg-white rounded-lg shadow-sm border border-gray-200">
+        <p class="text-lg text-dim-grey">
+            Er is nog geen voortgang beschikbaar.
+        </p>
+    </div>
+
     <!-- Voortgangslijst -->
     <div v-else class="space-y-6">
         <ProgressCard 
@@ -26,7 +33,6 @@
 
     // Atoms importeren
     import LoadingSpinner from '../../atoms/LoadingSpinner.vue'
-    import ProgressBar from '../../atoms/ProgressBar.vue'
 
     // Molecules importeren
     import ProgressCard from '../../molecules/Progress/ProgressCard.vue'
@@ -43,14 +49,34 @@
     // Reactieve variabele om bij te houden of de voortgangen nog geladen worden
     const isLoading = ref(true)
 
+    // Props zijn waardes die van buitenaf aan het component meegegeven worden
+    // userId is optioneel, als deze meegegeven wordt, wordt de administrator route gebruikt
+    const props = defineProps({
+        userId: {
+            type: Number,
+            default: null
+        }
+    })
+
     // Functie om alle voortgangen op te halen
     // Async function zorgt ervoor dat de functie kan wachten op iets (zoals data) zonder de rest van de pagina te blokkeren
     async function fetchProgresses() {
         try{
             // Laadstatus op true zetten, voordat de voortgangen worden opgehaald
             isLoading.value = true;
-            // POST verzoek sturen naar de backend
-            const response = await apiClient.get('/progress')
+
+            // Als userId is meegegeven, administrator router gebruiken en anders student route
+            let url
+
+            if (props.userId)
+            {
+                url = `/administrator/students/${props.userId}/progress`
+            } else {
+                url = '/progress'
+            }
+
+            // GET verzoek sturen naar de backend
+            const response = await apiClient.get(url)
             progresses.value = response.data
         } catch (error) {
             // Foutmelding tonen als er iets mis gaat
