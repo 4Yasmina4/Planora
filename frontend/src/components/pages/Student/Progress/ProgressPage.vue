@@ -21,8 +21,8 @@
 
 <script setup>
     // StudentNavbar organism importeren
-    import StudentNavbar from '../../../components/organisms/Navbar/StudentNavbar.vue'
+    import StudentNavbar from '../../../../components/organisms/Navbar/StudentNavbar.vue'
 
     // ProgressList organism importeren
-    import ProgressList from '../../../components/organisms/Progress/ProgressList.vue'
+    import ProgressList from '../../../../components/organisms/Progress/ProgressList.vue'
 </script>

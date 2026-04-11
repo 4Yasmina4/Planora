@@ -44,7 +44,7 @@ import CreateTaskPage from './components/pages/Student/Task/CreateTaskPage.vue'
 import DeleteTaskPage from './components/pages/Student/Task/DeleteTaskPage.vue'
 import EditTaskPage from './components/pages/Student/Task/EditTaskPage.vue'
 // Planning
-import ProgressPage from './pages/Student/Progress/ProgressPage.vue'
+import ProgressPage from './components/pages/Student/Progress/ProgressPage.vue'
 
 // Routes defineren
 const routes = [
