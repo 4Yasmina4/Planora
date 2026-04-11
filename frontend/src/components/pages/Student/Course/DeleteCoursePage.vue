@@ -20,7 +20,7 @@
     import StudentNavbar from '../../../../components/organisms/Navbar/StudentNavbar.vue'
 
     // DeleteCourseCard organism importeren
-    import DeleteCourseCard from '../../../../components/organisms/Courses/DeleteCourseCard.vue'
+    import DeleteCourseCard from '../../../../components/organisms/Course/DeleteCourseCard.vue'
 
     // useRoute importeren
     import { useRoute } from 'vue-router'
