@@ -24,7 +24,7 @@ import RegisterPage from './pages/Authentication/RegisterPage.vue'
 // User
 import UserListPage from './pages/User/UserListPage.vue'
 import CreateUserPage from './pages/User/CreateUserPage.vue'
-import UserDetail from './components/Administrator/User/UserDetail.vue'
+import UserDetailsPage from './pages/User/UserDetailsPage.vue'
 import EditUserPage from './pages/User/EditUserPage.vue'
 import DeleteUserPage from './pages/User/DeleteUserPage.vue'
 // Dashboard
@@ -56,7 +56,7 @@ const routes = [
     // Users //
     { path: '/administrator/dashboard/gebruikersbeheer', component: UserListPage },
     { path: '/administrator/dashboard/gebruikersbeheer/gebruiker/aanmaken', component: CreateUserPage },
-    { path: '/users/:id', component: UserDetail },
+    { path: '/administrator/dashboard/gebruikersbeheer/gebruiker/:id', component: UserDetailsPage },
     { path: '/administrator/dashboard/gebruikersbeheer/gebruiker/:id/bewerken', component: EditUserPage },
     { path: '/administrator/dashboard/gebruikersbeheer/gebruiker/:id/verwijderen', component: DeleteUserPage },
     // Administrator //
