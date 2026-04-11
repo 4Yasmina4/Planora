@@ -6,10 +6,10 @@
     <!-- Studentnavbar -->
     <StudentNavbar />
 
-    <div class="min-h-screen bg-ghost-white flex flex-col items-center px-4 pt-16">
+    <div class="min-h-screen bg-ghost-white flex flex-col items-center px-4 pt-12">
         <div class="max-w-4xl w-full mx-auto">            
             <!-- TaskForm organism -->
-            <TaskForm :taskId="taskId" />
+            <TaskForm :taskId="taskId" class="mb-12" />
         </div>
     </div>
 </template>
