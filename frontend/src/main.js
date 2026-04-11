@@ -28,7 +28,7 @@ import UserDetailsPage from './components/pages/User/UserDetailsPage.vue'
 import EditUserPage from './components/pages/User/EditUserPage.vue'
 import DeleteUserPage from './components/pages/User/DeleteUserPage.vue'
 // Dashboard
-import AdministratorDashboardPage from './pages/Administrator/Dashboard/AdministratorDashboardPage.vue'
+import AdministratorDashboardPage from './components/pages/Administrator/Dashboard/AdministratorDashboardPage.vue'
 
 // Student //
 // Dashboard
