@@ -34,10 +34,10 @@ import AdministratorDashboardPage from './components/pages/Administrator/Dashboa
 // Dashboard
 import StudentDashboardPage from './components/pages/Student/Dashboard/StudentDashboardPage.vue'
 // Vakken
-import CoursesPage from './pages/Student/Courses/CoursesPage.vue'
-import CreateCoursePage from './pages/Student/Courses/CreateCoursePage.vue'
-import DeleteCoursePage from './pages/Student/Courses/DeleteCoursePage.vue'
-import EditCoursePage from './pages/Student/Courses/EditCoursePage.vue'
+import CoursesPage from './components/pages/Student/Course/CoursesPage.vue'
+import CreateCoursePage from './components/pages/Student/Course/CreateCoursePage.vue'
+import DeleteCoursePage from './components/pages/Student/Course/DeleteCoursePage.vue'
+import EditCoursePage from './components/pages/Student/Course/EditCoursePage.vue'
 // Taken
 import MyPlanningPage from './pages/Student/Tasks/MyPlanningPage.vue'
 import CreateTaskPage from './pages/Student/Tasks/CreateTaskPage.vue'

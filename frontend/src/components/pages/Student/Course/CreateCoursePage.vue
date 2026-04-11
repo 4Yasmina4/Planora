@@ -16,8 +16,8 @@
 
 <script setup>
     // StudentNavbar organism importeren
-    import StudentNavbar from '../../../components/organisms/Navbar/StudentNavbar.vue'
+    import StudentNavbar from '../../../../components/organisms/Navbar/StudentNavbar.vue'
 
     // CourseForm organism importeren
-    import CourseForm from '../../../components/organisms/Courses/CourseForm.vue'
+    import CourseForm from '../../../../components/organisms/Courses/CourseForm.vue'
 </script>
