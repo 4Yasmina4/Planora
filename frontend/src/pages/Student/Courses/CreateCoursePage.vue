@@ -6,10 +6,10 @@
     <!-- Studentnavbar -->
     <StudentNavbar />
 
-    <div class="min-h-screen bg-ghost-white flex flex-col items-center px-4 pt-16">
+    <div class="min-h-screen bg-ghost-white flex flex-col items-center px-4 pt-12">
         <div class="max-w-4xl w-full mx-auto">            
             <!-- CourseForm organism -->
-            <CourseForm />
+            <CourseForm class="mb-12" />
         </div>
     </div>
 </template>
