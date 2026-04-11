@@ -32,7 +32,7 @@ import AdministratorDashboardPage from './components/pages/Administrator/Dashboa
 
 // Student //
 // Dashboard
-import StudentDashboardPage from './pages/Student/Dashboard/StudentDashboardPage.vue'
+import StudentDashboardPage from './components/pages/Student/Dashboard/StudentDashboardPage.vue'
 // Vakken
 import CoursesPage from './pages/Student/Courses/CoursesPage.vue'
 import CreateCoursePage from './pages/Student/Courses/CreateCoursePage.vue'
