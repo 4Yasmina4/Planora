@@ -38,7 +38,7 @@
     import { Plus } from 'lucide-vue-next'
 
     // StudentNavbar organism importeren
-    import StudentNavbar from '../../../components/organisms/StudentNavbar.vue'
+    import StudentNavbar from '../../../components/organisms/Navbar/StudentNavbar.vue'
 
     // CourseList organism importeren
     import CourseList from '../../../components/organisms/Courses/CourseList.vue'

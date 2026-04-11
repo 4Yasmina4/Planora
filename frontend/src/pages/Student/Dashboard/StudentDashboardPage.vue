@@ -19,7 +19,7 @@
 
 <script setup>
     // Organisms importeren
-    import StudentNavbar from '../../../components/organisms/StudentNavbar.vue'
+    import StudentNavbar from '../../../components/organisms/Navbar/StudentNavbar.vue'
     
     import StudentDashboardCards from '../../../components/organisms/Dashboard/StudentDashboardCards.vue'
 

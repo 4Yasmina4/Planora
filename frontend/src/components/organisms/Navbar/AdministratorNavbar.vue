@@ -1,14 +1,14 @@
-<!-- Organism: dit bestand bevat de studentnavbar
+<!-- Organism: dit bestand bevat de administratornavbar
      Het combineert de NavbarLinks molecule met een logo en uitlogknop
 -->
 
 <template>
-    <nav class="flex items-center justify-between gap-4 px-16 py-6 bg-soft-periwinkle shadow-sm">
+    <nav class="flex items-center justify-between gap-4 px-16 py-6 bg-ocean-twilight shadow-sm">
         <!-- Logo linkerzijde -->
-        <RouterLink to="/student/dashboard" class="font-bold text-white text-2xl">Planora</RouterLink>
+        <RouterLink to="/administrator/dashboard" class="font-bold text-white text-2xl">Planora</RouterLink>
 
-        <!-- Navbar linkjes -->
-        <NavbarLinks />
+        <!-- AdministratorNavbar linkjes -->
+        <AdministratorNavbarLinks />
 
         <!-- Uitlogknop rechterzijde -->
         <BaseButton type="button" @click="logout" buttonClass="flex items-center gap-2 px-4 py-2 rounded-lg bg-intense-cherry text-white font-semibold hover:bg-ruby-red hover:underline transition">
@@ -19,10 +19,10 @@
 
 <script setup>
     // FormButton atom importeren
-    import BaseButton from '../atoms/BaseButton.vue'
+    import BaseButton from '../../atoms/BaseButton.vue'
 
     // Molecules importeren
-    import NavbarLinks from '../molecules/NavbarLinks.vue'
+    import AdministratorNavbarLinks from '../../molecules/Navbar/AdministratorNavbarLinks.vue'
 
     // Lucide icon importeren
     import { LogOut } from 'lucide-vue-next'

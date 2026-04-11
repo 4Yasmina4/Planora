@@ -17,7 +17,7 @@
 
 <script setup>
     // StudentNavbar organism importeren
-    import StudentNavbar from '../../../components/organisms/StudentNavbar.vue'
+    import StudentNavbar from '../../../components/organisms/Navbar/StudentNavbar.vue'
 
     // DeleteCourseCard organism importeren
     import DeleteCourseCard from '../../../components/organisms/Courses/DeleteCourseCard.vue'
