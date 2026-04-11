@@ -40,6 +40,10 @@
             </div>
         </div>
     </section>
+
+    <!-- Toastsuccesmelding -->
+    <Toast :toastMessage="successToastMessage" type="success" />
+
 </template>
 
 <script setup>
@@ -80,6 +84,50 @@
 
 
     // onMounted wordt uitgevoerd zodra het component volledig geladen is in de browser
+    onMounted(() => {
+        // Controleren of er een succesmelding is na het aanmaken van een gebruiker
+        if (localStorage.getItem('UserCreateSuccess'))
+        {
+            successToastMessage.value = `${localStorage.getItem('UserCreateSuccess')} is succesvol aangemaakt!`
+            localStorage.removeItem('UserCreateSuccess')
+
+            // Toastmelding na 3 seconden verwijderen
+            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
+            // 3000 milliseconden = 3 seconden
+            setTimeout(() => {
+                successToastMessage.value = ''
+            }, 3000)
+        }
+
+        // Controleren of er een succesmelding is na het verwijderen van een gebruiker
+        if (localStorage.getItem('UserDeleteSuccess'))
+        {
+            successToastMessage.value = `${localStorage.getItem('UserDeleteSuccess')} is succesvol verwijderd!`
+            localStorage.removeItem('UserDeleteSuccess')
+
+            // Toastmelding na 3 seconden verwijderen
+            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
+            // 3000 milliseconden = 3 seconden
+            setTimeout(() => {
+                successToastMessage.value = ''
+            }, 3000)
+        }
+
+        // Controleren of er een succesmelding is na het bewerken van een gebruiker
+        if (localStorage.getItem('UserEditSuccess'))
+        {
+            successToastMessage.value = `${localStorage.getItem('UserEditSuccess')} is succesvol bewerkt!`
+            localStorage.removeItem('UserEditSuccess')
+
+            // Toastmelding na 3 seconden verwijderen
+            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
+            // 3000 milliseconden = 3 seconden
+            setTimeout(() => {
+                successToastMessage.value = ''
+            }, 3000)
+        }
+    })
+
     // Gebruikers ophalen bij het laden van de pagina
     onMounted(async() => {
         try{

@@ -38,7 +38,7 @@
 
                 <!-- Bewerken knop -->
                 <BaseActionButton
-                    :to="`/administrator/dashboard/gebruikersbeheer/gebruiker/${user.user_id}/wijzigen`"
+                    :to="`/administrator/dashboard/gebruikersbeheer/gebruiker/${user.user_id}/bewerken`"
                     label="Bewerken"
                     icon="pencil"
                     class="bg-soft-periwinkle text-white hover:bg-state-indigo transition"
