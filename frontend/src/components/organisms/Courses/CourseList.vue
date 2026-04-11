@@ -7,6 +7,11 @@
     <!-- Loading spinner -->
     <LoadingSpinner v-if="isLoading" message="Mijn vakken worden geladen... een ogenblik geduld." />
 
+    <!-- Melding tonen als er nog geen vakken toegevoegd zijn -->
+    <div v-else-if="courses.length === 0" class="text-gray-500 fw-bold text-xl mt-6 text-center">
+        Je hebt nog geen vakken toegevoegd. Klik op 'Vak toevoegen' om te beginnen.
+    </div>
+
     <!-- Vakkenlijst -->
     <div v-else class="space-y-6">
         <CourseCard 
