@@ -61,6 +61,8 @@ return function (RouteCollector $router) use ($userManagementController, $authen
     $router->addRoute('GET', '/progress', [$progressController, 'getProgressByUserId']);
 
     // Progress - Administrator //
+    // GET /administrator/students/progress → voortgang van alle studenten ophalen
+    $router->addRoute('GET', '/administrator/students/progress', [$administratorProgressController, 'getAllStudentsProgress']);
     // GET /administrator/students/{id:\d+}/progress → roept de getProgressByUserId methode aan in de AdministratorProgressController
     $router->addRoute('GET', '/administrator/students/{id:\d+}/progress', [$administratorProgressController, 'getProgressByUserId']);
 };
