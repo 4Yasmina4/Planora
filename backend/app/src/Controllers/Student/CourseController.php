@@ -8,8 +8,7 @@ use App\Services\IAuthenticationService;
 
 class CourseController extends BaseController
 {
-    // Readonly zorgt ervoor dat de property na de constructor niet meer gewijzigd kan worden
-    private readonly ICourseService $courseService;
+    private ICourseService $courseService;
 
     // CourseService via dependency injection meegeven
     public function __construct(ICourseService $courseService, IAuthenticationService $authenticationService)
