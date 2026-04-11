@@ -19,67 +19,69 @@
         <form class="space-y-5" @submit.prevent="register">
             <!-- Voornaam -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele firstName -->
-            <FormField 
-                label="Voornaam"
-                type="text"
-                placeholder="Voer uw voornaam in"
-                :required="true"
-                v-model="firstName"
-            />
+            <FormField label="Voornaam" :required="true">
+                <FormInputField
+                    type="text"
+                    placeholder="Voer jouw voornaam in"
+                    v-model="firstName"
+                />
+            </FormField>
 
             <!-- Tussenvoegsel naam  -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele surnamePrefix -->
-            <FormField 
-                label="Tussenvoegsel"
-                type="text"
-                placeholder="Voer uw tussenvoegsel in"
-                v-model="surnamePrefix"
-            />
+            <FormField label="Tussenvoegsel">
+                <FormInputField
+                    type="text"
+                    placeholder="Voer jouw tussenvoegsel in"
+                    v-model="surnamePrefix"
+                />
+            </FormField>
 
             <!-- Achternaam  -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele lastName -->
-            <FormField 
-                label="Achternaam"
-                type="text"
-                placeholder="Voer uw achternaam in"
-                :required="true"
-                v-model="lastName"
-            />
+            <FormField label="Achternaam" :required="true">
+                <FormInputField
+                    type="text"
+                    placeholder="Voer jouw achternaam in"
+                    v-model="lastName"
+                />
+            </FormField>
 
             <!-- E-mailadres  -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele email -->
             <div>
-                <FormField 
-                    label="E-mailadres"
-                    type="email"
-                    placeholder="Voer uw e-mailadres in"
-                    :required="true"
-                    v-model="email"
-                />
+                <FormField label="E-mailadres" :required="true">
+                    <FormInputField
+                        type="email"
+                        placeholder="Voer jouw e-mailadres in"
+                        v-model="email"
+                    />
+                </FormField>
+
                 <div class="mt-2 text-sm text-gray-500">
-                    Uw e-mailadres wordt gebruikt om uw account aan te maken en om in te loggen.
+                    Het opgegeven e-mailadres wordt gebruikt om jouw account aan te maken en om in te loggen.
                 </div>
             </div>
 
             <!-- Wachtwoord  -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele password -->
-            <FormField 
-                label="Wachtwoord"
-                type="password"
-                placeholder="Voer uw wachtwoord in"
-                :required="true"
-                v-model="password"
-            />
+            <FormField label="Wachtwoord" :required="true">
+                <FormInputField
+                    type="password"
+                    placeholder="Voer jouw wachtwoord in"
+                    v-model="password"
+                />
+            </FormField>
             
             <!-- Bevestig Wachtwoord  -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele password_confirm -->
-            <FormField 
-                label="Bevestig Wachtwoord"
-                type="password"
-                placeholder="Voer uw wachtwoord opnieuw in"
-                :required="true"
-                v-model="passwordConfirm"
-            />
+            <FormField label="Bevestig Wachtwoord" :required="true">
+                <FormInputField
+                    type="password"
+                    placeholder="Voer jouw wachtwoord opnieuw in"
+                    v-model="passwordConfirm"
+                />
+            </FormField>
 
             <!-- Toastfoutmelding -->
             <Toast :toastMessage="errorToastMessage" type="error" />
@@ -115,6 +117,7 @@
 
     // Atoms importeren
     import BaseButton from '../../atoms/BaseButton.vue'
+    import FormInputField from '../../atoms/FormInputField.vue'
 
     // Molecules importeren
     import FormField from '../../molecules/Form/FormField.vue'

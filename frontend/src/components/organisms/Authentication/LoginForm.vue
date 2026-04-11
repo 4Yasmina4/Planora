@@ -18,7 +18,7 @@
             <FormField label="E-mailadres" :required="true">
                 <FormInputField
                     type="email"
-                    placeholder="Voer uw e-mailadres in"
+                    placeholder="Voer jouw e-mailadres in"
                     v-model="email"
                 />
             </FormField>    
@@ -27,7 +27,7 @@
             <FormField label="Wachtwoord" :required="true">
                 <FormInputField
                     type="password"
-                    placeholder="Voer uw wachtwoord in"
+                    placeholder="Voer jouw wachtwoord in"
                     v-model="password"
                 /> 
             </FormField>
@@ -108,7 +108,7 @@
         // Controleren of er een succesmelding is na het registreren van een account
         if (localStorage.getItem('registrationSuccess') === 'true')
         {
-            successToastMessage.value = 'Account succesvol aangemaakt! U kunt nu inloggen.'
+            successToastMessage.value = 'Account succesvol aangemaakt! Je kunt nu inloggen.'
             localStorage.removeItem('registrationSuccess')
 
             // Toastmelding na 3 seconden verwijderen
@@ -122,7 +122,7 @@
         // Controleren of er een succesmelding is na het uitloggen
         if (localStorage.getItem('logoutSuccess') === 'true')
         {
-            successToastMessage.value = 'U bent succesvol uitgelogd!'
+            successToastMessage.value = 'Je bent succesvol uitgelogd!'
             localStorage.removeItem('logoutSuccess')
 
             // Toastmelding na 3 seconden verwijderen
