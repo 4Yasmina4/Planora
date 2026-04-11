@@ -24,8 +24,16 @@
                 />
             </div>
 
+            <!-- Lege staat -->
+            <div v-if="users.length === 0" class="text-center py-16 bg-white rounded-lg shadow-sm border border-gray-200">
+                <p class="text-lg text-dim-grey">
+                    Er zijn nog geen gebruikers toegevoegd.
+                </p>
+
+            </div>
+
             <!-- Tabel -->
-            <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+            <div v-else class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
                 <table class="w-full border-collapse">
                     <UserTableHeader />
 
