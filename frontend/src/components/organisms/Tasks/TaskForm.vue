@@ -35,13 +35,13 @@
 
             <!-- Naam van taak -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele taskName -->
-            <FormField 
-                label="Naam van de taak"
-                type="text"
-                placeholder="Voer de taaknaam in"
-                :required="true"
-                v-model="taskName"
-            />
+            <FormField label="Naam van de taak" :required="true">
+                <FormInputField
+                    type="text"
+                    placeholder="Voer de taaknaam in"
+                    v-model="taskName"
+                />
+            </FormField>
 
             <!-- Beschrijving van de taak  -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele taskDescription -->
@@ -59,24 +59,24 @@
 
             <!-- Studiedatum  -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele date -->
-            <FormField 
-                label="Studiedatum"
-                type="date"
-                placeholder="Selecteer een datum"
-                :required="true"
-                v-model="date"
-            />
+            <FormField label="Studiedatum" :required="true">
+                <FormInputField
+                    type="date"
+                    placeholder="Selecteer een datum"
+                    v-model="date"
+                />
+            </FormField>
 
             <!-- Duur van de taak  -->
             <!-- v-model koppelt het invoerveld aan de reactieve variabele taskDuration -->
             <div>
-                <FormField 
-                    label="Taak tijdsduur (in minuten)"
-                    type="Number"
-                    placeholder="Voer de tijdsduur voor de taak in"
-                    :required="true"
-                    v-model="taskDuration"
-                />
+                <FormField label="Taaktijdsduur (in minuten)" :required="true">
+                    <FormInputField
+                        type="Number"
+                        placeholder="Voer de tijdsduur voor de taak in"
+                        v-model="taskDuration"
+                    />
+                </FormField>
             </div>
 
             <!-- Toastfoutmelding -->
@@ -116,6 +116,7 @@
     // Atoms importeren
     import BaseButton from '../../atoms/BaseButton.vue'
     import LoadingSpinner from '../../atoms/LoadingSpinner.vue'
+    import FormInputField from '../../atoms/FormInputField.vue'
 
     // Molecules importeren
     import FormField from '../../molecules/Form/FormField.vue'
@@ -137,7 +138,7 @@
     const taskName = ref('')
     const taskDescription = ref('')
     const date = ref('')
-    const taskDuration = ref('')
+    const taskDuration = ref(null)
     const courseId = ref(null)
     const courses = ref([])
 
@@ -177,7 +178,7 @@
                     course_id: courseId.value,
                     task_description: taskDescription.value,
                     date: date.value,
-                    task_duration: taskDuration.value,
+                    task_duration: Number(taskDuration.value)
                 })
 
                 // Succesmelding opslaan in localStorage
@@ -189,7 +190,7 @@
                     task_name: taskName.value,
                     task_description: taskDescription.value,
                     date: date.value,
-                    task_duration: taskDuration.value,
+                    task_duration: Number(taskDuration.value)
                 })
 
                 // Succesmelding opslaan in localStorage
@@ -225,9 +226,6 @@
                 date.value = task.date
                 taskDuration.value = task.task_duration
                 courseId.value = task.course_id
-
-                // Laadstatus van de taak op false zetten
-                isLoading.value = false
             }
         } catch (error) {
             // Foutmelding tonen als er iets fout is gegaan

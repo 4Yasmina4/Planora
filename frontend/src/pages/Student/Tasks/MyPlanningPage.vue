@@ -20,7 +20,7 @@
             </div>
             
             <!-- TaskList organism -->
-            <TaskList />
+            <TaskList class="mb-12" />
         </div>
     </div>
 
