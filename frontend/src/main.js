@@ -55,7 +55,7 @@ const routes = [
     { path: '/register', component: RegisterPage },
     // Users //
     { path: '/administrator/dashboard/gebruikersbeheer', component: UserListPage },
-    { path: '/administrator/dashboard/gebruikersbeheer/aanmaken', component: CreateUserPage },
+    { path: '/administrator/dashboard/gebruikersbeheer/gebruiker/aanmaken', component: CreateUserPage },
     { path: '/users/:id', component: UserDetail },
     { path: '/users/:id/edit', component: UpdateUserForm },
     { path: '/users/:id/delete', component: DeleteUser },

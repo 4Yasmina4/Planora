@@ -18,7 +18,7 @@
 
                 <BaseActionButton 
                     to="/administrator/dashboard/gebruikersbeheer/gebruiker/aanmaken"
-                    label="Gebruiker toevoegen"
+                    label="Gebruiker aanmaken"
                     icon="plus"
                     class="bg-mint-leaf text-white hover:bg-hunter-green transition"
                 />
