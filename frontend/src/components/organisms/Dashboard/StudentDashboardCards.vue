@@ -43,7 +43,7 @@
     // Array met functiekaarten
     const dashboardCards = [
         {
-            // Mijn vakken - Student
+            // Mijn vakken
             title: 'Mijn vakken',
             icon: BookOpen,
             description: 'Beheer je vakken en tentamendata',

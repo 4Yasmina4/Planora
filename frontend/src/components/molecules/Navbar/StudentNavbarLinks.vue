@@ -1,4 +1,4 @@
-<!-- Molecule: dit bestand bevat herbruikbare navigatielinks voor de navbar
+<!-- Molecule: dit bestand bevat herbruikbare navigatielinks voor de studentnavbar
      Het combineert meerdere NavbarLink atoms in een lijst
 -->
 
@@ -17,7 +17,7 @@
 
 <script setup>
     // NavbarLink atom importeren
-    import NavbarLink from '../atoms/NavbarLink.vue'
+    import NavbarLink from '../../atoms/NavbarLink.vue'
 
     // Lucide icons importeren
     import { LayoutDashboard, BookOpen, CalendarPlus, CalendarDays, ChartBar, UserRound } from 'lucide-vue-next'
@@ -25,45 +25,45 @@
     // Array met navbarlinkjes
     const navbarLinks = [
         {
-            // Dashboard - Student
+            // Dashboard
             label: 'Dashboard',
             icon: LayoutDashboard,
-            to: '/student/dashboard/'
+            to: '/student/dashboard'
         },
         
         {
-            // Mijn vakken - Student
+            // Mijn vakken
             label: 'Mijn vakken',
             icon: BookOpen,
             to: '/student/dashboard/mijn-vakken'
         },
 
         {
-            // Planning maken - Student
+            // Planning maken
             label: 'Planning maken',
             icon: CalendarPlus,
             to: '/student/dashboard/planning-maken'
         },
 
         {
-            // Mijn planning - Student
+            // Mijn planning
             label: 'Mijn planning',
             icon: CalendarDays,
             to: '/student/dashboard/mijn-planning'
         },
 
         {
-            // Voortgang - Student
+            // Voortgang
             label: 'Voortgang',
             icon: ChartBar,
             to: '/student/dashboard/voortgang'
         },
 
         {
-            // Profielinstellingen - Student
+            // Profielinstellingen
             label: 'Profielinstellingen',
             icon: UserRound,
             to: '/student/dashboard/profielinstellingen'
-        },
+        }
     ]
 </script>

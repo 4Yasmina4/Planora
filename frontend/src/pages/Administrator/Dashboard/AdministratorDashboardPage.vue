@@ -4,7 +4,7 @@
 
 <template>
     <!-- AdministratorNavbar -->
-    <!-- <StudentNavbar /> -->
+    <AdministratorNavbar />
 
     <div class="min-h-screen bg-ghost-white flex flex-col px-4 pt-16">
         <div class="max-w-4xl w-full mx-auto">
@@ -17,8 +17,8 @@
 </template>
 
 <script setup>
-    // // Organisms importeren
-    // import AdministratorNavbar from '../../../components/organisms/StudentNavbar.vue'
+    // Organisms importeren
+    import AdministratorNavbar from '../../../components/organisms/Navbar/AdministratorNavbar.vue'
     
     import AdministratorDashboardCards from '../../../components/organisms/Dashboard/AdministratorDashboardCards.vue'
 
