@@ -27,6 +27,12 @@ class UserService implements IUserService
         return $this->userRepository->getUserByUserId($userId);
     }
 
+    // Methode om gebruiker op te halen op basis van hun email
+    public function getUserByEmail(string $email): ?User
+    {
+        return $this->userRepository->getUserByEmail($email);
+    }
+
     // Methode om een nieuwe gebruiker aan te maken
     public function createUser(string $firstName, ?string $surnamePrefix, string $lastName, string $email, string $password, string $role): User
     {
