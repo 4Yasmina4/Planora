@@ -11,7 +11,7 @@
         <!-- Alles tonen zodta het laden klaar is -->
         <div v-else>
             <!-- Titel + Gebruiker toevoegen knop -->
-            <div class="flex items-center justify-between mb-6">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between mb-6 gap-3">
                 <h1 class="text-2xl font-semibold text-ocean-twilight">
                     Gebruikersbeheer
                 </h1>
@@ -20,12 +20,20 @@
                     to="/administrator/dashboard/gebruikersbeheer/gebruiker/aanmaken"
                     label="Gebruiker aanmaken"
                     icon="plus"
-                    class="bg-mint-leaf text-white hover:bg-hunter-green transition"
+                    class="bg-mint-leaf text-white hover:bg-hunter-green transition w-full md:w-auto"
                 />
             </div>
 
-            <!-- Tabel -->
-            <div class="overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
+            <!-- Lege staat -->
+            <div v-if="users.length === 0" class="text-center py-16 bg-white rounded-lg shadow-sm border border-gray-200">
+                <p class="text-lg text-dim-grey">
+                    Er zijn nog geen gebruikers toegevoegd.
+                </p>
+
+            </div>
+
+            <!-- Tabel (alleen grote schermen dekstop) -->
+            <div v-else class="hidden md:block overflow-x-auto bg-white rounded-lg shadow-sm border border-gray-200">
                 <table class="w-full border-collapse">
                     <UserTableHeader />
 
@@ -37,6 +45,15 @@
                         />
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Kaartenlijst (alleen op kleine schermen mobiel) -->
+            <div class="md:hidden">
+                <UserRow 
+                    v-for="user in users"
+                    :key="user.user_id"
+                    :user="user"
+                />
             </div>
         </div>
     </section>
