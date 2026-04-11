@@ -22,8 +22,8 @@ import RegisterPage from './pages/Authentication/RegisterPage.vue'
 
 // Administrator //
 // User
-import UserList from './components/Administrator/User/UserList.vue'
-import CreateUserForm from './components/Administrator/User/CreateUserForm.vue'
+import UserListPage from './pages/User/UserListPage.vue'
+import CreateUserPage from './pages/User/CreateUserPage.vue'
 import UserDetail from './components/Administrator/User/UserDetail.vue'
 import UpdateUserForm from './components/Administrator/User/UpdateUserForm.vue'
 import DeleteUser from './components/Administrator/User/DeleteUser.vue'
@@ -54,8 +54,8 @@ const routes = [
     { path: '/login', component: LoginPage },
     { path: '/register', component: RegisterPage },
     // Users //
-    { path: '/users', component: UserList },
-    { path: '/users/create', component: CreateUserForm },
+    { path: '/administrator/dashboard/gebruikersbeheer', component: UserListPage },
+    { path: '/administrator/dashboard/gebruikersbeheer/aanmaken', component: CreateUserPage },
     { path: '/users/:id', component: UserDetail },
     { path: '/users/:id/edit', component: UpdateUserForm },
     { path: '/users/:id/delete', component: DeleteUser },
