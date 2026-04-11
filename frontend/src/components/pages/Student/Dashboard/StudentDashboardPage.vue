@@ -19,9 +19,9 @@
 
 <script setup>
     // Organisms importeren
-    import StudentNavbar from '../../../components/organisms/Navbar/StudentNavbar.vue'
+    import StudentNavbar from '../../../../components/organisms/Navbar/StudentNavbar.vue'
     
-    import StudentDashboardCards from '../../../components/organisms/Dashboard/StudentDashboardCards.vue'
+    import StudentDashboardCards from '../../../../components/organisms/Dashboard/StudentDashboardCards.vue'
 
     // Computed importeren uit Vue om reactieve berekeningen te maken
     import { computed } from 'vue'
