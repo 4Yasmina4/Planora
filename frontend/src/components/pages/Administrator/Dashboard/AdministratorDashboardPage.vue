@@ -18,9 +18,9 @@
 
 <script setup>
     // Organisms importeren
-    import AdministratorNavbar from '../../../components/organisms/Navbar/AdministratorNavbar.vue'
+    import AdministratorNavbar from '../../../../components/organisms/Navbar/AdministratorNavbar.vue'
     
-    import AdministratorDashboardCards from '../../../components/organisms/Dashboard/AdministratorDashboardCards.vue'
+    import AdministratorDashboardCards from '../../../../components/organisms/Dashboard/AdministratorDashboardCards.vue'
 
     // Computed importeren uit Vue om reactieve berekeningen te maken
     import { computed } from 'vue'
