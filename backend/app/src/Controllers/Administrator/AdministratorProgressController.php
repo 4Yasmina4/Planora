@@ -34,4 +34,20 @@ class AdministratorProgressController extends AdministratorBaseController
         // Lijst met voortgang terugsturen naar de frontend
         $this->jsonSuccessResponse($progress);
     }
+
+    // Methode die voortgang van alle studenten ophaalt
+    public function getAllStudentsProgress(): void
+    {
+        // Gebruiker authorizeren
+        if (!$this->userIsAdministrator())
+        {
+            return;
+        }
+        
+        // Voortgang van alle studenten ophalen via de IProgressService
+        $studentsProgress = $this->progressService->getAllStudentsProgress();
+
+        // Lijst met voortgang terugsturen naar de frontend
+        $this->jsonSuccessResponse($studentsProgress);
+    }
 }

@@ -46,6 +46,49 @@ class ProgressRepository implements IProgressRepository
         return $progresses;
     }
 
+    // Methode die voortgang van alle studenten ophaalt
+    public function getAllStudentsProgress(): array
+    {
+        // SQL-query voorbereiden om de voortgang per vak op te halen van alle studenten 
+        // Via een LEFT JOIN worden taken gekoppeld aan vakken en gebruikers aan vakken
+        $stmt =$this->pdo->query("SELECT u.user_id, u.first_name, u.surname_prefix, u.last_name,
+                                         c.course_id, c.course_name, COUNT(t.task_id) as total_tasks, SUM(t.is_completed) as completed_tasks
+                                  FROM user u
+                                  INNER JOIN course c ON u.user_id = c.user_id
+                                  LEFT JOIN task t ON c.course_id = t.course_id
+                                  WHERE u.role = 'student'
+                                  GROUP BY u.user_id, u.first_name, u.surname_prefix, u.last_name, c.course_id, c.course_name
+                                  ORDER BY u.first_name ASC ");
+
+        // Alle rijen ophalen als associatieve arrays
+        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        // Voortgang groeperen per student
+        $studentProgresses = [];
+
+        // Elk database-rij wordt omgezet naar Progress-object en vervolgens toegevoegd aan de lijst
+        foreach ($rows as $row)
+        {
+            $userId = $row['user_id'];
+
+            // Als student nog niet in de array zit, toevoegen
+            if (!isset($studentProgresses[$userId]))
+            {
+                $studentProgresses[$userId] = [
+                    'user_id' => $userId,
+                    'full_name' => trim($row['first_name'] . ' ' . ($row['surname_prefix'] ? $row['surname_prefix'] . ' ': '') . $row['last_name']),
+                    'courses' => []
+                ];
+            }
+            
+            // Voortgang per vak toevoegen aan student
+            $studentProgresses[$userId]['courses'][] = $this->mapRowToProgressObject($row);
+        }
+
+        // Array met genummerde keys omzetten naar een gewone lijst
+        return array_values($studentProgresses);
+    }
+
     
     // Helpermethodes //
     // Methode dat Progress-objecten aanmaakt van de opgehaalde database gegevens
