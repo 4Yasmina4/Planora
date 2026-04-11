@@ -1,8 +1,7 @@
 <?php
 namespace App\Services;
 
-// use App\Repositories\IUserRepository;
-use App\Repositories\UserRepository;
+use App\Repositories\IUserRepository;
 use App\Services\IAuthenticationService;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -12,10 +11,9 @@ class AuthenticationService implements IAuthenticationService
     // Geheime sleutel voor het ondertekenen van de JWT token
     // Voorkomt dat iemand de token kan namaken of aanpassen
     private string $secretJwtKey;
-    //private readonly IUserRepository $userRepository;
-    private readonly UserRepository $userRepository;
+    private readonly IUserRepository $userRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(IUserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
         $this->secretJwtKey = getenv('JWT_SECRET_KEY');
