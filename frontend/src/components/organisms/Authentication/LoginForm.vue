@@ -15,22 +15,22 @@
         <!-- @submit.prevent="login": verstuurd het formulier en voorkomt dat de standaard herlaadactie in de browser wordt uitgevoerd -->
         <form class="space-y-5" @submit.prevent="login">
             <!-- E-mailadres -->
-            <FormField 
-                label="E-mailadres"
-                type="email"
-                placeholder="Voer uw e-mailadres in"
-                :required="true"
-                v-model="email"
-            />    
+            <FormField label="E-mailadres" :required="true">
+                <FormInputField
+                    type="email"
+                    placeholder="Voer jouw e-mailadres in"
+                    v-model="email"
+                />
+            </FormField>    
 
             <!-- Wachtwoord -->
-            <FormField 
-                label="Wachtwoord"
-                type="password"
-                placeholder="Voer uw wachtwoord in"
-                :required="true"
-                v-model="password"
-            /> 
+            <FormField label="Wachtwoord" :required="true">
+                <FormInputField
+                    type="password"
+                    placeholder="Voer jouw wachtwoord in"
+                    v-model="password"
+                /> 
+            </FormField>
 
             <!-- Toastfoutmelding -->
             <Toast :toastMessage="errorToastMessage" type="error" />
@@ -77,6 +77,7 @@
 
     // Atoms importeren
     import BaseButton from '../../atoms/BaseButton.vue'
+    import FormInputField from '../../atoms/FormInputField.vue'
 
     // Molecules importeren
     import FormField from '../../molecules/Form/FormField.vue'
@@ -107,7 +108,7 @@
         // Controleren of er een succesmelding is na het registreren van een account
         if (localStorage.getItem('registrationSuccess') === 'true')
         {
-            successToastMessage.value = 'Account succesvol aangemaakt! U kunt nu inloggen.'
+            successToastMessage.value = 'Account succesvol aangemaakt! Je kunt nu inloggen.'
             localStorage.removeItem('registrationSuccess')
 
             // Toastmelding na 3 seconden verwijderen
@@ -121,7 +122,7 @@
         // Controleren of er een succesmelding is na het uitloggen
         if (localStorage.getItem('logoutSuccess') === 'true')
         {
-            successToastMessage.value = 'U bent succesvol uitgelogd!'
+            successToastMessage.value = 'Je bent succesvol uitgelogd!'
             localStorage.removeItem('logoutSuccess')
 
             // Toastmelding na 3 seconden verwijderen
