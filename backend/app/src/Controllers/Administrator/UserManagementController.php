@@ -2,18 +2,18 @@
 namespace App\Controllers\Administrator;
 
 use App\Controllers\BaseController;
-use App\Services\UserService;
+use App\Services\IUserService;
 use App\Services\IAuthenticationService;
 
 class UserManagementController extends BaseController
 {
-    private UserService $userService;
+    private IUserService $userService;
 
-    // UserService via dependency injection meegeven.
-    public function __construct(UserService $userService, IAuthenticationService $authenticationService)
+    // IUserService via dependency injection meegeven.
+    public function __construct(IUserService $userService, IAuthenticationService $authenticationService)
     {
         $this->userService = $userService;
-        // AuthenticationService doorgeven aan de BaseController via parent constructor
+        // IAuthenticationService doorgeven aan de BaseController via parent constructor
         parent::__construct($authenticationService);
     }
 

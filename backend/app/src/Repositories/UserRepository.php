@@ -4,8 +4,9 @@ namespace App\Repositories;
 use PDO;
 use App\Models\User;
 use App\Enums\UserRole;
+use App\Repositories\IUserRepository;
 
-class UserRepository
+class UserRepository implements IUserRepository
 {
     private PDO $pdo;
 
