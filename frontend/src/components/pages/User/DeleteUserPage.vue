@@ -29,5 +29,5 @@
     const route = useRoute()
 
     // userId ophalen uit de URL parameter
-    const userId = route.params.id
+    const userId = Number(route.params.id)
 </script>

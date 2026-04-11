@@ -48,6 +48,7 @@
 
                 <!-- Verwijderen knop -->
                 <BaseActionButton
+                    v-if="!isOwnAccount"
                     :to="`/administrator/dashboard/gebruikersbeheer/gebruiker/${user.user_id}/verwijderen`"
                     label="Verwijderen"
                     icon="trash"
@@ -81,7 +82,7 @@
             Rol: {{ user.role }}
         </p>
 
-        <!-- Aciteknoppen onder elkaar -->
+        <!-- Actieknoppen onder elkaar -->
         <div class="mt-5 space-y-3">
             <!-- Bekijken knop -->
                 <BaseActionButton
@@ -101,6 +102,7 @@
 
                 <!-- Verwijderen knop -->
                 <BaseActionButton
+                    v-if="!isOwnAccount"
                     :to="`/administrator/dashboard/gebruikersbeheer/gebruiker/${user.user_id}/verwijderen`"
                     label="Verwijderen"
                     icon="trash"
@@ -114,12 +116,28 @@
     // Atoms importeren
     import BaseActionButton from '../../atoms/BaseActionButton.vue'
 
+    // Computed importeren om reactieve berekeningen te maken
+    import { computed } from 'vue'
+
+    // Hulpfunctie gebruiken om de ingelogde gebruiker's ID op te halen uit de JWT token
+    import { getLoggedInUserId } from '../../../utils/authentication.js'
+
     // Props zijn waardes die van buitenaf aan het component meegegeven worden
-    defineProps({
+    const props = defineProps({
         // Gebruikersobject met alle gegevens voor deze tabelrij
         user: {
             type: Object,
             required: true
         }
+    })
+
+    // Controleren of deze rij van de ingelogde administrator is
+    const isOwnAccount = computed(() => {
+        if (props.user.user_id === getLoggedInUserId())
+        {
+            return true;
+        }
+
+        return false;
     })
 </script>
