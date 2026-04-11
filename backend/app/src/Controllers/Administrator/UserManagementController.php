@@ -20,7 +20,13 @@ class UserManagementController extends BaseController
     // Methode om alle gebruikers op te halen
     public function getAllUsers(): void 
     {
-        // Alle gebruikers ophalen via de UserService
+        // Gebruiker authorizeren
+        if (!$this->userIsAdministrator())
+        {
+            return;
+        }
+
+        // Alle gebruikers ophalen
         $users = $this->userService->getAllUsers();
 
         // Lijst met gebruikers terugsturen naar de frontend
@@ -30,6 +36,12 @@ class UserManagementController extends BaseController
     // Methode om één gebruiker op te halen
     public function getUserByUserId(array $vars): void
     {
+        // Gebruiker authorizeren
+        if (!$this->userIsAdministrator())
+        {
+            return;
+        }
+
         // URL-parameter ophalen uit de route-parameters en omzetten naar een integer
         // Dit via de helpermethode in de BaseController doen
         // $vars is een array die door FastRoute wordt aangemaakt op basis van de URL
@@ -53,6 +65,12 @@ class UserManagementController extends BaseController
     // Methode om een nieuwe gebruiker aan te maken
     public function createUser(): void
     {
+        // Gebruiker authorizeren
+        if (!$this->userIsAdministrator())
+        {
+            return;
+        }
+
         // Userdata ophalen uit de request body via methode getJsonDataFromRequestBody in BaseController
         $userData = $this->getJsonDataFromRequestBody();
         
@@ -67,7 +85,7 @@ class UserManagementController extends BaseController
             return;
         }
 
-        // Nieuwe gebruiker aanmaken via de UserService methode createUser
+        // Nieuwe gebruiker aanmaken
         // Password meegeven en geen hashedPassword, omdat de Userservice het wachtwoord hasht
         $newUser = $this->userService->createUser($userData['first_name'], $userData['surname_prefix'] ?? null, $userData['last_name'], $userData['email'], $userData['password'], $userData['role']);
 
@@ -80,10 +98,14 @@ class UserManagementController extends BaseController
     // Op basis van de userId worden de gegevens van een gebruiker gewijzigd
     public function updateUser(array $vars): void
     {
+        // Gebruiker authorizeren
+        if (!$this->userIsAdministrator())
+        {
+            return;
+        }
+
         // URL-parameter ophalen uit de route-parameters en omzetten naar een integer
-        // Dit via de helpermethode in de BaseController doen
         // $vars is een array die door FastRoute wordt aangemaakt op basis van de URL
-        // Bijvoorbeeld: /users/5 → $vars = ['id' => 5] → geeft 5 terug als integer
         $userId = $this->getIdFromUrlParameters($vars);
 
         // Controleren of gebruiker bestaat voordat deze wordt gewijzigd
@@ -107,7 +129,7 @@ class UserManagementController extends BaseController
             return;
         }
 
-        // Gebruikersgegevens wijzigen via de UserSerivce
+        // Gebruikersgegevens wijzigen
         $updatedUser = $this->userService->updateUser($userId, $userData['first_name'], $userData['surname_prefix'] ?? null, $userData['last_name'], $userData['email'], $userData['password'] ?? null, $userData['role']);
 
         // Gewijzigde gebruiker terugsturen naar de frontend
@@ -117,10 +139,14 @@ class UserManagementController extends BaseController
     // Methode om gebruiker te verwijderen op basis van de user_id
     public function deleteUser(array $vars): void 
     {
+        // Gebruiker authorizeren
+        if (!$this->userIsAdministrator())
+        {
+            return;
+        }
+
         // URL-parameter ophalen uit de route-parameters en omzetten naar een integer
-        // Dit via de helpermethode in de BaseController doen
         // $vars is een array die door FastRoute wordt aangemaakt op basis van de URL
-        // Bijvoorbeeld: /users/5 → $vars = ['id' => 5] → geeft 5 terug als integer
         $userId = $this->getIdFromUrlParameters($vars);
 
         // Controleren of gebruiker bestaat voordat deze wordt verwijderd
@@ -132,7 +158,7 @@ class UserManagementController extends BaseController
             return;
         }
 
-        // Gebruiker verwijderen via de UserService
+        // Gebruiker verwijderen
         $deleteUser = $this->userService->deleteUser($userId);
 
         // Als het verwijderen van de gebruiker mislukt is, foutmelding tonen
@@ -147,4 +173,22 @@ class UserManagementController extends BaseController
         // HTTP statuscode 200 (OK) gebruiken
         $this->jsonSuccessResponse(['message' => 'Gebruiker succesvol verwijderd!']);
     }
+
+    // Helpermethodes //
+    private function userIsAdministrator(): bool
+    {
+        // Controleren of gebruiker ingelogd is
+        if (!$this->isAuthenticatedUser())
+        {
+            return false;
+        }
+
+        // Controleren of ingelogde gebruiker een administrator is
+        if (!$this->validateUserIsAdministrator())
+        {
+            return false;
+        }
+
+        return true;
+    } 
 }

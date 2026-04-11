@@ -2,6 +2,7 @@
 namespace App\Controllers;
 
 use App\Services\IAuthenticationService;
+use App\Enums\UserRole;
 
 class BaseController
 {
@@ -46,6 +47,59 @@ class BaseController
         return $userId;
 
     } 
+
+    // Methode om te controleren of gebruiker is geautoriseerd
+    protected function isAuthenticatedUser(): bool 
+    {
+        // Ophalen van de user_id uit het JWT token
+        $userId = $this->validateUserAuthentication();
+
+        // Als user_id null is, is de gebruiker niet ingelogd
+        if ($userId === null)
+        {
+            return false;
+        }
+
+        // Anders is de gebruiker wel ingelogd
+        return true;
+    }
+
+    // Methode om te controleren of de gebruiker een administrator is
+    protected function validateUserIsAdministrator(): bool 
+    {
+        // JWT token ophalen uit de Authorization header
+        $jwtToken = $this->authenticationService->getJwtTokenFromAuthorizationHeader();
+
+        // user_id uit token halen om te controleren of token geldig is
+        $decodedUserId = $this->authenticationService->getUserIdFromJwtToken($jwtToken);
+
+        // Als token ongeldig is, HTTP statuscode 401 geven
+        if (!$decodedUserId)
+        {
+            $this->jsonErrorResponse('Niet geautoriseerd', 401);
+            return false;
+        }
+
+        // Token opnieuw decoderen om de gebruikersrol op te halen
+        try {
+            // Volledig JWT payload decoderen om de gebruikersrol op te halen
+            // Deze payload bevat onder andere user_id, naamgegevens, rol, iat en exp
+            $payload = \Firebase\JWT\JWT::decode($jwtToken, new \Firebase\JWT\Key(getenv('JWT_SECRET_KEY'), 'HS256'));
+        } catch (\Exception $e)
+        {
+            $this->jsonErrorResponse('Niet geautoriseerd', 401);
+            return false;
+        }
+
+        // Alleen administrators hebben toegang
+        if ($payload->role !== UserRole::ADMINISTRATOR->value)
+        {
+            $this->jsonErrorResponse('Geen toegang: alleen administrators mogen deze actie uitvoeren.', 403);
+            return false;
+        }
+
+        return true;
+    }
 
     // Een success JSON response terugsturen naar de frontend
     // Er wordt een HTTP statuscode 200 (OK) gegeven; Verzoek is gelukt, data wordt teruggestuurd naar frontend
