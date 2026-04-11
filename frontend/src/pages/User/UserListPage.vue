@@ -1,7 +1,10 @@
 <!-- Page: dit bestand toont de volledige gebruikerslijst binnen het administrator dashboard -->
 
 <template>
-    <section class="p-6 bg-ghost-white min-h-screen">
+    <!-- AdministratorNavbar -->
+    <AdministratorNavbar />
+
+    <section class="p-6 bg-ghost-white min-h-screen pt-12">
         <!-- Loading spinner -->
         <LoadingSpinner v-if="isLoading" />
 
@@ -45,7 +48,7 @@
     import { ref, onMounted } from 'vue';
 
     // AdministratorNavbar organism importeren
-    // import AdministratorNavbar from '../../../components/organisms/Navbar/AdministratorNavbar.vue'
+    import AdministratorNavbar from '../../components/organisms/Navbar/AdministratorNavbar.vue'
 
     // Base importeren 
     import LoadingSpinner from '../../components/atoms/LoadingSpinner.vue'
