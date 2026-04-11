@@ -12,7 +12,7 @@
             <!-- Welkomstbericht -->
             <h1 class="text-3xl font-semibold text-ocean-twilight mb-12"> Welkom terug, {{ fullName }}!</h1>
             <!-- DashboardCards organism -->
-            <DashboardCards />
+            <StudentDashboardCards />
         </div>
     </div>
 </template>
@@ -47,6 +47,5 @@
 
         // Naam zonder tussenvoegsel 
         return `${payload.first_name} ${payload.last_name}`
-
     })
 </script>
