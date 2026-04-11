@@ -26,6 +26,7 @@ use App\Controllers\Student\TaskController;
 use App\Repositories\ProgressRepository;
 use App\Services\ProgressService;
 use App\Controllers\Student\ProgressController;
+use App\Controllers\Administrator\AdministratorProgressController;
 
 
 // User dependencies //
@@ -49,7 +50,10 @@ $taskRepository = new TaskRepository($pdo);
 $taskService = new TaskService($taskRepository);
 $taskController = new TaskController($taskService, $authenticationService);
 
-// Progress dependencies //
+// Student - Progress dependencies //
 $progressRepository = new ProgressRepository($pdo);
 $progressService = new ProgressService($progressRepository);
 $progressController = new ProgressController($progressService, $authenticationService);
+
+// Administrator - Progress dependencies //
+$administratorProgressController = new AdministratorProgressController($progressService, $authenticationService);
