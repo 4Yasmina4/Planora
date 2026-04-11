@@ -22,11 +22,11 @@ import RegisterPage from './pages/Authentication/RegisterPage.vue'
 
 // Administrator //
 // User
-import UserListPage from './pages/User/UserListPage.vue'
-import CreateUserPage from './pages/User/CreateUserPage.vue'
-import UserDetailsPage from './pages/User/UserDetailsPage.vue'
-import EditUserPage from './pages/User/EditUserPage.vue'
-import DeleteUserPage from './pages/User/DeleteUserPage.vue'
+import UserListPage from './components/pages/User/UserListPage.vue'
+import CreateUserPage from './components/pages/User/CreateUserPage.vue'
+import UserDetailsPage from './components/pages/User/UserDetailsPage.vue'
+import EditUserPage from './components/pages/User/EditUserPage.vue'
+import DeleteUserPage from './components/pages/User/DeleteUserPage.vue'
 // Dashboard
 import AdministratorDashboardPage from './pages/Administrator/Dashboard/AdministratorDashboardPage.vue'
 

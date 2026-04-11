@@ -52,20 +52,20 @@
     import { ref, onMounted } from 'vue';
 
     // AdministratorNavbar organism importeren
-    import AdministratorNavbar from '../../components/organisms/Navbar/AdministratorNavbar.vue'
+    import AdministratorNavbar from '../../../components/organisms/Navbar/AdministratorNavbar.vue'
 
     // Base importeren 
-    import LoadingSpinner from '../../components/atoms/LoadingSpinner.vue'
+    import LoadingSpinner from '../../../components/atoms/LoadingSpinner.vue'
 
     // Atom importeren
-    import BaseActionButton from '../../components/atoms/BaseActionButton.vue'
+    import BaseActionButton from '../../../components/atoms/BaseActionButton.vue'
 
     // Molecules importeren
-    import UserTableHeader from '../../components/molecules/User/UserTableHeader.vue'
-    import UserRow from '../../components/molecules/User/UserRow.vue'
+    import UserTableHeader from '../../../components/molecules/User/UserTableHeader.vue'
+    import UserRow from '../../../components/molecules/User/UserRow.vue'
 
     // Toast component importern uit de Base map
-    import Toast from '../../components/Base/Toast/Toast.vue'
+    import Toast from '../../../components/Base/Toast/Toast.vue'
 
     // Succes- en errortoastmelding 
     const successToastMessage = ref('')
@@ -80,7 +80,7 @@
     // Aangepaste axios instantie importeren met JWT token interceptor
     // Interceptor zorgt ervoor dat bij elk verzoek de JWT token automatisch wordt toegevoegd
     // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
-    import apiClient from '../../utils/axios.js'
+    import apiClient from '../../../utils/axios.js'
 
 
     // onMounted wordt uitgevoerd zodra het component volledig geladen is in de browser

@@ -16,8 +16,8 @@
 
 <script setup>
     // AdministratorNavbar organism importeren
-    import AdministratorNavbar from '../../components/organisms/Navbar/AdministratorNavbar.vue'
+    import AdministratorNavbar from '../../../components/organisms/Navbar/AdministratorNavbar.vue'
 
     // UserForm organism importeren
-    import UserForm from '../../components/organisms/User/UserForm.vue'
+    import UserForm from '../../../components/organisms/User/UserForm.vue'
 </script>

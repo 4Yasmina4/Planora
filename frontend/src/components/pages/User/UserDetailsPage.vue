@@ -16,10 +16,10 @@
 
 <script setup>
     // AdministratorNavbar organism importeren
-    import AdministratorNavbar from '../../components/organisms/Navbar/AdministratorNavbar.vue'
+    import AdministratorNavbar from '../../../components/organisms/Navbar/AdministratorNavbar.vue'
 
     // UserDetailsCard organism importeren
-    import UserDetailsCard from '../../components/organisms/User/UserDetailsCard.vue'
+    import UserDetailsCard from '../../../components/organisms/User/UserDetailsCard.vue'
 
     // useRoute importeren
     import { useRoute } from 'vue-router'
