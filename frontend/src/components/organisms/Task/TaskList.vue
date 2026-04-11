@@ -56,7 +56,7 @@
     import LoadingSpinner from '../../atoms/LoadingSpinner.vue'
 
     // Molecules importeren
-    import TaskCard from '../../molecules/Tasks/TaskCard.vue'
+    import TaskCard from '../../molecules/Task/TaskCard.vue'
 
     // Aangepaste axios instantie importeren met JWT token interceptor
     // Interceptor zorgt ervoor dat bij elk verzoek de JWT token automatisch wordt toegevoegd

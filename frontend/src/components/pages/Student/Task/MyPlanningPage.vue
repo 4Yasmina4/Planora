@@ -36,13 +36,13 @@
     import { Plus } from 'lucide-vue-next'
 
     // StudentNavbar organism importeren
-    import StudentNavbar from '../../../components/organisms/Navbar/StudentNavbar.vue'
+    import StudentNavbar from '../../../../components/organisms/Navbar/StudentNavbar.vue'
 
     // TaskList organism importeren
-    import TaskList from '../../../components/organisms/Tasks/TaskList.vue'
+    import TaskList from '../../../../components/organisms/Task/TaskList.vue'
 
     // Toast component importern uit de Base map
-    import Toast from '../../../components/Base/Toast/Toast.vue'
+    import Toast from '../../../../components/Base/Toast/Toast.vue'
 
     // Succes toastmelding 
     const successToastMessage = ref('')
