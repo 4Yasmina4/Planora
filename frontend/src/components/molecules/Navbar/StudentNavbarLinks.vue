@@ -4,7 +4,7 @@
 
 <template>
     <!-- Navbar met linkjes -->
-    <div class="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap--6 lg:gap-14">
+    <div class="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-6 lg:gap-14">
         <NavbarLink
             v-for="link in navbarLinks"
             :key="link.label"
