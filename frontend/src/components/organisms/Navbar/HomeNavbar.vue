@@ -13,11 +13,11 @@
             <div class="flex items-center gap-4">
                 <!-- Inloggen- + registratieknop (grote schermen) -->
                 <div class="hidden md:flex items-center gap-4">
-                    <RouterLink to="/login" class="flex items-center gap-2 px-4 py-2 rounded-lg text-white font-semibold hover:underline transition">
+                    <RouterLink to="/login" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-periwinkle text-white font-semibold hover:bg-ghost-white hover:underline transition">
                         <LogIn class="w-5 h-5" /> Inloggen 
                     </RouterLink>
 
-                    <RouterLink to="/register" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-intense-cherry text-white font-semibold hover:bg-ruby-red hover:underline transition">
+                    <RouterLink to="/register" class="flex items-center gap-2 px-4 py-2 rounded-lg bg-ocean-twilight text-white font-semibold hover:bg-french-blue hover:underline transition">
                         <UserPlus class="w-5 h-5" /> Registreren 
                     </RouterLink>
                 </div>
