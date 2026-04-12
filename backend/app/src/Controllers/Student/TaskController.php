@@ -1,35 +1,33 @@
 <?php
 namespace App\Controllers\Student;
 
-use App\Controllers\BaseController;
+use App\Controllers\Student\StudentBaseController;
 use App\Models\Task;
 use App\Services\ITaskService;
 use App\Services\IAuthenticationService;
 
-class TaskController extends BaseController
+class TaskController extends StudentBaseController
 {
     private ITaskService $taskService;
 
     public function __construct(ITaskService $taskService, IAuthenticationService $authenticationService)
     {
         $this->taskService = $taskService;
-        // AuthenticationService doorgeven aan de BaseController via parent constructor
+        // AuthenticationService doorgeven aan de StudentBaseController via parent constructor
         parent::__construct($authenticationService);
     }
 
     // Methode die alle taken ophaald van een specifieke student op basis van de user_id
     public function getAllTasksByUserId(): void
     {
-        // user_id ophalen en controleren of de gebruiker ingelogd is via een helpermethode in de BaseController
-        $userId = $this->validateUserAuthentication();
-
-        // Als er geen geldig user_id is, is de gebruiker niet ingelogd
-        if (!$userId)
+       // Gebruiker authorizeren
+        if (!$this->userIsStudent())
         {
-            // Foutmelding wordt al verstuurd in de methode validateUserAuthentication in de BaseController
-            // Functie stoppen
             return;
         }
+
+        // user_id ophalen uit het JWT token
+        $userId = $this->getUserIdFromJwtRequest();
         
         // Alle taken ophalen via de ITaskService
         $tasks = $this->taskService->getAllTasksByUserId($userId);
@@ -41,14 +39,14 @@ class TaskController extends BaseController
     // Methode die één specifieke taak ophaald op basis van de task_id
     public function getTaskByTaskId(array $vars): void
     {
-        // user_id ophalen en controleren of de gebruiker ingelogd is via een helpermethode in de BaseController
-        $userId = $this->validateUserAuthentication();
-
-        // Als er geen geldig user_id is, is de gebruiker niet ingelogd
-        if (!$userId)
+        // Gebruiker authorizeren
+        if (!$this->userIsStudent())
         {
             return;
         }
+
+        // user_id ophalen uit het JWT token
+        $userId = $this->getUserIdFromJwtRequest();
 
         // task_id ophalen uit de URL parameters
         $taskId = $this->getIdFromUrlParameters($vars);
@@ -67,14 +65,14 @@ class TaskController extends BaseController
     // Methode om een nieuwe taak aan te maken
     public function createTask(): void
     {
-        // user_id ophalen en controleren of de gebruiker ingelogd is via een helpermethode in de BaseController
-        $userId = $this->validateUserAuthentication();
-
-        // Als er geen geldig user_id is, is de gebruiker niet ingelogd
-        if (!$userId)
+        // Gebruiker authorizeren
+        if (!$this->userIsStudent())
         {
             return;
         }
+
+        // user_id ophalen uit het JWT token
+        $userId = $this->getUserIdFromJwtRequest();
 
         // Taskdata ophalen uit de request body
         $taskData = $this->getJsonDataFromRequestBody();
@@ -102,14 +100,14 @@ class TaskController extends BaseController
     // Methode om taakgegevens te wijzigen
     public function updateTask(array $vars): void
     {
-        // user_id ophalen en controleren of de gebruiker ingelogd is via een helpermethode in de BaseController
-        $userId = $this->validateUserAuthentication();
-
-        // Als er geen geldig user_id is, is de gebruiker niet ingelogd
-        if (!$userId)
+        // Gebruiker authorizeren
+        if (!$this->userIsStudent())
         {
             return;
         }
+
+        // user_id ophalen uit het JWT token
+        $userId = $this->getUserIdFromJwtRequest();
 
         // task_id ophalen uit de URL parameters via een helpermethode in de BaseController
         $taskId = $this->getIdFromUrlParameters($vars);
@@ -145,14 +143,14 @@ class TaskController extends BaseController
     // Methode om een taak te verwijderen van een speciefieke student
     public function deleteTask(array $vars): void 
     {
-        // user_id ophalen en controleren of de gebruiker ingelogd is
-        $userId = $this->validateUserAuthentication();
-
-        // Als er geen geldig user_id is, is de gebruiker niet ingelogd
-        if (!$userId)
+        // Gebruiker authorizeren
+        if (!$this->userIsStudent())
         {
             return;
         }
+
+        // user_id ophalen uit het JWT token
+        $userId = $this->getUserIdFromJwtRequest();
 
         // task_id ophalen uit de URL parameters
         $taskId = $this->getIdFromUrlParameters($vars);
