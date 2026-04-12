@@ -39,7 +39,7 @@
             <Toast :toastMessage="successToastMessage" type="success" />
 
             <!-- Knoppen -->
-            <div class="flex gap-3 pt-4">
+            <div class="flex flex-col md:flex-row gap-3 pt-4">
                 <!-- Terug naar de homepagina -->
                 <router-link to="/" class="w-full flex items-center gap-2 px-4 py-2 rounded-lg border border-lavender-grey bg-ghost-white text-gray-700 hover:bg-lavender-grey hover:text-white hover:underline transition">
                     <ArrowLeft class="w-5 h-5" /> Terug naar homepagina
