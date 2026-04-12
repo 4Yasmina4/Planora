@@ -1,11 +1,11 @@
 <?php
 namespace App\Controllers\Administrator;
 
-use App\Controllers\BaseController;
+use App\Controllers\Administrator\AdministratorBaseController;
 use App\Services\IUserService;
 use App\Services\IAuthenticationService;
 
-class UserManagementController extends BaseController
+class UserManagementController extends AdministratorBaseController
 {
     private IUserService $userService;
 
@@ -13,7 +13,7 @@ class UserManagementController extends BaseController
     public function __construct(IUserService $userService, IAuthenticationService $authenticationService)
     {
         $this->userService = $userService;
-        // IAuthenticationService doorgeven aan de BaseController via parent constructor
+        // IAuthenticationService doorgeven aan de AdministratorBaseController via parent constructor
         parent::__construct($authenticationService);
     }
 
@@ -181,22 +181,4 @@ class UserManagementController extends BaseController
         // HTTP statuscode 200 (OK) gebruiken
         $this->jsonSuccessResponse(['message' => 'Gebruiker succesvol verwijderd!']);
     }
-
-    // Helpermethodes //
-    private function userIsAdministrator(): bool
-    {
-        // Controleren of gebruiker ingelogd is
-        if (!$this->isAuthenticatedUser())
-        {
-            return false;
-        }
-
-        // Controleren of ingelogde gebruiker een administrator is
-        if (!$this->validateUserIsAdministrator())
-        {
-            return false;
-        }
-
-        return true;
-    } 
 }
