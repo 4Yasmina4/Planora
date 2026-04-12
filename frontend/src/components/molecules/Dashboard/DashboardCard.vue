@@ -16,7 +16,7 @@
         </h2>
 
         <!-- Beschrijving -->
-        <p class="text-lg text-lavender-grey">
+        <p class="text-lg text-shadow-lavender-grey">
             {{ description }}
         </p>
     </RouterLink>
