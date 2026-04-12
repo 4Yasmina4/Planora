@@ -53,6 +53,9 @@ import ProgressPage from './components/pages/Student/Progress/ProgressPage.vue'
 // Instellingen
 import SettingsPage from './components/pages/Student/Settings/SettingsPage.vue'
 
+
+import { useAuthenticationStore } from './stores/authenticationStore'
+
 // Routes defineren
 const routes = [
     // Home //
@@ -100,4 +103,9 @@ const router = createRouter({
 const app = createApp(App)
 app.use(createPinia())
 app.use(router)
+
+// Authentication store initialiseren vanuit JWT token
+const authenticationStore = useAuthenticationStore()
+authenticationStore.initilizeAuthenticationStoreFromJwtToken()
+
 app.mount('#app')

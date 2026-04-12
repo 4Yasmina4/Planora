@@ -99,8 +99,11 @@
     // Maakt het makkelijker om een token mee te sturen met elk verzoek in tegenstelling tot fetch()
     import apiClient from '../../../utils/axios.js'
 
-    // Hulpfunctie gebruiken om de ingelogde gebruiker's ID op te halen uit de JWT token
-    import { getLoggedInUserId } from '../../../utils/authentication.js'
+    // AuthenticationStore importeren
+    import { useAuthenticationStore } from '../../../stores/authenticationStore.js'
+
+    // AuthenticationStore initialiseren
+    const authenticationStore = useAuthenticationStore()
 
     // Reactieve variabele om bij te houden of de vakken nog geladen worden
     const isLoading = ref(true)
@@ -126,7 +129,7 @@
      // Controleren of de administrator zijn eigen account probeert te verwijderen
      // Als dit het geval is verwijderknop uitschakelen
      const isOwnAccount = computed(() => {
-          if (Number(props.userId) === getLoggedInUserId())
+          if (Number(props.userId) === authenticationStore.userId)
           {
                return true;
           }
@@ -161,7 +164,7 @@
     // Functie om één speciefieke gebruiker te verwijderen
     async function deleteUser() {
           // Controleren of de administrator zijn eigen account probeert te verwijderen
-          if (Number(props.userId) === getLoggedInUserId())
+          if (Number(props.userId) === authenticationStore.userId)
           {
                errorToastMessage.value = 'Je kunt je eigen account niet verwijderen.'
 

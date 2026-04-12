@@ -19,5 +19,21 @@ export const useAuthenticationStore = defineStore('auth', () => {
         userRole.value = null
     }
 
-    return { userId, userRole, setUser, clearUser }
+    // Store initialiseren vanuit JWT token in de localStorage
+    // Wordt aangeroepen bij het laden van de applicatie
+    function initilizeAuthenticationStoreFromJwtToken() {
+        const jwtToken = localStorage.getItem('token')
+
+        if (!jwtToken)
+        {
+            return;
+        }
+
+        // JWT token decoderen om gebruikersgegevens op te halen
+        const payload = JSON.parse(atob(jwtToken.split('.')[ 1 ]))
+        userId.value = payload.user_id
+        userRole.value = payload.role
+    }
+
+    return { userId, userRole, setUser, clearUser, initilizeAuthenticationStoreFromJwtToken }
 })
