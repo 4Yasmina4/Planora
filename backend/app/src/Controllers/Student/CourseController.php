@@ -1,36 +1,34 @@
 <?php
 namespace App\Controllers\Student;
 
-use App\Controllers\BaseController;
+use App\Controllers\Student\StudentBaseController;
 use App\Models\Course;
 use App\Services\ICourseService;
 use App\Services\IAuthenticationService;
 
-class CourseController extends BaseController
+class CourseController extends StudentBaseController
 {
     private ICourseService $courseService;
 
-    // CourseService via dependency injection meegeven
+    // ICourseService via dependency injection meegeven
     public function __construct(ICourseService $courseService, IAuthenticationService $authenticationService)
     {
         $this->courseService = $courseService;
-        // AuthenticationService doorgeven aan de BaseController via parent constructor
+        // AuthenticationService doorgeven aan de StudentBaseController via parent constructor
         parent::__construct($authenticationService);
     }
 
     // Methode die alle vakken ophaald van een specifieke student op basis van de user_id
     public function getAllCoursesByUserId(): void
     {
-        // user_id ophalen en controleren of de gebruiker ingelogd is via een helpermethode in de BaseController
-        $userId = $this->validateUserAuthentication();
-
-        // Als er geen geldig user_id is, is de gebruiker niet ingelogd
-        if (!$userId)
+        // Gebruiker authorizeren
+        if (!$this->userIsStudent())
         {
-            // Foutmelding wordt al verstuurd in de methode validateUserAuthentication in de BaseController
-            // Functie stoppen
             return;
         }
+
+        // user_id ophalen uit het JWT token
+        $userId = $this->getUserIdFromJwtRequest();
         
         // Alle vakken ophalen via de ICourseService
         $courses = $this->courseService->getAllCoursesByUserId($userId);
@@ -42,16 +40,14 @@ class CourseController extends BaseController
     // Methode die één specifieke vak ophaald op basis vaan de course_id
     public function getCourseByCourseId(array $vars): void
     {
-        // user_id ophalen en controleren of de gebruiker ingelogd is via een helpermethode in de BaseController
-        $userId = $this->validateUserAuthentication();
-
-        // Als er geen geldig user_id is, is de gebruiker niet ingelogd
-        if (!$userId)
+        // Gebruiker authorizeren
+        if (!$this->userIsStudent())
         {
-            // Foutmelding wordt al verstuurd in de methode validateUserAuthentication in de BaseController
-            // Functie stoppen
             return;
         }
+
+        // user_id ophalen uit het JWT token
+        $userId = $this->getUserIdFromJwtRequest();
 
         // course_id ophalen uit de URL parameters
         $courseId = $this->getIdFromUrlParameters($vars);
@@ -70,16 +66,14 @@ class CourseController extends BaseController
     // Methode om een nieuwe vak aan te maken
     public function createCourse(): void
     {
-        // user_id ophalen en controleren of de gebruiker ingelogd is via een helpermethode in de BaseController
-        $userId = $this->validateUserAuthentication();
-
-        // Als er geen geldig user_id is, is de gebruiker niet ingelogd
-        if (!$userId)
+        // Gebruiker authorizeren
+        if (!$this->userIsStudent())
         {
-            // Foutmelding wordt al verstuurd in de methode validateUserAuthentication in de BaseController
-            // Functie stoppen
             return;
         }
+
+        // user_id ophalen uit het JWT token
+        $userId = $this->getUserIdFromJwtRequest();
 
         // Coursedata ophalen uit de request body via methode getJsonDataFromRequestBody in BaseController
         $courseData = $this->getJsonDataFromRequestBody();
@@ -106,15 +100,14 @@ class CourseController extends BaseController
     // Methode om vakgegevens te wijzigen op basis van de course_id
     public function updateCourse(array $vars): void
     {
-        // user_id ophalen en controleren of de gebruiker ingelogd is via een helpermethode in de BaseController
-        $userId = $this->validateUserAuthentication();
-
-        // Als er geen geldig user_id is, is de gebruiker niet ingelogd
-        if (!$userId)
+        // Gebruiker authorizeren
+        if (!$this->userIsStudent())
         {
-            // Foutmelding wordt al verstuurd in de methode validateUserAuthentication in de BaseController
             return;
         }
+
+        // user_id ophalen uit het JWT token
+        $userId = $this->getUserIdFromJwtRequest();
 
         // course_id ophalen uit de URL parameters via een helpermethode in de BaseController
         $courseId = $this->getIdFromUrlParameters($vars);
@@ -147,15 +140,14 @@ class CourseController extends BaseController
     // Methode om vak te verwijderen op basis van de course_id
     public function deleteCourse(array $vars): void 
     {
-        // user_id ophalen en controleren of de gebruiker ingelogd is via een helpermethode in de BaseController
-        $userId = $this->validateUserAuthentication();
-
-        // Als er geen geldig user_id is, is de gebruiker niet ingelogd
-        if (!$userId)
+        // Gebruiker authorizeren
+        if (!$this->userIsStudent())
         {
-            // Foutmelding wordt al verstuurd in de methode validateUserAuthentication in de BaseController
             return;
         }
+
+        // user_id ophalen uit het JWT token
+        $userId = $this->getUserIdFromJwtRequest();
 
         // course_id ophalen uit de URL parameters via een helpermethode in de BaseController
         $courseId = $this->getIdFromUrlParameters($vars);
