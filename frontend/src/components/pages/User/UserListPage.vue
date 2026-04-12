@@ -84,6 +84,14 @@
     // Toast component importern uit de Base map
     import Toast from '../../../components/Base/Toast/Toast.vue'
 
+    // Aangepaste axios instantie importeren met JWT token interceptor
+    // Interceptor zorgt ervoor dat bij elk verzoek de JWT token automatisch wordt toegevoegd
+    // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
+    import apiClient from '../../../utils/axios.js'
+
+    // Helperfunctie importeren om toastmelding na 3 seconden te verwijderen
+    import { clearToastMessage } from '../../../utils/toast.js'
+
     // Succes- en errortoastmelding 
     const successToastMessage = ref('')
     const errorToastMessage = ref('')
@@ -94,11 +102,6 @@
     // State voor gebruikers
     const users = ref([])
 
-    // Aangepaste axios instantie importeren met JWT token interceptor
-    // Interceptor zorgt ervoor dat bij elk verzoek de JWT token automatisch wordt toegevoegd
-    // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
-    import apiClient from '../../../utils/axios.js'
-
 
     // onMounted wordt uitgevoerd zodra het component volledig geladen is in de browser
     onMounted(() => {
@@ -107,13 +110,7 @@
         {
             successToastMessage.value = `${localStorage.getItem('UserCreateSuccess')} is succesvol aangemaakt!`
             localStorage.removeItem('UserCreateSuccess')
-
-            // Toastmelding na 3 seconden verwijderen
-            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
-            // 3000 milliseconden = 3 seconden
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
 
         // Controleren of er een succesmelding is na het verwijderen van een gebruiker
@@ -121,13 +118,7 @@
         {
             successToastMessage.value = `${localStorage.getItem('UserDeleteSuccess')} is succesvol verwijderd!`
             localStorage.removeItem('UserDeleteSuccess')
-
-            // Toastmelding na 3 seconden verwijderen
-            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
-            // 3000 milliseconden = 3 seconden
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
 
         // Controleren of er een succesmelding is na het bewerken van een gebruiker
@@ -135,13 +126,7 @@
         {
             successToastMessage.value = `${localStorage.getItem('UserEditSuccess')} is succesvol bewerkt!`
             localStorage.removeItem('UserEditSuccess')
-
-            // Toastmelding na 3 seconden verwijderen
-            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
-            // 3000 milliseconden = 3 seconden
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
     })
 
@@ -155,6 +140,7 @@
         } catch (error) {
             // Foutmelding tonen als er iets fout is gegaan
             errorToastMessage.value = 'Er is iets misgegaan bij het ophalen van de gebruikers.'
+            clearToastMessage(errorToastMessage)
         } finally {
             // Finally wordt altijd uitgevoerd, ook al er een fout optreedt
             isLoading.value = false
