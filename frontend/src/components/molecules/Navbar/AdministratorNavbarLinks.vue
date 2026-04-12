@@ -20,7 +20,7 @@
     import NavbarLink from '../../atoms/NavbarLink.vue'
 
     // Lucide icons importeren
-    import { LayoutDashboard, Users, BarChart3, Settings } from 'lucide-vue-next'
+    import { LayoutDashboard, Users, BarChart3, UserPlus } from 'lucide-vue-next'
 
     // Array met administrator navbarlinkjes
     const navbarLinks = [
@@ -35,6 +35,13 @@
             // Gebruikersbeheer
             label: 'Gebruikersbeheer',
             icon: Users,
+            to: '/administrator/dashboard/gebruikersbeheer'
+        },
+
+        {
+            // Gebruiker aanmaken
+            label: 'Gebruiker aanmaken',
+            icon: UserPlus,
             to: '/administrator/dashboard/gebruikersbeheer/gebruiker/aanmaken'
         },
         
@@ -43,13 +50,6 @@
             label: 'Studentenvoortgang',
             icon: BarChart3,
             to: '/administrator/dashboard/studenten-voortgang'
-        },
-
-        {
-            // Profielinstellingen
-            label: 'Profielinstellingen',
-            icon: Settings,
-            to: '/administrator/dashboard/profielinstellingen'
         }
     ]
 </script>

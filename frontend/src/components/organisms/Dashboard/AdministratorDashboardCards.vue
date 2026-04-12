@@ -23,7 +23,7 @@
     import DashboardCard from '../../molecules/Dashboard/DashboardCard.vue'
 
     // Lucide icons importeren
-    import { Users, BarChart3, Settings } from 'lucide-vue-next'
+    import { Users, BarChart3, UserPlus } from 'lucide-vue-next'
 
     // Array met functiekaarten
     const dashboardCards = [
@@ -36,19 +36,19 @@
         },
 
         {
+            // Gebruiker aanmaken
+            title: 'Gebruiker aanmaken',
+            icon: UserPlus,
+            description: 'Maak een gebruiker aan.',
+            to: '/administrator/dashboard/gebruikersbeheer/gebruiker/aanmaken'
+        },
+
+        {
             // Studentenvoortgang
             title: 'Studentenvoortgang',
             icon: BarChart3,
             description: 'Bekijk de voortgang per student.',
             to: '/administrator/dashboard/studenten-voortgang'
-        },
-
-        {
-            // Profielinstellingen
-            title: 'Profielinstellingen',
-            icon: Settings,
-            description: 'Bekijk en wijzig je eigen gegevens.',
-            to: '/administrator/dashboard/profielinstellingen'
-        },
+        }
     ]
 </script>
