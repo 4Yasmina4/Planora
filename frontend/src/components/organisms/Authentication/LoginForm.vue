@@ -88,8 +88,16 @@
     // Aangepaste axios instantie importeren met JWT token interceptor
     // Interceptor zorgt ervoor dat bij elk verzoek de JWT token automatisch wordt toegevoegd
     // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
-    // Maakt het makkelijker om een token mee te sturen met elk verzoek in tegenstelling tot fetch()
     import apiClient from '../../../utils/axios.js'
+
+    // Helperfunctie importeren om toastmelding na 3 seconden te verwijderen
+    import { clearToastMessage } from '../../../utils/toast.js'
+
+    // AuthenticationStore importeren
+    import { useAuthenticationStore } from '../../../stores/authenticationStore.js'
+
+    // AuthenticationStore initialiseren
+    const authenticationStore = useAuthenticationStore()
 
     // UseRouter geeft toegang tot de router om vanuit de code te navigeren naar een andere pagina
     const router = useRouter()
@@ -110,13 +118,7 @@
         {
             successToastMessage.value = 'Account succesvol aangemaakt! Je kunt nu inloggen.'
             localStorage.removeItem('registrationSuccess')
-
-            // Toastmelding na 3 seconden verwijderen
-            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
-            // 3000 milliseconden = 3 seconden
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
 
         // Controleren of er een succesmelding is na het uitloggen
@@ -124,11 +126,7 @@
         {
             successToastMessage.value = 'Je bent succesvol uitgelogd!'
             localStorage.removeItem('logoutSuccess')
-
-            // Toastmelding na 3 seconden verwijderen
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
 
         // Controleren of er een succesmelding is nadat een student eigen account heeft verwijderd
@@ -136,11 +134,7 @@
         {
             successToastMessage.value = localStorage.getItem('AccountDeleteSuccess')
             localStorage.removeItem('AccountDeleteSuccess')
-
-            // Toastmelding na 3 seconden verwijderen
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
     })
 
@@ -166,6 +160,9 @@
             // split('.')[1] = pakt het middelste deel (payload) uit het JWT token
             const payload = JSON.parse(atob(jwtToken.split('.')[1]))
 
+            // Gebruikersgegevens opslaan in de Pinia store
+            authenticationStore.setUser(payload.user_id, payload.role)
+
             // Navigeren naar de juiste dashboard pagina op basis van de gebruikersrol (administrator of student)
             if (payload.role === 'administrator')
             {
@@ -174,11 +171,13 @@
                 router.push('/student/dashboard')
             } else {
                 errorToastMessage.value = 'Er ging iets mis. Log opnieuw in.'
+                clearToastMessage(errorToastMessage)
                 router.push('/login')
             }
         } catch (error) {
             // Foutmelding tonen als de inloggegevens onjuist zijn
             errorToastMessage.value = 'Ongeldig e-mailadres of wachtwoord.'
+            clearToastMessage(errorToastMessage)
         }
     }
 </script>

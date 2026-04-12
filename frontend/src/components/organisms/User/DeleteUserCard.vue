@@ -99,8 +99,14 @@
     // Maakt het makkelijker om een token mee te sturen met elk verzoek in tegenstelling tot fetch()
     import apiClient from '../../../utils/axios.js'
 
-    // Hulpfunctie gebruiken om de ingelogde gebruiker's ID op te halen uit de JWT token
-    import { getLoggedInUserId } from '../../../utils/authentication.js'
+    // AuthenticationStore importeren
+    import { useAuthenticationStore } from '../../../stores/authenticationStore.js'
+
+    // Helperfunctie importeren om toastmelding na 3 seconden te verwijderen
+    import { clearToastMessage } from '../../../utils/toast.js'
+
+    // AuthenticationStore initialiseren
+    const authenticationStore = useAuthenticationStore()
 
     // Reactieve variabele om bij te houden of de vakken nog geladen worden
     const isLoading = ref(true)
@@ -126,7 +132,7 @@
      // Controleren of de administrator zijn eigen account probeert te verwijderen
      // Als dit het geval is verwijderknop uitschakelen
      const isOwnAccount = computed(() => {
-          if (Number(props.userId) === getLoggedInUserId())
+          if (Number(props.userId) === authenticationStore.userId)
           {
                return true;
           }
@@ -161,17 +167,10 @@
     // Functie om één speciefieke gebruiker te verwijderen
     async function deleteUser() {
           // Controleren of de administrator zijn eigen account probeert te verwijderen
-          if (Number(props.userId) === getLoggedInUserId())
+          if (Number(props.userId) === authenticationStore.userId)
           {
                errorToastMessage.value = 'Je kunt je eigen account niet verwijderen.'
-
-               // Toastmelding na 3 seconden verwijderen
-               // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
-               // 3000 milliseconden = 3 seconden
-               setTimeout(() => {
-                    errorToastMessage.value = ''
-               }, 3000)
-                    
+               clearToastMessage(errorToastMessage)
                return;
           }
 
@@ -188,10 +187,7 @@
           } catch (error) {
                // Foutmelding tonen als het verwijderen van de gebruiker is mislukt
                errorToastMessage.value = 'Er is iets misgegaan bij het verwijderen van de gebruiker.'
-
-               setTimeout(() => {
-                    errorToastMessage.value = ''
-               }, 3000)
+               clearToastMessage(errorToastMessage)
           }
     }
 </script>

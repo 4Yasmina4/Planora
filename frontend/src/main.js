@@ -12,6 +12,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 // App.vue importeren - dit is het hoofdcomponent van de applicatie
 import App from './App.vue'
 
+// createPinia importeren om de Pinia store aan te maken
+import { createPinia } from 'pinia'
+
 // Componenten importeren
 // Home //
 import HomePage from './components/pages/Home/HomePage.vue'
@@ -49,6 +52,9 @@ import EditTaskPage from './components/pages/Student/Task/EditTaskPage.vue'
 import ProgressPage from './components/pages/Student/Progress/ProgressPage.vue'
 // Instellingen
 import SettingsPage from './components/pages/Student/Settings/SettingsPage.vue'
+
+
+import { useAuthenticationStore } from './stores/authenticationStore'
 
 // Routes defineren
 const routes = [
@@ -95,5 +101,11 @@ const router = createRouter({
 
 // App aanmaken, router toevoegen en mounten (koppelen aan het HTML element met id="app")
 const app = createApp(App)
+app.use(createPinia())
 app.use(router)
+
+// Authentication store initialiseren vanuit JWT token
+const authenticationStore = useAuthenticationStore()
+authenticationStore.initilizeAuthenticationStoreFromJwtToken()
+
 app.mount('#app')

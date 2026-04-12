@@ -100,6 +100,9 @@
     // Maakt het makkelijker om een token mee te sturen met elk verzoek in tegenstelling tot fetch()
     import apiClient from '../../../utils/axios.js'
 
+    // Helperfunctie importeren om toastmelding na 3 seconden te verwijderen
+    import { clearToastMessage } from '../../../utils/toast.js'
+
     // Reactieve variabele om bij te houden of de vakken nog geladen worden
     const isLoading = ref(true)
 
@@ -159,6 +162,7 @@
           } catch (error) {
                // Foutmelding tonen als het verwijderen van het vak is mislukt
                errorToastMessage.value = 'Er is iets misgegaan bij het verwijderen van het vak.'
+               clearToastMessage(errorToastMessage)
           }
     }
 </script>

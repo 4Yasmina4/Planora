@@ -46,6 +46,9 @@
     // Toast component importern uit de Base map
     import Toast from '../../../../components/Base/Toast/Toast.vue'
 
+    // Helperfunctie importeren om toastmelding na 3 seconden te verwijderen
+    import { clearToastMessage } from '../../../../utils/toast.js'
+
     // Succes toastmelding 
     const successToastMessage = ref('')
 
@@ -57,13 +60,7 @@
         {
             successToastMessage.value = `${localStorage.getItem('courseSuccess')} is succesvol aangemaakt!`
             localStorage.removeItem('courseSuccess')
-
-            // Toastmelding na 3 seconden verwijderen
-            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
-            // 3000 milliseconden = 3 seconden
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
 
         // Controleren of er een succesmelding is na het verwijderen van een vak
@@ -71,13 +68,7 @@
         {
             successToastMessage.value = `${localStorage.getItem('courseDeleteSuccess')} is succesvol verwijderd!`
             localStorage.removeItem('courseDeleteSuccess')
-
-            // Toastmelding na 3 seconden verwijderen
-            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
-            // 3000 milliseconden = 3 seconden
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
 
         // Controleren of er een succesmelding is na het bewerken van een vak
@@ -85,13 +76,7 @@
         {
             successToastMessage.value = `${localStorage.getItem('courseEditSuccess')} is succesvol bewerkt!`
             localStorage.removeItem('courseEditSuccess')
-
-            // Toastmelding na 3 seconden verwijderen
-            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
-            // 3000 milliseconden = 3 seconden
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
     })
 </script>
