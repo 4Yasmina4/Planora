@@ -64,8 +64,8 @@ class BaseController
         return true;
     }
 
-    // Methode om te controleren of de gebruiker een administrator is
-    protected function validateUserIsAdministrator(): bool 
+    // Gedeelde helpermethode voor administrator en student om de gebruikersrol uit het JWT token op te halen
+    private function getUserRoleFromJwtToken(): ?string 
     {
         // JWT token ophalen uit de Authorization header
         $jwtToken = $this->authenticationService->getJwtTokenFromAuthorizationHeader();
@@ -77,7 +77,7 @@ class BaseController
         if (!$decodedUserId)
         {
             $this->jsonErrorResponse('Niet geautoriseerd', 401);
-            return false;
+            return null;
         }
 
         // Token opnieuw decoderen om de gebruikersrol op te halen
@@ -88,13 +88,49 @@ class BaseController
         } catch (\Exception $e)
         {
             $this->jsonErrorResponse('Niet geautoriseerd', 401);
+            return null;
+        }
+
+        // Gebruikersrol uit het JWT payload teruggeven
+        return $payload->role;
+    }
+
+    // Methode om te controleren of de gebruiker een administrator is
+    protected function validateUserIsAdministrator(): bool 
+    {
+        // Gebruikersrol uit JWT token halen via helpermethode
+        $userRole = $this->getUserRoleFromJwtToken();
+
+        if ($userRole == null)
+        {
             return false;
         }
 
         // Alleen administrators hebben toegang
-        if ($payload->role !== UserRole::ADMINISTRATOR->value)
+        if ($userRole !== UserRole::ADMINISTRATOR->value)
         {
             $this->jsonErrorResponse('Geen toegang: alleen administrators mogen deze actie uitvoeren.', 403);
+            return false;
+        }
+
+        return true;
+    }
+
+    // Methode om te controleren of de gebruiker een student is
+    protected function validateUserIsStudent(): bool 
+    {
+        // Gebruikersrol uit JWT token halen via helpermethode
+        $userRole = $this->getUserRoleFromJwtToken();
+
+        if ($userRole == null)
+        {
+            return false;
+        }
+
+        // Alleen student heeft toegang
+        if ($userRole !== UserRole::STUDENT->value)
+        {
+            $this->jsonErrorResponse('Geen toegang: alleen studenten mogen deze actie uitvoeren.', 403);
             return false;
         }
 
