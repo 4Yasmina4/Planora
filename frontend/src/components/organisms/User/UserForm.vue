@@ -137,6 +137,9 @@
     // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
     import apiClient from '../../../utils/axios.js'
 
+    // Helperfunctie importeren om toastmelding na 3 seconden te verwijderen
+    import { clearToastMessage } from '../../../utils/toast.js'
+
     // Reactieve variabele om bij te houden of de gebruiker nog geladen wordt
     const isLoading = ref(false)
 
@@ -188,6 +191,7 @@
             if (!props.userId && password.value !== passwordConfirm.value)
             {
                 errorToastMessage.value = 'Wachtwoorden komen niet overeen.'
+                clearToastMessage(errorToastMessage)
                 return;
             }
 
@@ -235,6 +239,7 @@
         } catch (error) {
             // Foutmelding tonen als er iets fout is gegaan
             errorToastMessage.value = 'Er is iets misgegaan bij het opslaan van de gebruiker.'
+            clearToastMessage(errorToastMessage)
         } 
     }
 
@@ -265,6 +270,7 @@
         } catch (error) {
             // Foutmelding tonen als er iets fout is gegaan
             errorToastMessage.value = 'Er is iets misgegaan bij het ophalen van de gebruiker.'
+            clearToastMessage(errorToastMessage)
         } finally {
             // Finally wordt altijd uitgevoerd, ook al er een fout optreedt
             isLoading.value = false
