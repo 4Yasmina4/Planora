@@ -6,7 +6,7 @@
     <!-- Grid van kaarten -->
     <div class="w-full max-w-4xl mx-auto space-y-6">
         <!-- Rij 1: 2 kaarten gecentreerd -->
-        <div class="grid grid-cols-2 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Voor elke kaart in topCards een DashboardCard aanmaken -->
             <DashboardCard 
                 v-for="card in topCards"
@@ -19,7 +19,7 @@
         </div>
 
         <!-- Rij 2: 3 kaarten -->
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <!-- Voor elke kaart in bottomCards een DashboardCard aanmaken -->
             <DashboardCard 
                 v-for="card in bottomCards"
