@@ -47,6 +47,8 @@ import DeleteTaskPage from './components/pages/Student/Task/DeleteTaskPage.vue'
 import EditTaskPage from './components/pages/Student/Task/EditTaskPage.vue'
 // Voortgang
 import ProgressPage from './components/pages/Student/Progress/ProgressPage.vue'
+// Instellingen
+import SettingsPage from './components/pages/Student/Settings/SettingsPage.vue'
 
 // Routes defineren
 const routes = [
@@ -80,7 +82,9 @@ const routes = [
     { path: '/student/dashboard/mijn-planning/:id/taak-verwijderen', component: DeleteTaskPage },
     { path: '/student/dashboard/mijn-planning/:id/taak-bewerken', component: EditTaskPage },
     // Planning
-    { path: '/student/dashboard/voortgang/', component: ProgressPage }
+    { path: '/student/dashboard/voortgang', component: ProgressPage },
+    // ProfielInstellingen
+    { path: '/student/dashboard/profielinstellingen', component: SettingsPage }
 ]
 
 // Router aanmaken
