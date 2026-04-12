@@ -9,6 +9,7 @@ Planora is een webapplicatie waarmee studenten hun studie kunnen plannen en orga
 |-----|-------------|------------|
 | Administrator | TestAdministrator@outlook.com | TestAdministrator! |
 | Student | TestStudent@outlook.com | TestStudent! |
+| Student | TestStudent2@outlook.com | TestStudent2 |
 
 ## Installatie en opstarten
 
