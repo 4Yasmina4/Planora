@@ -1,34 +1,32 @@
 <?php
 namespace App\Controllers\Student;
 
-use App\Controllers\BaseController;
+use App\Controllers\Student\StudentBaseController;
 use App\Services\IProgressService;
 use App\Services\IAuthenticationService;
 
-class ProgressController extends BaseController
+class ProgressController extends StudentBaseController
 {
     private IProgressService $progressService;
 
     public function __construct(IProgressService $progressService, IAuthenticationService $authenticationService)
     {
         $this->progressService = $progressService;
-        // AuthenticationService doorgeven aan de BaseController via parent constructor
+        // AuthenticationService doorgeven aan de StudentBaseController via parent constructor
         parent::__construct($authenticationService);
     }
 
     // Methode die voortgang van één student ophaalt op basis van de user_id
     public function getProgressByUserId(): void
     {
-        // user_id ophalen en controleren of de gebruiker ingelogd is via een helpermethode in de BaseController
-        $userId = $this->validateUserAuthentication();
-
-        // Als er geen geldig user_id is, is de gebruiker niet ingelogd
-        if (!$userId)
+        // Gebruiker authorizeren
+        if (!$this->userIsStudent())
         {
-            // Foutmelding wordt al verstuurd in de methode validateUserAuthentication in de BaseController
-            // Functie stoppen
             return;
         }
+
+        // user_id ophalen uit het JWT token
+        $userId = $this->getUserIdFromJwtRequest();
         
         // Voortgang ophalen via de IProgressService
         $progress = $this->progressService->getProgressByUserId($userId);
