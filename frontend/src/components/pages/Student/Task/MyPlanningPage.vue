@@ -44,6 +44,9 @@
     // Toast component importern uit de Base map
     import Toast from '../../../../components/Base/Toast/Toast.vue'
 
+    // Helperfunctie importeren om toastmelding na 3 seconden te verwijderen
+    import { clearToastMessage } from '../../../../utils/toast.js'
+
     // Succes toastmelding 
     const successToastMessage = ref('')
 
@@ -55,13 +58,7 @@
         {
             successToastMessage.value = `${localStorage.getItem('taskSuccess')} taak is succesvol aangemaakt!`
             localStorage.removeItem('taskSuccess')
-
-            // Toastmelding na 3 seconden verwijderen
-            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
-            // 3000 milliseconden = 3 seconden
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
 
         // Controleren of er een succesmelding is na het verwijderen van een taak
@@ -69,10 +66,7 @@
         {
             successToastMessage.value = `${localStorage.getItem('taskDeleteSuccess')} taak is succesvol verwijderd!`
             localStorage.removeItem('taskDeleteSuccess')
-
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
 
         // Controleren of er een succesmelding is na het bewerken van een taak
@@ -80,10 +74,7 @@
         {
             successToastMessage.value = `${localStorage.getItem('taskEditSuccess')} taak is succesvol bewerkt!`
             localStorage.removeItem('taskEditSuccess')
-
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
     })
 </script>

@@ -98,6 +98,9 @@
     // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
     import apiClient from '../../../utils/axios.js'
 
+    // Helperfunctie importeren om toastmelding na 3 seconden te verwijderen
+    import { clearToastMessage } from '../../../utils/toast.js'
+
     // Reactieve variabele om bij te houden of de taken nog geladen worden
     const isLoading = ref(true)
 
@@ -137,6 +140,7 @@
             // Foutmelding tonen als er iets mis gaat
             console.error('Fout bij het ophalen van de taken');
             errorToastMessage.value = 'Er is iets misgegaan bij het ophalen van de taak.';
+            clearToastMessage(errorToastMessage);
         } finally {
             // Finally wordt altijd uitgevoerd, ook al er een fout optreedt
             isLoading.value = false;
@@ -163,6 +167,7 @@
         } catch (error) {
             // Foutmelding tonen als het verwijderen van de taak is mislukt
             errorToastMessage.value = 'Er is iets misgegaan bij het verwijderen van de taak.';
+            clearToastMessage(errorToastMessage);
         }
     }
 </script>
