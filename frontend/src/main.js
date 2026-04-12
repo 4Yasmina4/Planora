@@ -14,7 +14,7 @@ import App from './App.vue'
 
 // Componenten importeren
 // Home //
-import Home from './components/Home/Home.vue'
+import HomePage from './components/pages/Home/HomePage.vue'
 
 // Authentication //
 import LoginPage from './components/pages/Authentication/LoginPage.vue'
@@ -53,7 +53,7 @@ import SettingsPage from './components/pages/Student/Settings/SettingsPage.vue'
 // Routes defineren
 const routes = [
     // Home //
-    { path: '/', component: Home },
+    { path: '/', component: HomePage },
     // Authentication //
     { path: '/login', component: LoginPage },
     { path: '/register', component: RegisterPage },
