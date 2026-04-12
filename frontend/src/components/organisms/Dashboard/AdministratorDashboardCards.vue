@@ -5,7 +5,7 @@
 <template>
     <!-- Grid van kaarten (3 naast elkaar) -->
     <div class="w-full max-w-4xl mx-auto">
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <DashboardCard 
                 v-for="card in dashboardCards"
                 :key="card.title"
