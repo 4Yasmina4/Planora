@@ -102,6 +102,9 @@
     // AuthenticationStore importeren
     import { useAuthenticationStore } from '../../../stores/authenticationStore.js'
 
+    // Helperfunctie importeren om toastmelding na 3 seconden te verwijderen
+    import { clearToastMessage } from '../../../utils/toast.js'
+
     // AuthenticationStore initialiseren
     const authenticationStore = useAuthenticationStore()
 
@@ -167,14 +170,7 @@
           if (Number(props.userId) === authenticationStore.userId)
           {
                errorToastMessage.value = 'Je kunt je eigen account niet verwijderen.'
-
-               // Toastmelding na 3 seconden verwijderen
-               // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
-               // 3000 milliseconden = 3 seconden
-               setTimeout(() => {
-                    errorToastMessage.value = ''
-               }, 3000)
-                    
+               clearToastMessage(errorToastMessage)
                return;
           }
 
@@ -191,10 +187,7 @@
           } catch (error) {
                // Foutmelding tonen als het verwijderen van de gebruiker is mislukt
                errorToastMessage.value = 'Er is iets misgegaan bij het verwijderen van de gebruiker.'
-
-               setTimeout(() => {
-                    errorToastMessage.value = ''
-               }, 3000)
+               clearToastMessage(errorToastMessage)
           }
     }
 </script>
