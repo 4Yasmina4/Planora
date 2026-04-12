@@ -131,6 +131,9 @@
     // Maakt het makkelijker om een token mee te sturen met elk verzoek in tegenstelling tot fetch()
     import apiClient from '../../../utils/axios.js'
 
+    // Helperfunctie importeren om toastmelding na 3 seconden te verwijderen
+    import { clearToastMessage } from '../../../utils/toast.js'
+
     // UseRouter geeft toegang tot de router om vanuit de code te navigeren naar een andere pagina
     const router = useRouter()
 
@@ -155,6 +158,7 @@
         if (password.value !== passwordConfirm.value)
         {
             errorToastMessage.value = 'De wachtwoorden komen niet overeen'
+            clearToastMessage(errorToastMessage)
             return
         }  
 
@@ -179,9 +183,11 @@
             {
                 // Foutmelding tonen dat e-mailadres al in gebruik is
                 errorToastMessage.value = 'Dit e-mailadres is al in gebruik'
+                clearToastMessage(errorToastMessage)
             } else {
                 // Generieke foutmelding tonen als het registreren mislukt (bijvoorbeeld door een netwerkfout of een fout vanuit de backend)
                 errorToastMessage.value = 'Er is iets misgegaan bij het registreren. Controleer uw gegevens en probeer het opnieuw.'
+                clearToastMessage(errorToastMessage)
             }
         }
     }

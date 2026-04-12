@@ -90,6 +90,9 @@
     // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
     import apiClient from '../../../utils/axios.js'
 
+    // Helperfunctie importeren om toastmelding na 3 seconden te verwijderen
+    import { clearToastMessage } from '../../../utils/toast.js'
+
     // AuthenticationStore importeren
     import { useAuthenticationStore } from '../../../stores/authenticationStore.js'
 
@@ -115,13 +118,7 @@
         {
             successToastMessage.value = 'Account succesvol aangemaakt! Je kunt nu inloggen.'
             localStorage.removeItem('registrationSuccess')
-
-            // Toastmelding na 3 seconden verwijderen
-            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
-            // 3000 milliseconden = 3 seconden
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
 
         // Controleren of er een succesmelding is na het uitloggen
@@ -129,11 +126,7 @@
         {
             successToastMessage.value = 'Je bent succesvol uitgelogd!'
             localStorage.removeItem('logoutSuccess')
-
-            // Toastmelding na 3 seconden verwijderen
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
 
         // Controleren of er een succesmelding is nadat een student eigen account heeft verwijderd
@@ -141,11 +134,7 @@
         {
             successToastMessage.value = localStorage.getItem('AccountDeleteSuccess')
             localStorage.removeItem('AccountDeleteSuccess')
-
-            // Toastmelding na 3 seconden verwijderen
-            setTimeout(() => {
-                successToastMessage.value = ''
-            }, 3000)
+            clearToastMessage(successToastMessage)
         }
     })
 
@@ -182,11 +171,13 @@
                 router.push('/student/dashboard')
             } else {
                 errorToastMessage.value = 'Er ging iets mis. Log opnieuw in.'
+                clearToastMessage(errorToastMessage)
                 router.push('/login')
             }
         } catch (error) {
             // Foutmelding tonen als de inloggegevens onjuist zijn
             errorToastMessage.value = 'Ongeldig e-mailadres of wachtwoord.'
+            clearToastMessage(errorToastMessage)
         }
     }
 </script>
