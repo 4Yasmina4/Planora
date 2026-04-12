@@ -119,8 +119,11 @@
     // Computed importeren om reactieve berekeningen te maken
     import { computed } from 'vue'
 
-    // Hulpfunctie gebruiken om de ingelogde gebruiker's ID op te halen uit de JWT token
-    import { getLoggedInUserId } from '../../../utils/authentication.js'
+    // AuthenticationStore importeren
+    import { useAuthenticationStore } from '../../../stores/authenticationStore.js'
+
+    // AuthenticationStore initialiseren
+    const authenticationStore = useAuthenticationStore()
 
     // Props zijn waardes die van buitenaf aan het component meegegeven worden
     const props = defineProps({
@@ -133,7 +136,7 @@
 
     // Controleren of deze rij van de ingelogde administrator is
     const isOwnAccount = computed(() => {
-        if (props.user.user_id === getLoggedInUserId())
+        if (props.user.user_id === authenticationStore.userId)
         {
             return true;
         }

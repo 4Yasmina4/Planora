@@ -88,8 +88,13 @@
     // Aangepaste axios instantie importeren met JWT token interceptor
     // Interceptor zorgt ervoor dat bij elk verzoek de JWT token automatisch wordt toegevoegd
     // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
-    // Maakt het makkelijker om een token mee te sturen met elk verzoek in tegenstelling tot fetch()
     import apiClient from '../../../utils/axios.js'
+
+    // AuthenticationStore importeren
+    import { useAuthenticationStore } from '../../../stores/authenticationStore.js'
+
+    // AuthenticationStore initialiseren
+    const authenticationStore = useAuthenticationStore()
 
     // UseRouter geeft toegang tot de router om vanuit de code te navigeren naar een andere pagina
     const router = useRouter()
@@ -165,6 +170,9 @@
             // atob decodeert base64 naar leesbare tekst (base64 is een manier om data om te zetten naar tekst)
             // split('.')[1] = pakt het middelste deel (payload) uit het JWT token
             const payload = JSON.parse(atob(jwtToken.split('.')[1]))
+
+            // Gebruikersgegevens opslaan in de Pinia store
+            authenticationStore.setUser(payload.user_id, payload.role)
 
             // Navigeren naar de juiste dashboard pagina op basis van de gebruikersrol (administrator of student)
             if (payload.role === 'administrator')
