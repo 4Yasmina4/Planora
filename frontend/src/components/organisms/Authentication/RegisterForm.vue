@@ -1,0 +1,188 @@
+<!-- Dit bestand bevat het volledige registratieformulier 
+     Het combineert de FormField molecules en BaseButton atoms tot één geheel
+     Wordt gebruikt in de register pagina
+-->
+
+<template>
+    <div class="bg-white rounded-xl shadow-md p-12 w-full max-w-2xl">
+        <!-- Titel met icoon -->
+        <div class="flex items-center justify-center gap-3 mb-6">
+            <UserRoundPlus class="w-7 h-7 text-soft-periwinkle" />
+            <h2 class="text-2xl font-bold text-soft-periwinkle">Account aanmaken</h2>
+        </div>
+
+        <!-- Mededeling verplichte velden -->
+        <p class="flex items-center gap-1">
+            Velden met <Asterisk class="w-5 h-5 text-red-500" /> zijn verplicht.
+        </p>
+
+        <form class="space-y-5" @submit.prevent="register">
+            <!-- Voornaam -->
+            <!-- v-model koppelt het invoerveld aan de reactieve variabele firstName -->
+            <FormField label="Voornaam" :required="true">
+                <FormInputField
+                    type="text"
+                    placeholder="Voer jouw voornaam in"
+                    v-model="firstName"
+                />
+            </FormField>
+
+            <!-- Tussenvoegsel naam  -->
+            <!-- v-model koppelt het invoerveld aan de reactieve variabele surnamePrefix -->
+            <FormField label="Tussenvoegsel">
+                <FormInputField
+                    type="text"
+                    placeholder="Voer jouw tussenvoegsel in"
+                    v-model="surnamePrefix"
+                />
+            </FormField>
+
+            <!-- Achternaam  -->
+            <!-- v-model koppelt het invoerveld aan de reactieve variabele lastName -->
+            <FormField label="Achternaam" :required="true">
+                <FormInputField
+                    type="text"
+                    placeholder="Voer jouw achternaam in"
+                    v-model="lastName"
+                />
+            </FormField>
+
+            <!-- E-mailadres  -->
+            <!-- v-model koppelt het invoerveld aan de reactieve variabele email -->
+            <div>
+                <FormField label="E-mailadres" :required="true">
+                    <FormInputField
+                        type="email"
+                        placeholder="Voer jouw e-mailadres in"
+                        v-model="email"
+                    />
+                </FormField>
+
+                <div class="mt-2 text-sm text-gray-500">
+                    Het opgegeven e-mailadres wordt gebruikt om jouw account aan te maken en om in te loggen.
+                </div>
+            </div>
+
+            <!-- Wachtwoord  -->
+            <!-- v-model koppelt het invoerveld aan de reactieve variabele password -->
+            <FormField label="Wachtwoord" :required="true">
+                <FormInputField
+                    type="password"
+                    placeholder="Voer jouw wachtwoord in"
+                    v-model="password"
+                />
+            </FormField>
+            
+            <!-- Bevestig Wachtwoord  -->
+            <!-- v-model koppelt het invoerveld aan de reactieve variabele password_confirm -->
+            <FormField label="Bevestig Wachtwoord" :required="true">
+                <FormInputField
+                    type="password"
+                    placeholder="Voer jouw wachtwoord opnieuw in"
+                    v-model="passwordConfirm"
+                />
+            </FormField>
+
+            <!-- Toastfoutmelding -->
+            <Toast :toastMessage="errorToastMessage" type="error" />
+
+            <!-- Registratie knop -->
+            <BaseButton type="submit" buttonClass="w-full flex items-center justify-center gap-2 px-4 py-3 rounded-lg bg-soft-periwinkle text-white font-semibold hover:bg-ocean-twilight hover:underline transition">
+                <CircleCheck class="w-5 h-5" /> Registreren
+            </BaseButton>
+        </form>
+
+        <!-- Link naar loginpagina-->
+        <p class="text-center text-gray-500 text-base mt-6">
+            Al een account?
+            <router-link to="/login" class="text-soft-periwinkle hover:text-ocean-twilight font-semibold underline">Log hier in</router-link>
+        </p>
+    </div>
+</template>
+
+<script setup>
+    // Beveiliging:
+    // - Vue beveiligt automatisch tegen XSS aanvallen door speciale tekens (zoals < en >) om te zetten
+    // - JWT tokens worden via de Authorization header verstuurd, waardoor CSRF aanvallen niet mogelijk zijn
+
+    // Ref importeren uit Vue
+    // Ref: om reactieve variabelen te maken
+    import { ref } from 'vue';
+
+    // useRouter importeren
+    import { useRouter } from 'vue-router'
+
+    // Lucide icons importeren
+    import { Asterisk, CircleCheck, UserRoundPlus } from 'lucide-vue-next'
+
+    // Atoms importeren
+    import BaseButton from '../../atoms/BaseButton.vue'
+    import FormInputField from '../../atoms/FormInputField.vue'
+
+    // Molecules importeren
+    import FormField from '../../molecules/Form/FormField.vue'
+
+    // Toast component importern uit de Base map
+    import Toast from '../../../components/Base/Toast/Toast.vue'
+
+    // Aangepaste axios instantie importeren met JWT token interceptor
+    // Interceptor zorgt ervoor dat bij elk verzoek de JWT token automatisch wordt toegevoegd
+    // Wordt gebruikt voor het vesturen van HTTP verzoeken naar de backend
+    // Maakt het makkelijker om een token mee te sturen met elk verzoek in tegenstelling tot fetch()
+    import apiClient from '../../../utils/axios.js'
+
+    // UseRouter geeft toegang tot de router om vanuit de code te navigeren naar een andere pagina
+    const router = useRouter()
+
+    // Reactieve variabelen voor de invoervelden
+    // Beginnen als lege string, omdat de velden leeg zijn bij het laden van de registratiepagina
+    const firstName = ref('')
+    const surnamePrefix = ref('')
+    const lastName = ref('')
+    const email = ref('')
+    const password = ref('')
+    const passwordConfirm = ref('')
+
+    // Error toastmelding
+    const errorToastMessage = ref('')
+
+    // Functie om een account aan te maken (registratie)
+    // Async function zorgt ervoor dat de functie kan wachten op iets (zoals data) zonder de rest van de pagina te blokkeren
+    // Pagina blijft hierbij gewoon werken zonder dat het bevriest
+    async function register() {
+        // Controleren of de ingevoerde wachtwoorden overeenkomen
+        // Dit is alleen frontend validatie, hoeft niet in de try blok
+        if (password.value !== passwordConfirm.value)
+        {
+            errorToastMessage.value = 'De wachtwoorden komen niet overeen'
+            return
+        }  
+
+        try{    
+            // POST verzoek sturen naar de backend met de registratie invoervelden 
+            const response = await apiClient.post('/register', {
+                first_name: firstName.value,
+                surname_prefix: surnamePrefix.value,
+                last_name: lastName.value,
+                email: email.value,
+                password: password.value,
+            })
+
+            // Succesmelding opslaan in localStorage
+            localStorage.setItem('registrationSuccess', 'true')
+
+            // Na succesvolle registratie gebruiker doorsturen naar loginpagina
+            router.push('/login')
+        } catch (error) {
+            // Controleren of het e-mailadres al in gebruik is (HTTP statscode 409)
+            if (error.response?.status === 409)
+            {
+                // Foutmelding tonen dat e-mailadres al in gebruik is
+                errorToastMessage.value = 'Dit e-mailadres is al in gebruik'
+            } else {
+                // Generieke foutmelding tonen als het registreren mislukt (bijvoorbeeld door een netwerkfout of een fout vanuit de backend)
+                errorToastMessage.value = 'Er is iets misgegaan bij het registreren. Controleer uw gegevens en probeer het opnieuw.'
+            }
+        }
+    }
+</script>

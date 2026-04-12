@@ -1,0 +1,65 @@
+<?php
+// Dit bestand bouwt de dependencies op voor de applicatie
+// De dependencies worden van onder naar boven gebouwd: 
+// 1. Repository (database), 2. Service (logica), 3. Controller (HTTP verzoeken) 
+
+// User imports //
+use App\Repositories\UserRepository;
+use App\Services\UserService;
+use App\Controllers\Administrator\UserManagementController;
+
+// Authentication imports //
+use App\Services\AuthenticationService;
+use App\Controllers\Authentication\AuthenticationController;
+
+// Course imports // 
+use App\Repositories\CourseRepository;
+use App\Services\CourseService;
+use App\Controllers\Student\CourseController;
+
+// Task imports //
+use App\Repositories\TaskRepository;
+use App\Services\TaskService;
+use App\Controllers\Student\TaskController;
+
+// Progress imports //
+use App\Repositories\ProgressRepository;
+use App\Services\ProgressService;
+use App\Controllers\Student\ProgressController;
+use App\Controllers\Administrator\AdministratorProgressController;
+
+// Settings imports //
+use App\Controllers\Student\SettingsController;
+
+
+// User dependencies //
+$userRepository = new UserRepository($pdo);
+$userService = new UserService($userRepository);
+
+// Authentication dependencies //
+$authenticationService = new AuthenticationService($userRepository);
+$authenticationController = new AuthenticationController($userService, $authenticationService);
+
+// User management dependencies //
+$userManagementController = new UserManagementController($userService, $authenticationService);
+
+// Course dependencies //
+$courseRepository = new CourseRepository($pdo);
+$courseService = new CourseService($courseRepository);
+$courseController = new CourseController($courseService, $authenticationService);
+
+// Task dependencies //
+$taskRepository = new TaskRepository($pdo);
+$taskService = new TaskService($taskRepository);
+$taskController = new TaskController($taskService, $authenticationService);
+
+// Student - Progress dependencies //
+$progressRepository = new ProgressRepository($pdo);
+$progressService = new ProgressService($progressRepository);
+$progressController = new ProgressController($progressService, $authenticationService);
+
+// Administrator - Progress dependencies //
+$administratorProgressController = new AdministratorProgressController($progressService, $authenticationService);
+
+// Student - Settings dependencies //
+$settingsController = new SettingsController($userService, $authenticationService);

@@ -1,1 +1,17 @@
 @import "tailwindcss";
+
+/* Gepersonaliseerde kleuren */
+@theme {
+    --color-ghost-white: #E3E7F1;
+    --color-lavender-grey: #8A91A0;
+    --color-periwinkle: #C6CBEF;
+    --color-soft-periwinkle: #8186D5;
+    --color-state-indigo: #575EC7;
+    --color-ocean-twilight: #494CA2;
+    --color-french-blue: #393B7F;
+    --color-intense-cherry: #C32232;
+    --color-ruby-red: #9D1B28;
+    --color-mint-leaf: #55B485;
+    --color-hunter-green: #2C6347;
+    --color-dim-grey: #707070;
+}

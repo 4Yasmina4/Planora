@@ -1,57 +1,68 @@
 <?php
 
-// CORS headers for localhost requests
+// Haalt de Origin header op uit het verzoek (adres van frontend)
+// Als Orgin header niet bestaat, wordt een lege string gebruikt
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+
+// Controleren of het verzoek afkomstig is van de localhost 
+// Dit voorkomt dat andere website verzoeken kunnen versturen naar de backend
 if (preg_match('/^https?:\/\/(localhost|127\.0\.0\.1|::1)(:\d+)?$/', $origin)) {
+    // Verzoeken toestaan van de frontend op de localhost
     header('Access-Control-Allow-Origin: ' . $origin);
-    // Specifies which HTTP methods are allowed when accessing the resource from the origin
+
+    // Aangeven welke HTTP methodes toegestaan zijn (GET, POST, PUT, DELETE, OPTIONS)
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
-    // Specifies which HTTP headers can be used when making the actual request
+
+    // Geeft aan welke HTTP headers meegestuurd mogen worden in het verzoek
     header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
-    // Allows cookies and authentication credentials to be sent with cross-origin requests
+
+    // Cookies en inloggevens toestaan die worden meegestuurd met het verzoek
     header('Access-Control-Allow-Credentials: true');
-    // Specifies how long (in seconds) the browser can cache the preflight response (24 hours)
+
+    // Aangeven hoelang de browser de CORS instellingen mag onthouden (86400 seconden = 24 uur)
+    // CORS (Cross-Origin Resource Sharing) - staat verzoeken toe van de frontend op de localhost 
     header('Access-Control-Max-Age: 86400');
 }
 
-// Handle preflight OPTIONS requests
+// Controleren of de browser het verzoek wel mag versturen
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
+    // HTTP code 200 (OK) sturen, als het verzoek is goedgekeurd
     http_response_code(200);
     exit;
 }
 
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../Config/Database.php'; // Zorgt ervoor dat $pdo beschikbaar is
+require __DIR__ . '/../Config/Dependencies.php'; // Zorgt ervoor dat de controllers met bijbehorende methodes beschikbaar zijn
 
-use FastRoute\RouteCollector;
 use function FastRoute\simpleDispatcher;
 
-/* The routes for the application.*/
-$dispatcher = simpleDispatcher(function (RouteCollector $router) {
-     
-});
+// Routes laden vanuit het bestand Routes.php
+$routes = require __DIR__ . '/../Config/Routes.php';
+$dispatcher = simpleDispatcher($routes);
 
 
-/* Get the request method and URI from the server variables and invoke the dispatcher.*/
+// Request afhandelen
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = strtok($_SERVER['REQUEST_URI'], '?');
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 
 switch ($routeInfo[0]) {
-    // Handle not found routes
+    // Route niet gevonden
     case FastRoute\Dispatcher::NOT_FOUND:
         http_response_code(404);
-        echo 'Not Found';
+        echo json_encode(['error' => 'Route niet gevonden.']);
         break;
-    // Handle routes that were invoked with the wrong HTTP method
+
+    // Route waarbij verkeerde HTTP methode wordt aangeroepen
     case FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
         http_response_code(405);
-        echo 'Method Not Allowed';
+        echo json_encode(['error' => 'Methode niet toegestaan.']);
         break;
-    // Handle found routes
+
+    // Afhandeling van gevonden route
     case FastRoute\Dispatcher::FOUND:
-        $class = $routeInfo[1][0];
-        $method = $routeInfo[1][1];
-        $controller = new $class();
+        [$controller, $method] = $routeInfo[1];
         $vars = $routeInfo[2];
         $controller->$method($vars);
         break;
