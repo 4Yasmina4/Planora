@@ -3,6 +3,9 @@
 
 Planora is een webapplicatie waarmee studenten hun studie kunnen plannen en organiseren. Studenten kunnen vakken toevoegen, studietaken aanmaken en afvinken, en hun studievoortgang per vak inzien. Administrators kunnen de voortgang van alle studenten bekijken en gebruikers beheren.
 
+## Repository
+GitHub Repository: [GitHub Repository](https://github.com/4Yasmina4/Planora) of volledige url (https://github.com/4Yasmina4/Planora) 
+
 ## Testgegevens
 
 | Rol | E-mailadres | Wachtwoord |
