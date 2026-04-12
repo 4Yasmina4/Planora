@@ -19,8 +19,18 @@
         <div v-else class="flex flex-col gap-3">
             <div v-for="course in courses" :key="course.course_id">
                 <!-- Vaknaam -->
-                <p class="text-lg font-medium text-ocean-twilight mb-1">
-                    {{ course.course_name }}
+                <p class="text-xl font-medium text-ocean-twilight mb-3">
+                    Vaknaam: {{ course.course_name }}
+                </p>
+
+                <!-- Totaal aantal taken  -->
+                <p class="text-lg font-medium text-shadow-ocean-twilight mb-3">
+                    Totaal aantal taken: {{ course.total_tasks }}
+                </p>
+
+                <!-- Aantal voltooide taken -->
+                <p class="text-lg font-medium text-shadow-ocean-twilight mb-3">
+                    Aantal voltooide taken: {{ course.completed_tasks }}
                 </p>
                 
                 <!-- Percentage met voortgangsbalk -->
