@@ -9,7 +9,7 @@ use FastRoute\RouteCollector;
 // Anonieme functie teruggeven die de routes definieert
 // RouteCollector $router beheert de routes
 // use ($userManagementController) maakt de UserManagementController beschikbaar binnen de functie
-return function (RouteCollector $router) use ($userManagementController, $authenticationController, $courseController, $taskController, $progressController, $administratorProgressController)
+return function (RouteCollector $router) use ($userManagementController, $authenticationController, $courseController, $taskController, $progressController, $administratorProgressController, $settingsController)
 {
     // Administrator - User //
     // POST /users → roept de createUser methode aan van de UserManagementController
@@ -65,4 +65,8 @@ return function (RouteCollector $router) use ($userManagementController, $authen
     $router->addRoute('GET', '/administrator/students/progress', [$administratorProgressController, 'getAllStudentsProgress']);
     // GET /administrator/students/{id:\d+}/progress → roept de getProgressByUserId methode aan in de AdministratorProgressController
     $router->addRoute('GET', '/administrator/students/{id:\d+}/progress', [$administratorProgressController, 'getProgressByUserId']);
+
+    // Settings - Student //
+    // Delete /settings/account → roept de deleteOwnStudentAccount methode aan in de SettingsController
+    $router->addRoute('DELETE', '/settings/account', [$settingsController, 'deleteOwnStudentAccount']);
 };

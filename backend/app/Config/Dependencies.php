@@ -28,6 +28,9 @@ use App\Services\ProgressService;
 use App\Controllers\Student\ProgressController;
 use App\Controllers\Administrator\AdministratorProgressController;
 
+// Settings imports //
+use App\Controllers\Student\SettingsController;
+
 
 // User dependencies //
 $userRepository = new UserRepository($pdo);
@@ -57,3 +60,6 @@ $progressController = new ProgressController($progressService, $authenticationSe
 
 // Administrator - Progress dependencies //
 $administratorProgressController = new AdministratorProgressController($progressService, $authenticationService);
+
+// Student - Settings dependencies //
+$settingsController = new SettingsController($userService, $authenticationService);
