@@ -27,12 +27,15 @@
         </div>
     </div>
 
+    <!-- Footer -->
+    <Footer />
 </template>
 
 <script setup>
     // Organisms importeren
     import HomeNavbar from '../../../components/organisms/Navbar/HomeNavbar.vue'
     import HomeDashboardCards from '../../../components/organisms/Dashboard/HomeDashboardCards.vue'
+    import Footer from '../../../components/organisms/Footer/Footer.vue'
 
     // Hero afbeelding importeren
     import heroImage from '../../../assets/images/hero_image.jpg'
