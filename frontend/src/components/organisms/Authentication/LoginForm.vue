@@ -126,8 +126,18 @@
             localStorage.removeItem('logoutSuccess')
 
             // Toastmelding na 3 seconden verwijderen
-            // setTimeout voert de functie uit na een opgegeven tijd in milliseconden
-            // 3000 milliseconden = 3 seconden
+            setTimeout(() => {
+                successToastMessage.value = ''
+            }, 3000)
+        }
+
+        // Controleren of er een succesmelding is nadat een student eigen account heeft verwijderd
+        if (localStorage.getItem('AccountDeleteSuccess'))
+        {
+            successToastMessage.value = localStorage.getItem('AccountDeleteSuccess')
+            localStorage.removeItem('AccountDeleteSuccess')
+
+            // Toastmelding na 3 seconden verwijderen
             setTimeout(() => {
                 successToastMessage.value = ''
             }, 3000)
